@@ -1,0 +1,207 @@
+
+
+
+<div class="container-fluid">
+
+  <app-page-title title="Alerte Note" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-xl-4">
+      <!-- end card -->
+
+
+      <div class="card ">
+        <div class="card-body bg-danger bg-soft">
+
+
+          <div class="d-flex align-items-center mb-3">
+            <div class="avatar-xs me-3">
+                                    <span
+                                      class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
+                                        <i class="bx bx-purchase-tag-alt"></i>
+                                    </span>
+            </div>
+            <h5 class="font-size-14 mb-0">Nombre SMS restant</h5>
+          </div>
+          <div class="text-muted mt-4">
+            <h2>944</h2>
+            <span class="badge badge-soft-danger font-size-12"> + 20 </span> <span
+            class="ms-2 text-truncate">petit pain de moins</span>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- end card -->
+
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="me-2">
+              <h5 class="card-title mb-4 "  style="color: #ce8e24;">Classe</h5>
+            </div>
+
+          </div>
+          <div class="text-center mt-4">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                <option selected>Heure Debut</option>
+                <option value="1">8h</option>
+                <option value="2">9h</option>
+                <option value="3">10</option>
+              </select>
+              <label for="floatingSelectGrid">veuillez choisir une Heure</label>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                <option selected>Heures Fin</option>
+                <option value="1">11h</option>
+                <option value="2">12h</option>
+                <option value="3">13h</option>
+              </select>
+              <label for="floatingSelectGrid">veuillez choisir une Heure</label>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                <option selected>Liste des matieres</option>
+                <option value="1">Anglais</option>
+                <option value="2">Math</option>
+                <option value="3">Philo</option>
+              </select>
+              <label for="floatingSelectGrid">veuillez choisir une matiere</label>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                <option selected>Liste des matieres</option>
+                <option value="1">Anglais</option>
+                <option value="2">Math</option>
+                <option value="3">Philo</option>
+              </select>
+              <label for="floatingSelectGrid">veuillez choisir une matiere</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <!-- end card -->
+    </div>
+
+    <div class="col-xl-8">
+
+
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="me-2">
+              <h5 class="card-title mb-4">Liste des eleves</h5>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row mb-2">
+                    <div class="col-sm-4">
+                      <div class="search-box me-2 mb-2 d-inline-block">
+                        <div class="position-relative">
+                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                          <i class="bx bx-search-alt search-icon"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- end col-->
+                  </div>
+
+                  <!-- Table data -->
+                  <!--          <app-transaction [transactions]="transactions |  filter:term"></app-transaction>-->
+                  <div class="table-responsive mb-0">
+                    <table class="table table-centered table-nowrap">
+                      <thead class="bg-warning bg-soft p-4">
+                      <tr>
+                        <th  style="text-align: center;">
+                          id
+                        </th>
+                        <th style="text-align: center;">Nom</th>
+                        <th style="text-align: center;">Prenom</th>
+                        <th style="text-align: center;">Date Naissance</th>
+                        <th style="text-align: center;">Sexe</th>
+                        <th style="text-align: center;">Telephone</th>
+                        <th style="text-align: center;">Note</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let data of transactions">
+                        <td>
+                          <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+                        </td>
+                        <td style="text-align: center;">{{data.nom}}</td>
+                        <td style="text-align: center;">{{data.prenom}}</td>
+                        <td style="text-align: center;">{{data.date}}</td>
+                        <td style="text-align: center;">{{data.sexe}}</td>
+                        <td style="text-align: center;">{{data.telephone}}</td>
+                        <td style="text-align: center;">
+                          <!-- Button trigger modal -->
+                          <div class="mb-2">
+
+                            <input type="text" class="form-control" id="formrow-inputCity">
+                          </div>
+                        </td>
+                        <!-- <td>
+  <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-danger': data.status === 'Chargeback',
+                'badge-soft-warning':data.status === 'Refund' }">{{data.status}}</span>
+                        </td> -->
+
+                      </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <!--          -->
+                  <ul class="pagination pagination-rounded justify-content-end mb-2">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                        <i class="mdi mdi-chevron-left"></i>
+                      </a>
+                    </li>
+                    <li class="page-item active">
+                      <a class="page-link " href="javascript: void(0);" style="background-color: #ce8e24;" >1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">2</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">3</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">4</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">5</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                        <i class="mdi mdi-chevron-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+</div>

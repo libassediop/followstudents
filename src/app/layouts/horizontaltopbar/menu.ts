@@ -1,0 +1,151 @@
+import { MenuItem } from './menu.model';
+
+export const MENU: MenuItem[] = [
+    {
+        id: 1,
+        label: 'MENUITEMS.DASHBOARDS.TEXT',
+        icon: 'bx-home-circle',
+    },
+    {
+        id: 2,
+        label: 'Alerte Note',
+        icon: 'bx-home-circle',
+        link:'alerte/alertenote'
+    },
+    {
+        id: 3,
+        label: 'Alerte Absence',
+        icon: 'bx-home-circle',
+        link:'alerte/alerteabsence'
+    },
+    {
+        id: 4,
+        label: 'Envoie Message',
+        icon: 'bx-home-circle',
+        link:'alerte/alertemessage'
+    },
+    {
+        id: 5,
+        label: 'Inscription',
+        icon: 'bx-home-circle',
+        link:'inscription/eleve'
+    },
+    {
+        id: 2,
+        label: 'Parametre',
+        icon: 'bx-tone',
+        isUiElement: true,
+        subItems: [
+            {
+                id: 7,
+                label: 'MENUITEMS.UIELEMENTS.LIST.ALERTS',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 8,
+                label: 'MENUITEMS.UIELEMENTS.LIST.BUTTONS',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 9,
+                label: 'MENUITEMS.UIELEMENTS.LIST.CARDS',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 10,
+                label: 'MENUITEMS.UIELEMENTS.LIST.CAROUSEL',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 11,
+                label: 'MENUITEMS.UIELEMENTS.LIST.DROPDOWNS',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 12,
+                label: 'MENUITEMS.UIELEMENTS.LIST.GRID',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 13,
+                label: 'MENUITEMS.UIELEMENTS.LIST.IMAGES',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 14,
+                label: 'MENUITEMS.UIELEMENTS.LIST.MODALS',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 15,
+                label: 'MENUITEMS.UIELEMENTS.LIST.RANGESLIDER',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 16,
+                label: 'MENUITEMS.UIELEMENTS.LIST.PROGRESSBAR',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 16,
+                label: 'MENUITEMS.UIELEMENTS.LIST.PLACEHOLDER',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 17,
+                label: 'MENUITEMS.UIELEMENTS.LIST.SWEETALERT',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 18,
+                label: 'MENUITEMS.UIELEMENTS.LIST.TABS',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 19,
+                label: 'MENUITEMS.UIELEMENTS.LIST.TYPOGRAPHY',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 20,
+                label: 'MENUITEMS.UIELEMENTS.LIST.VIDEO',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 21,
+                label: 'MENUITEMS.UIELEMENTS.LIST.GENERAL',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 22,
+                label: 'MENUITEMS.UIELEMENTS.LIST.COLORS',
+                link: '/',
+                parentId: 6
+            },
+            {
+                id: 23,
+                label: 'MENUITEMS.UIELEMENTS.LIST.CROPPER',
+                link: '/',
+                parentId: 6
+            },
+        ]
+    }
+
+];
+

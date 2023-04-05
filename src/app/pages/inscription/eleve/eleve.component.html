@@ -1,0 +1,155 @@
+<div class="container-fluid">
+  <app-page-title title="Inscription" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="checkout-tabs">
+    <div class="row">
+      <div class="col-xl-2 col-sm-3">
+        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills flex-column">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>
+              <i class="bx bxs-truck d-block check-nav-icon mt-4 mb-2"></i>
+              <p class="fw-bold mb-4">Eleve</p>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
+                         aria-labelledby="v-pills-shipping-tab">
+                      <!--                       formulaire-->
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <h5 class="card-title">Floating labels</h5>
+                              <p class="card-title-desc">Create beautifully simple form labels that float over your input fields.</p>
+
+                              <form>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                      <input type="email" class="form-control" id="floatingemailInput" placeholder="saisir un nom">
+                                      <label for="floatingemailInput">Email address</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" id="floatingnameInput" placeholder="Enter Name" value="Maria Laird">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                      <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                      </select>
+                                      <label for="floatingSelectGrid">Works with selects</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                  <input type="text" class="form-control" id="floatingnameInput" placeholder="Enter Name" value="Maria Laird">
+                                  <label for="floatingnameInput">Name</label>
+                                </div>
+                                <div class="mb-3">
+
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="floatingCheck">
+                                    <label class="form-check-label" for="floatingCheck">
+                                      Check me out
+                                    </label>
+                                  </div>
+                                </div>
+                                <div>
+                                  <button type="submit" class="btn btn-primary w-md">Submit</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-payment" role="tabpanel"
+                         aria-labelledby="v-pills-payment-tab">
+                      <div>
+                        <h4 class="card-title">Payment information</h4>
+                        <p class="card-title-desc">Fill all information below</p>
+
+
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-confir" role="tabpanel" aria-labelledby="v-pills-confir-tab">
+                      <div class="card shadow-none border mb-0">
+                        <div class="card-body">
+                          <h4 class="card-title mb-4">Order Summary</h4>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-4">
+                <div class="col-sm-6">
+                  <a routerLink="/ecommerce/cart" class="btn text-muted d-none d-sm-inline-block btn-link">
+                    <i class="mdi mdi-arrow-left me-1"></i> Back to Shopping Cart </a>
+                </div> <!-- end col -->
+                <div class="col-sm-6">
+                  <div class="text-sm-end">
+                    <a routerLink="/ecommerce/checkout" class="btn btn-success">
+                      <i class="mdi mdi-truck-fast me-1"></i> Proceed to Shipping </a>
+                  </div>
+                </div> <!-- end col -->
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>
+              <i class="bx bxs-user-detail d-block check-nav-icon mt-4 mb-2"></i>
+              <p class="fw-bold mb-4">Tuteur</p>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Payment information</h4>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-body">
+
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <div class="row my-4">
+                <div class="col-sm-6">
+                  <a routerLink="/ecommerce/cart" class="btn text-muted d-none d-sm-inline-block btn-link">
+                    <i class="mdi mdi-arrow-left me-1"></i> Back to Shopping Cart </a>
+                </div> <!-- end col -->
+                <div class="col-sm-6">
+                  <div class="text-sm-end">
+                    <a routerLink="/ecommerce/checkout" class="btn btn-success">
+                      <i class="mdi mdi-truck-fast me-1"></i> Proceed to Shipping </a>
+                  </div>
+                </div> <!-- end col -->
+              </div>
+            </ng-template>
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-lg-10">
+        <div [ngbNavOutlet]="nav"></div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
