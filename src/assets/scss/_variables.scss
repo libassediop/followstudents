@@ -91,6 +91,7 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 $black:    #000;
+$bleu:#1e88e5 ;
 
 // fusv-disable
 $grays: (
@@ -117,10 +118,11 @@ $yellow:  #f1b44c;
 $green:   #34c38f;
 $teal:    #050505;
 $cyan:    #50a5f1;
+$bleu:#1e88e5 ;
 
 // scss-docs-start colors-map
 $colors: (
-    "blue":       $blue,
+    "bleu":       $bleu,
     "indigo":     $indigo,
     "purple":     $purple,
     "pink":       $pink,
@@ -136,7 +138,7 @@ $colors: (
 );
 // scss-docs-end colors-map
 
-$primary:       $blue;
+$primary:       $bleu;
 $secondary:     $gray-600;
 $success:       $green;
 $info:          $cyan;

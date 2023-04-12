@@ -1,0 +1,190 @@
+<div class="container-fluid">
+    <app-page-title title="Gestion Des Matieres" ></app-page-title>
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex">
+            </div>
+            <form  >
+            <div class="text-center mt-4">
+              <div class="input-group bg-light rounded" >
+                <input type="text" class="form-control bg-transparent border-0"
+                       placeholder="Libelle Matiere" >
+              </div>
+            </div>
+            
+            <div class="text-center mt-4">
+              <div class="text-center">
+                <button  type="button" class="btn btn-success btn-rounded mb-2 me-2" ><i class="mdi mdi-plus mr-1"></i>
+                  Ajouter</button>
+                <!-- <button *ngIf="update"  type="button" class="btn btn-warning btn-rounded mb-2 me-2" (click)="ModifierMatierePremiere()" ><i class="mdi mdi-plus mr-1"></i>
+                  Modifier</button> &nbsp;
+                <button *ngIf="update"  type="button" class="btn btn-danger btn-rounded mb-2 me-2" (click)="annuler()"><i class="mdi mdi-plus mr-1"></i>
+                  Annuler</button>-->
+              </div> 
+            </div>
+          </form>
+          </div>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="me-2">
+                <h5 class="card-title mb-4">Liste de toutes les Matieres</h5>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row mb-2">
+                      <div class="col-sm-4">
+                        <div class="search-box me-2 mb-2 d-inline-block">
+                          <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Rechercher matiere..." [(ngModel)]="term">
+                            <i class="bx bx-search-alt search-icon"></i>
+                           
+                          </div>
+                        </div>
+                      </div>
+                                  <!-- end col-->
+                     <div class="col-sm-8">
+                     <div class="text-sm-end">
+                       <button type="button" class="btn  btn-sm btn-rounded"  style="background-color: #1e88e5; color:white ;"  ><i class="fa fa-print"></i>&nbsp;Imprimer</button>
+                        </div>
+                        </div><!-- end col-->
+                           
+                    </div>
+
+                    <!-- Table data -->
+                    <!--          <app-transaction [transactions]="transactions |  filter:term"></app-transaction>-->
+                    <div class="table-responsive mb-0">
+                      <table class="table table-centered table-nowrap">
+                        <thead class="bg-info bg-soft p-4">
+                        <tr>
+                          <th  style="text-align: center;">
+                            #
+                          </th>
+                          <th style="text-align: center;">Matiére</th>
+                          <th style="text-align: center;">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                          <td style="text-align: center;">
+                            <a href="javascript: void(0);" class="text-body fw-bold"> 1</a>
+                          </td>
+                          <td style="text-align: center;">SVT  </td>
+                          <td style="text-align: center;">
+                            <button type="button" class="btn btn-warning" ><i
+                              class="fas fa-edit"  ></i></button>&nbsp;
+                              <button type="button" class="btn btn-danger" ><i
+                                class="fas fa-trash"  ></i></button>&nbsp;
+                           </td>
+                           </tr>
+
+                           <tr >
+                            <td style="text-align: center;">
+                              <a href="javascript: void(0);" class="text-body fw-bold"> 2</a>
+                            </td>
+                            <td style="text-align: center;">Histoire  </td>
+                            <td style="text-align: center;">
+                              <button type="button" class="btn btn-warning" ><i
+                                class="fas fa-edit"  ></i></button>&nbsp;
+                                <button type="button" class="btn btn-danger" ><i
+                                  class="fas fa-trash"  ></i></button>&nbsp;
+                             </td>
+                             </tr>
+
+                             <tr >
+                                <td style="text-align: center;">
+                                  <a href="javascript: void(0);" class="text-body fw-bold"> 3</a>
+                                </td>
+                                <td style="text-align: center;">Maths  </td>
+                                <td style="text-align: center;">
+                                  <button type="button" class="btn btn-warning" ><i
+                                    class="fas fa-edit"  ></i></button>&nbsp;
+                                    <button type="button" class="btn btn-danger" ><i
+                                      class="fas fa-trash"  ></i></button>&nbsp;
+                                 </td>
+                                 </tr>
+                        </tbody>
+                      </table>
+          
+                      
+
+                      <!-- <ng-template #content role="document" let-modal>
+                        <div class="modal-header">
+                          <h5 class="modal-title mt-0"  style="color: #ce8e24;">Approvisionner  la matiere premiere</h5>
+                          <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+                        <div class="modal-body">
+                               
+                                  <div class="text-center mt-4">
+                                    <div class="input-group bg-light rounded">
+                                      <input type="text" class="form-control bg-transparent border-0"
+                                             placeholder="Libelle matiere premiere" >
+                                    </div>
+                                  </div>
+                                  <div class="text-center mt-4">
+                                    <div class="input-group bg-light rounded">
+                                      <input type="text" class="form-control bg-transparent border-0"
+                                             placeholder="Quantite" >
+                                    </div>
+                                  </div>
+                                 
+                                  <div class="text-center mt-4">
+                                    <div class="text-center">
+                                      <button type="submit" class="btn btn-success btn-rounded mb-2 me-2" >
+                                        Approvisionement</button>
+                                    </div> -->
+                                 
+                              <!-- end card -->
+                          
+                    <!--          -->
+                    <ul class="pagination pagination-rounded justify-content-end mb-2">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                          <i class="mdi mdi-chevron-left"></i>
+                        </a>
+                      </li>
+                      <li class="page-item active">
+                        <a class="page-link " href="javascript: void(0);" style="background-color: #ce8e24;" >1</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">2</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">3</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">4</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">5</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                          <i class="mdi mdi-chevron-right"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+
+    </div>
+    <!-- end row -->
+  </div>

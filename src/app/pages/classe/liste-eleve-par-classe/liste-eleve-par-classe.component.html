@@ -1,0 +1,175 @@
+<div class="container-fluid">
+    <app-page-title title="Gestion Des Classes" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+      
+      <!-- end col -->
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="me-2">
+                <h5 class="card-title mb-4">Liste des Classes</h5>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row mb-2">
+                      <div class="col-sm-4">
+                        <div class="search-box me-4 mb-2 d-inline-block">
+                          <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Rechercher un Eleve..." [(ngModel)]="term">
+                            <i class="bx bx-search-alt search-icon"></i>
+                           
+                          </div>
+                        </div>
+                      </div>
+                                  <!-- end col-->
+                     <div class="col-sm-8">
+                     <div class="text-sm-end">
+                       <button type="button" class="btn  btn-sm btn-rounded"  style="background-color: #1e88e5; color:white ;"  ><i class="fa fa-print"></i>&nbsp;Imprimer</button>
+                        </div>
+                        </div><!-- end col-->
+                           
+                    </div>
+
+                    <!-- Table data -->
+                    <!--          <app-transaction [transactions]="transactions |  filter:term"></app-transaction>-->
+                    <div class="table-responsive mb-0">
+                      <table class="table table-centered table-nowrap">
+                        <thead class="bg-info bg-soft p-4">
+                        <tr>
+                          <th  style="text-align: center;">
+                            #
+                          </th>
+                          <th style="text-align: center;">Nom</th>
+                          <th style="text-align: center;">Prenom</th>
+                          <th style="text-align: center;">Contact Parent</th>
+                          <th style="text-align: center;">Actions</th>
+                          
+                          
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                          <td>
+                            <a href="javascript: void(0);" class="text-body fw-bold"> 1</a>
+                          </td>
+                          <td style="text-align: center;">Diop  </td>
+                          <td style="text-align: center;">Marie</td>
+                          <td style="text-align: center;">771230388</td>
+                          <td style="text-align: center;">
+                            <button type="button" class="btn btn-warning" ><i
+                              class="fas fa-edit"  ></i>Modifier</button>&nbsp;
+                              <button type="button" routerLink="/classe/detailsEleve" class="btn btn-outline-success" ><i
+                                  class="fas fa-eye"  ></i>&nbsp;details Eleve</button>
+                           </td>
+                          
+                           </tr>
+                           <tr >
+                            <td>
+                              <a href="javascript: void(0);" class="text-body fw-bold">2</a>
+                            </td>
+                            <td style="text-align: center;">Terminale L  </td>
+                            <td style="text-align: center;">3eme Cycle</td>
+                            <td style="text-align: center;">77127778</td>
+                            <td style="text-align: center;">
+                              <button type="button" class="btn btn-warning" ><i
+                                class="fas fa-edit"  ></i>Modifier</button>&nbsp;
+                                <button type="button" routerLink="/classe/detailsEleve" class="btn btn-outline-success" ><i
+                                    class="fas fa-eye"  ></i>&nbsp;details Eleve</button>
+                             </td>
+                             
+                             </tr>
+                             <tr >
+                                <td>
+                                  <a href="javascript: void(0);" class="text-body fw-bold">3</a>
+                                </td>
+                                <td style="text-align: center;">CM1  </td>
+                                <td style="text-align: center;">1er Cycle</td>
+                                <td style="text-align: center;">778843822</td>
+                                <td style="text-align: center;">
+                                    <button type="button" class="btn btn-warning" ><i
+                                      class="fas fa-edit"  ></i>Modifier</button>&nbsp;
+                                      <button type="button" routerLink="/classe/detailsEleve" class="btn btn-outline-success" ><i
+                                          class="fas fa-eye"  ></i>&nbsp;details Eleve</button>
+                                   </td>
+                                
+                                 </tr>
+
+                        </tbody>
+                      </table>
+          
+                      
+
+                      <!-- <ng-template #content role="document" let-modal>
+                        <div class="modal-header">
+                          <h5 class="modal-title mt-0"  style="color: #ce8e24;">Approvisionner  la matiere premiere</h5>
+                          <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+                        <div class="modal-body">
+                               
+                                  <div class="text-center mt-4">
+                                    <div class="input-group bg-light rounded">
+                                      <input type="text" class="form-control bg-transparent border-0"
+                                             placeholder="Libelle matiere premiere" >
+                                    </div>
+                                  </div>
+                                  <div class="text-center mt-4">
+                                    <div class="input-group bg-light rounded">
+                                      <input type="text" class="form-control bg-transparent border-0"
+                                             placeholder="Quantite" >
+                                    </div>
+                                  </div>
+                                 
+                                  <div class="text-center mt-4">
+                                    <div class="text-center">
+                                      <button type="submit" class="btn btn-success btn-rounded mb-2 me-2" >
+                                        Approvisionement</button>
+                                    </div> -->
+                                 
+                              <!-- end card -->
+                          
+                    <!--          -->
+                    <ul class="pagination pagination-rounded justify-content-end mb-2">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                          <i class="mdi mdi-chevron-left"></i>
+                        </a>
+                      </li>
+                      <li class="page-item active">
+                        <a class="page-link " href="javascript: void(0);" style="background-color: #1e88e5;" >1</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">2</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">3</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">4</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);">5</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                          <i class="mdi mdi-chevron-right"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+
+    </div>
+    <!-- end row -->
+  </div>

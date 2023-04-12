@@ -14,7 +14,7 @@ import { PagetitleComponent } from './pagetitle/pagetitle.component';
     NgbCollapseModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
-    NgbDropdownModule
+    NgbDropdownModule,
   ],
   exports: [PagetitleComponent]
 })

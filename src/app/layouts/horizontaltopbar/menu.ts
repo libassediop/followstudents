@@ -31,121 +31,145 @@ export const MENU: MenuItem[] = [
         link:'inscription/eleve'
     },
     {
-        id: 2,
-        label: 'Parametre',
-        icon: 'bx-tone',
-        isUiElement: true,
-        subItems: [
-            {
-                id: 7,
-                label: 'MENUITEMS.UIELEMENTS.LIST.ALERTS',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 8,
-                label: 'MENUITEMS.UIELEMENTS.LIST.BUTTONS',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 9,
-                label: 'MENUITEMS.UIELEMENTS.LIST.CARDS',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 10,
-                label: 'MENUITEMS.UIELEMENTS.LIST.CAROUSEL',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 11,
-                label: 'MENUITEMS.UIELEMENTS.LIST.DROPDOWNS',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 12,
-                label: 'MENUITEMS.UIELEMENTS.LIST.GRID',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 13,
-                label: 'MENUITEMS.UIELEMENTS.LIST.IMAGES',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 14,
-                label: 'MENUITEMS.UIELEMENTS.LIST.MODALS',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 15,
-                label: 'MENUITEMS.UIELEMENTS.LIST.RANGESLIDER',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 16,
-                label: 'MENUITEMS.UIELEMENTS.LIST.PROGRESSBAR',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 16,
-                label: 'MENUITEMS.UIELEMENTS.LIST.PLACEHOLDER',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 17,
-                label: 'MENUITEMS.UIELEMENTS.LIST.SWEETALERT',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 18,
-                label: 'MENUITEMS.UIELEMENTS.LIST.TABS',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 19,
-                label: 'MENUITEMS.UIELEMENTS.LIST.TYPOGRAPHY',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 20,
-                label: 'MENUITEMS.UIELEMENTS.LIST.VIDEO',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 21,
-                label: 'MENUITEMS.UIELEMENTS.LIST.GENERAL',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 22,
-                label: 'MENUITEMS.UIELEMENTS.LIST.COLORS',
-                link: '/',
-                parentId: 6
-            },
-            {
-                id: 23,
-                label: 'MENUITEMS.UIELEMENTS.LIST.CROPPER',
-                link: '/',
-                parentId: 6
-            },
-        ]
-    }
+        id: 6,
+        label: 'Classe',
+        icon: 'bx-home-circle',
+        link:'classe/classe'
+    },
+    {
+        id: 7,
+        label: 'Professeur',
+        icon: 'bx-home-circle',
+        link:'professeur/professeur'
+    },
+    {
+        id: 8,
+        label: 'Personnel',
+        icon: 'bx-home-circle',
+        link:'personnel/personnel'
+    },
+    {
+        id: 8,
+        label: 'Matiere',
+        icon: 'bx-home-circle',
+        link:'matiere/matiere'
+    },
+    // {
+    //     id: 2,
+    //     label: 'Parametre',
+    //     icon: 'bx-tone',
+    //     isUiElement: true,
+    //     subItems: [
+    //         {
+    //             id: 7,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.ALERTS',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 8,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.BUTTONS',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 9,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.CARDS',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 10,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.CAROUSEL',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 11,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.DROPDOWNS',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 12,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.GRID',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 13,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.IMAGES',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 14,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.MODALS',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 15,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.RANGESLIDER',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 16,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.PROGRESSBAR',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 16,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.PLACEHOLDER',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 17,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.SWEETALERT',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 18,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.TABS',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 19,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.TYPOGRAPHY',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 20,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.VIDEO',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 21,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.GENERAL',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 22,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.COLORS',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //         {
+    //             id: 23,
+    //             label: 'MENUITEMS.UIELEMENTS.LIST.CROPPER',
+    //             link: '/',
+    //             parentId: 6
+    //         },
+    //     ]
+    // }
 
 ];
 
