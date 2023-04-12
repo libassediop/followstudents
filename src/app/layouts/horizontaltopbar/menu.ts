@@ -3,55 +3,55 @@ import { MenuItem } from './menu.model';
 export const MENU: MenuItem[] = [
     {
         id: 1,
-        label: 'MENUITEMS.DASHBOARDS.TEXT',
+        label: 'Accueil',
         icon: 'bx-home-circle',
     },
     {
         id: 2,
         label: 'Alerte Note',
-        icon: 'bx-home-circle',
+        icon: 'bx bx-mail-send',
         link:'alerte/alertenote'
     },
     {
         id: 3,
         label: 'Alerte Absence',
-        icon: 'bx-home-circle',
+        icon: 'bx bx-bell',
         link:'alerte/alerteabsence'
     },
     {
         id: 4,
         label: 'Envoie Message',
-        icon: 'bx-home-circle',
+        icon: 'bx bx-alarm',
         link:'alerte/alertemessage'
     },
     {
         id: 5,
         label: 'Inscription',
-        icon: 'bx-home-circle',
+        icon: 'bx bx-money',
         link:'inscription/eleve'
     },
     {
         id: 6,
         label: 'Classe',
-        icon: 'bx-home-circle',
+        icon: 'bx bxs-school',
         link:'classe/classe'
     },
     {
         id: 7,
         label: 'Professeur',
-        icon: 'bx-home-circle',
+        icon: 'bx bxs-user-detail',
         link:'professeur/professeur'
     },
     {
         id: 8,
         label: 'Personnel',
-        icon: 'bx-home-circle',
+        icon: 'bx bx-user-circle',
         link:'personnel/personnel'
     },
     {
         id: 8,
         label: 'Matiere',
-        icon: 'bx-home-circle',
+        icon: 'bx bxs-edit',
         link:'matiere/matiere'
     },
     // {
