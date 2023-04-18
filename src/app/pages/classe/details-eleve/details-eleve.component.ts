@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-details-eleve',
-  templateUrl: './details-eleve.component.html',
+  templateUrl: './detailseleve.component.html',
   styleUrls: ['./details-eleve.component.scss']
 })
 export class DetailsEleveComponent implements OnInit {
@@ -14,15 +14,7 @@ export class DetailsEleveComponent implements OnInit {
       title: "Nbres d'absences",
       value: '10',
     },
-    {
-      icon: 'bx bxs-wink-smile',
-      title: 'moyenne 1er semestre',
-      value: '8'
-    }, {
-      icon: 'bx bxs-cool',
-      title: 'moyenne 2nd semestre',
-      value: '8,6'
-    },
+    
 
   ];
   constructor() { }

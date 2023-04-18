@@ -15,63 +15,151 @@
         <button class="btn btn-success  btn-rounded  ms-auto mb-2" (click)="extraLarge(content)">
           <i class="mdi mdi-plus me-1"></i>Ajouter Professeur </button>
       </div>
+
       <ng-template #content role="document" let-modal>
-        
-            <div class="row" >
+        <aw-wizard [navBarLayout]="'large-empty-symbols'">
+          <aw-wizard-step stepTitle="Ajout Professeur">
+            <ng-template awWizardStepSymbol>1</ng-template>
+            <div class="row">
               <div class="col-md-12">
                 <div class="card card-body">
-            <div class="row mt-3">
-              <div class="col-12">
-                <div class="row mb-3">
-                  <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
-                  <div class="col-sm-3 test">
-                    <input class="form-control"  type="text"  placeholder="nom">
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <div class="row mb-3">
+                        <div class="col-md-4">
+                          <input class="form-control" type="text" placeholder="Nom">
+                        </div>
+                        <div class="col-md-4">
+                          <input class="form-control" type="text" placeholder="Prénom">
+                        </div>
+                        <div class="col-md-4">
+                          <input class="form-control" type="text" placeholder="Adresse">
+                        </div>
+                  
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-4">
+                          <input class="form-control" type="number" placeholder="Téléphone">
+                        </div>
+                        <div class="col-md-4">
+                          <input class="form-control" type="email" placeholder="Email">
+                        </div>
+                        <div class="col-md-4">
+                          <input class="form-control" type="text" placeholder="Login">
+                        </div>
+                       
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-3">
-                    <input class="form-control"  type="text" placeholder="Prenom">
-                  </div>
-                  <div class="col-md-3">
-                    <input class="form-control"  type="text" placeholder="adresse">
-                  </div>
-                  <div class="col-md-3">
-                    <input class="form-control"  type="text" placeholder="telephone">
+                  <br>
+                  <div style="text-align:center;">
+                    <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+                      <li class="list-inline-item float-end">
+                        <button class="btn btn-success" awNextStep >Suivant&nbsp;<i class="fa fa-arrow-right"></i></button>
+                      </li>
+                      <li class="list-inline-item float-end">
+                        <button class="btn btn-light" awNextStep style="color: black;" disabled><i class="fa fa-arrow-left"></i>&nbsp;Précédent</button>&nbsp;
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <!-- <div class="row mb-3">
-                  <label class="col-md-6 col-form-label">Date debut</label>
-                  <label class="col-md-6 col-form-label">Date Fin</label>
-                </div> -->
-                <div class="row mb-3">
-                <div class="col-sm-3 test">
-                    <input class="form-control"  type="email"  placeholder="email">
-                  </div>
-                  <div class="col-md-3">
-                    <input class="form-control"  type="text" placeholder="login">
-                  </div>
-          
-                  <div class="col-md-3">
-                    <input class="form-control"  type="password" placeholder="password">
-                  </div>
-                  <div class="col-md-3">
-                    <input class="form-control"  type="number" placeholder="telephone">
-                  </div>
-                </div>
-            </div>
-              
-            </div>
-            <br>
-            <div style="text-align:center;">
-                <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
-                  <button type="button" class="btn btn-success"  style = "float:center;"><i class="fa fa-save"></i>&nbsp;Valider</button>
-              </ul>
               </div>
-          </div>
-        </div>
-        </div>
+            </div>
+          </aw-wizard-step>
+      
+          <aw-wizard-step stepTitle="Désignation classe">
+            <ng-template awWizardStepSymbol>2</ng-template>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card card-body">
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <div class="col-sm-auto">
+                        <select class="form-select" id="autoSizingSelect">
+                          <option selected>Classe enseignée</option>
+                          <option value="1">CM1</option>
+                          <option value="2">SVT</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="col-sm-auto">
+                        <select class="form-select" id="autoSizingSelect">
+                          <option selected>Matière</option>
+                          <option value="1">Mathématiques</option>
+                          <option value="2">Français</option>
+                          <option value="3">Histoire-Géographie</option>
+                          <!-- autres options de matières ici -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div style="text-align:center;">
+                    <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+                      <li class="list-inline-item float-end">
+                        <button class="btn btn-success" awNextStep >Suivant&nbsp;<i class="fa fa-arrow-right"></i></button>
+                      </li>
+                      <li class="list-inline-item float-end">
+                        <button class="btn btn-light" awPreviousStep style="color: black;"><i class="fa fa-arrow-left"></i>&nbsp;Précédent</button>&nbsp;
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
           
-      </ng-template>
+          <aw-wizard-step stepTitle="Confirmation">
+            <ng-template awWizardStepSymbol>3</ng-template>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card card-body">
+                  <div class="row mt-3">
+                    <div class="col-md-12">
+                      <!-- <p>Veuillez vérifier les informations suivantes avant de confirmer :</p>
+                      <ul>
+                        <li>Nom : <strong>{{nom}}</strong></li>
+                        <li>Prénom : <strong>{{prenom}}</strong></li>
+                        <li>Adresse : <strong>{{adresse}}</strong></li>
+                        <li>Téléphone : <strong>{{telephone}}</strong></li>
+                        <li>Email : <strong>{{email}}</strong></li>
+                        <li>Login : <strong>{{login}}</strong></li>
+                        <li>Matière : <strong>{{matiere}}</strong></li>
+                        <li>Classe enseignée : <strong>{{classe}}</strong></li>
+                      </ul> -->
+                      <ul style="text-align: center;">
+                        <li>Nom : <strong>Mbaye</strong></li>
+                        <li>Prénom : <strong>Aida</strong></li>
+                        <li>Adresse : <strong>Patte doie</strong></li>
+                        <li>Téléphone : <strong>77888888</strong></li>
+                        <li>Email : <strong>aida@gmail.com</strong></li>
+                        <li>Login : <strong>aida</strong></li>
+                        <li>Matière : <strong>svt</strong></li>
+                        <li>Classe enseignée : <strong>CM1</strong></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <br>
+                  <div style="text-align:center;">
+                    <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+                      <li class="list-inline-item float-end">
+                        <button class="btn btn-success" awFinishWizard >Confirmer&nbsp;<i class="fa fa-save"></i></button>
+                      </li>
+                      <li class="list-inline-item float-end">
+                        <button class="btn btn-light" awPreviousStep style="color: black;"><i class="fa fa-arrow-left"></i>&nbsp;Précédent</button>&nbsp;
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
 
-      <div class="col-xl-2 col-md-6" *ngFor="let data of userGridData">
+          </aw-wizard>
+          </ng-template>
+
+      <div class="col-xl-2 col-md-6"   *ngFor="let data of userGridData">
         <div class="card">
           <div class="card-body">
             <div class="favorite-icon" >

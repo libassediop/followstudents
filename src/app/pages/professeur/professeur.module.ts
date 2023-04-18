@@ -11,7 +11,7 @@ import { NgbDatepickerModule, NgbNavModule, NgbPaginationModule, NgbTypeaheadMod
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import { ArchwizardModule } from 'angular-archwizard';
 
 @NgModule({
     declarations: [
@@ -32,6 +32,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
         NgSelectModule,
         NgbDatepickerModule,
         Ng2SmartTableModule,
+        ArchwizardModule,
     
     ]
 })

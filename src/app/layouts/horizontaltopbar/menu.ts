@@ -9,19 +9,19 @@ export const MENU: MenuItem[] = [
     {
         id: 2,
         label: 'Alerte Note',
-        icon: 'bx bx-mail-send',
+        icon: 'bx bx-bell',
         link:'alerte/alertenote'
     },
     {
         id: 3,
         label: 'Alerte Absence',
-        icon: 'bx bx-bell',
+        icon: 'bx bx-alarm',
         link:'alerte/alerteabsence'
     },
     {
         id: 4,
         label: 'Envoie Message',
-        icon: 'bx bx-alarm',
+        icon: 'bx bx-mail-send',
         link:'alerte/alertemessage'
     },
     {
