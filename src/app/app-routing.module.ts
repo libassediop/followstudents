@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './account/auth/login/login.component';
 import { FirstConnexionComponent } from './account/auth/first-connexion/first-connexion.component';
+import { AuthGuard } from './account/auth/auth-guard.service';
 
 
 const routes: Routes = [
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'account', pathMatch: 'full' },
   // tslint:disable-next-line: max-line-length
  // { path: 'pages', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
-  { path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), },
+  { path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), 
+  canActivate: [AuthGuard]},
  // { path: '**', component: Page404Component },
  {
     path: 'login',
