@@ -22,7 +22,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
-  bootstrapPlugin
+  bootstrapPlugin,
+  
 ]);
 
 @NgModule({
@@ -44,7 +45,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgbTooltipModule,
     NgbCollapseModule,
     SimplebarAngularModule,
-    LightboxModule
+    LightboxModule,
+    HttpClientModule
   ],
 })
 export class PagesModule { }

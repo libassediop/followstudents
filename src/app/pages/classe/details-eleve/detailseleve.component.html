@@ -2,65 +2,82 @@
 
     <app-page-title title="Espace Abonné" ></app-page-title>
 
-   
     <div class="row">
-      <div class="col-xl-8">
-          <div class="card bg-primary bg-soft">
-              <div>
-                  <div class="row">
-                      <div class="col-7">
-                          <div class="text-black p-3">
-                              <h5 class="text-black" >Diop Marie</h5>
-                             
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+           
+            <div class="media">
+              
+              <img src="assets/images/companies/img-1.png" alt="" class="avatar-sm me-4">
+              
+              <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-15">Limamou Diop</h5>
+                <p class="text-muted"><i class="bx bx-calendar me-1 text-primary"></i> 31/01/23&nbsp;&nbsp;<i class="fa fa-map-marker  text-primary"></i>&nbsp;Ouakam</p> 
+              </div>
+              <!-- <div class="col-5 align-self-end">
+                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+            </div> -->
+            </div>
+  
+            <h5 class="font-size-15 mt-4">Info students:</h5>
+  
+  
+            <div class="row task-dates">
+              <div class="col-sm-3 col-6">
+                <div class="mt-4">
+                  <h5 class="font-size-14"><i class="bx bxs-school  me-1 text-primary"></i> Classe</h5>
+                  <p class="text-muted mb-0">CM2</p>
+                </div>
+              </div>
+  
+              <div class="col-sm-3 col-6">
+                <div class="mt-4">
+                  <h5 class="font-size-14"><i class="bx bx-calendarme-1 text-primary"></i> Tuteur</h5>
+                  <p class="text-muted mb-0">Nom: Aida Mbaye <br><i class="fa fa-phone"></i>&nbsp;Contact : 778446899 </p>
+                </div>
+              </div>
+              
+             
+            </div>
 
-                              <ul class="ps-3 mb-0">
-                                  <li class="py-1"><i class="fa fa-phone"></i>&nbsp;Contact Parent : 778446899</li>
-                                  <li class="py-1"><i class="fa fa-calendar"></i>&nbsp;12-03-2005</li>
-                                  <li class="py-1"><i class="fa fa-map-marker"></i>&nbsp;12-03-2005</li>
-                              </ul>
-                          </div>
-                      </div>
-                      <div class="col-5 align-self-end">
-                          <img src="assets/images/profile-img.png" alt="" class="img-fluid">
-                      </div>
-                  </div>
+            
+          </div>
+          
+        </div>
+      </div>
+      <!-- end col -->
+  
+      <div class="col-lg-4">
+        <div class="card" style="background-color: pink;">
+          <div class="card-body">
+            <div class="avatar-xs me-3">
+              <span
+                  class="avatar-title rounded-circle bg-danger bg-soft text-danger font-size-18">
+                  <i class="bx bx-copy-alt"></i>
+              </span>
+          </div>
+            <h4 class="card-title mb-4">Nombre d'absence</h4>
+            <div class="d-flex align-items-center mb-3">
+          </div>
+          <div class="text-muted mt-4">
+              <div class="d-flex">
+                  <h4 style="font-size:30px " > 10</h4> 
               </div>
           </div>
+          </div>
+        </div>
       </div>
-      <div class="col-xl-4">
-          <div class="row">
-              <div class="col-sm-12">
-                  <div class="card" style="background-color: pink;">
-                      <div class="card-body" >
-                          <div class="d-flex align-items-center mb-3">
-                              <div class="avatar-xs me-3">
-                                  <span
-                                      class="avatar-title rounded-circle bg-danger bg-soft text-danger font-size-18">
-                                      <i class="bx bx-copy-alt"></i>
-                                  </span>
-                              </div>
-                              <h5 class="font-size-14 mb-0">Nombres d'absences</h5>
-                          </div>
-                          <div class="text-muted mt-4">
-                              <div class="d-flex">
-                                  <h4 style="font-size:18" > 10</h4> 
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-              
-          <!-- end row -->
-      </div>
-  </div>
+      <!-- end col -->
+    
+      
   <div class="checkout-tabs">
     <div class="row">
       <div class="col-xl-2 col-sm-3">
         <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills flex-column">
           <li [ngbNavItem]="1">
             <a ngbNavLink>
-              <i class="bx bx-note d-block check-nav-icon mt-4 mb-2" style="color: green;"></i>
+              <i class="bx bx-note d-block check-nav-icon mt-4 mb-2" ></i>
               <p class="fw-bold mb-4" style="font-weight: bold;">Notes</p>
             </a>
             <ng-template ngbNavContent>
@@ -146,7 +163,7 @@
           </li>
           <li [ngbNavItem]="2">
             <a ngbNavLink>
-              <i class="bx bxs-alarm d-block check-nav-icon mt-4 mb-2" style="color: red;"></i>
+              <i class="bx bxs-alarm d-block check-nav-icon mt-4 mb-2" ></i>
               <p class="fw-bold mb-4" style="font-weight: bold;" >Absences</p>
             </a>
             <ng-template ngbNavContent>

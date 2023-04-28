@@ -1,11 +1,11 @@
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
 
-import { NgbNavModule, NgbAccordionModule, NgbTooltipModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbAccordionModule, NgbTooltipModule, NgbModule, NgbPaginationNext, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -20,6 +20,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
+import { FormsModule } from '@angular/forms';
+// import { NgxPaginationModule } from 'ngx-pagination';
 
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
@@ -28,7 +30,7 @@ if (environment.defaultauth === 'firebase') {
   FakeBackendInterceptor;
 }
 
-export function createTranslateLoader(http: HttpClient): any {
+export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
@@ -55,7 +57,12 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbNavModule,
     NgbTooltipModule,
     ScrollToModule.forRoot(),
-    NgbModule
+    NgbModule,
+    FormsModule,
+    HttpClientModule,
+    NgbPaginationModule,
+    // NgxPaginationModule
+    
   ],
   bootstrap: [AppComponent],
   providers: [

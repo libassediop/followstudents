@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="273" height="227" viewBox="0 0 273 227">
+  <defs>
+    <clipPath id="clip-log">
+      <rect width="273" height="227"/>
+    </clipPath>
+  </defs>
+  <g id="log" clip-path="url(#clip-log)">
+    <g id="Groupe_32" data-name="Groupe 32" transform="translate(-782 -649)">
+      <g id="Groupe_31" data-name="Groupe 31" transform="translate(816.756 655.098)">
+        <g id="Groupe_30" data-name="Groupe 30">
+          <path id="Tracé_51" data-name="Tracé 51" d="M960.667,709.522l7.1,16.764c-43.509-3.837-82.828,10.313-98,16.769C877.361,737.157,915.079,711.475,960.667,709.522Z" transform="translate(-771.718 -623.304)" fill="#3c454a"/>
+          <path id="Tracé_52" data-name="Tracé 52" d="M823.853,709.522l-7.1,16.764c43.505-3.837,82.828,10.313,98.006,16.769C907.158,737.157,869.441,711.475,823.853,709.522Z" transform="translate(-816.756 -623.304)" fill="#fb3f4d"/>
+          <path id="Tracé_53" data-name="Tracé 53" d="M968.276,695.224c-3.009.575-5.91,1.207-8.747,1.879l5.46,9.386c-34.231,4.011-75.663,22.692-94.969,44.552,12.651-9.608,49.283-33.157,91.078-36.677.732-.063,1.482-.1,2.223-.154a128.832,128.832,0,0,1,16.027-.111Z" transform="translate(-771.501 -631.657)" fill="#3c454a"/>
+          <path id="Tracé_54" data-name="Tracé 54" d="M951.041,684.867l-13.6-22.758a57.871,57.871,0,0,0-13.408,5.408l3.359,5.369c1.828-.762,3.712-1.476,5.658-2.129l22.07,38c-31.812,7.674-70.852,29.114-85.353,61.994h0c.464-.711,1.025-1.535,1.674-2.446.116-.161.25-.336.368-.505,8.6-11.875,32.357-38.25,80.646-51.41.671-.187,1.359-.358,2.038-.534,4.163-1.085,8.488-2.089,13.012-2.966.092-.014.178-.036.263-.049Z" transform="translate(-771.718 -651.002)" fill="#3c454a"/>
+          <g id="Groupe_27" data-name="Groupe 27" transform="translate(98.007)">
+            <path id="Tracé_55" data-name="Tracé 55" d="M942.355,704.68l-6.133-9.782-1.028-1.646-12.938-20.675-1.017-1.621L911.313,655.1c-4.345,1.551-26,10.983-35.306,26.988,5.449-7.322,15.975-13.844,31.562-19.058l23.8,39.662s-63.44,27.814-61.582,72.158c1.757-20.579,25.124-52.533,73.2-69.155Z" transform="translate(-869.743 -655.098)" fill="#3c454a"/>
+          </g>
+          <path id="Tracé_56" data-name="Tracé 56" d="M877.242,766.539V658.274l-19.715,8.84-.257.206v87.6A190.512,190.512,0,0,1,877.242,766.539Z" transform="translate(-782.334 -653.243)" fill="#fb3f4d"/>
+          <g id="Groupe_28" data-name="Groupe 28" transform="translate(49.442 34.654)">
+            <path id="Tracé_57" data-name="Tracé 57" d="M863.457,741.307V676.973l-19.97,6.1v50.244A188.037,188.037,0,0,1,863.457,741.307Z" transform="translate(-843.487 -676.973)" fill="#fb3f4d"/>
+          </g>
+          <g id="Groupe_29" data-name="Groupe 29" transform="translate(24.16 64.4)">
+            <path id="Tracé_58" data-name="Tracé 58" d="M849.785,720.674V695.75l-19.967,6.888v13.415A159.573,159.573,0,0,1,849.785,720.674Z" transform="translate(-829.818 -695.75)" fill="#fb3f4d"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text id="FOLLOW" transform="translate(8 179)" fill="#fb3f4d" font-size="52" font-family="BodoniMT-Bold, Bodoni MT" font-weight="700" letter-spacing="0.193em"><tspan x="0" y="0">FOLLOW</tspan></text>
+    <text id="STUDENTS" transform="translate(44 219)" fill="#3c454a" font-size="31" font-family="BodoniMT, Bodoni MT" letter-spacing="0.106em"><tspan x="0" y="0">STUDENTS</tspan></text>
+  </g>
+</svg>

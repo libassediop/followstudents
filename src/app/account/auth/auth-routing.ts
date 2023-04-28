@@ -8,10 +8,19 @@ import { SignupComponent } from './signup/signup.component';
 import { PasswordresetComponent } from './passwordreset/passwordreset.component';
 import { Register2Component } from './register2/register2.component';
 import { Recoverpwd2Component } from './recoverpwd2/recoverpwd2.component';
+import { FirstConnexionComponent } from './first-connexion/first-connexion.component';
 
 const routes: Routes = [
     {
         path: 'login',
+        component: LoginComponent
+    },
+  {
+        path: 'first',
+        component: FirstConnexionComponent
+    }, 
+    {
+        path: '**',
         component: LoginComponent
     },
     {

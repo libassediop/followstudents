@@ -9,7 +9,7 @@
         <div class="col-sm-4">
              <div class="search-box me-2 mb-2 d-inline-block">
                <div class="position-relative">
-                 <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                 <input type="text" class="form-control" placeholder="Search..." (input)="searchFilter($event)" />
                  <i class="bx bx-search-alt search-icon"></i>
                </div>
              </div>
@@ -21,21 +21,22 @@
       <div class="row" >
         <div class="col-md-12">
           <div class="card card-body">
+      <form (ngSubmit)="Addpersonnel()" [formGroup]="formPersonnel" >
       <div class="row mt-3">
         <div class="col-12">
           <div class="row mb-3">
             <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
             <div class="col-sm-3 test">
-              <input class="form-control"  type="text"  placeholder="nom">
+              <input class="form-control"  type="text"  placeholder="nom"  formControlName="nom">
             </div>
             <div class="col-md-3">
-              <input class="form-control"  type="text" placeholder="Prenom">
+              <input class="form-control"  type="text" placeholder="Prenom" formControlName="prenom">
             </div>
             <div class="col-md-3">
-              <input class="form-control"  type="text" placeholder="adresse">
+              <input class="form-control"  type="text" placeholder="adresse" formControlName="adresse">
             </div>
             <div class="col-md-3">
-              <input class="form-control"  type="text" placeholder="telephone">
+              <input class="form-control"  type="text" placeholder="telephone" formControlName="telephone">
             </div>
           </div>
           <!-- <div class="row mb-3">
@@ -43,35 +44,31 @@
             <label class="col-md-6 col-form-label">Date Fin</label>
           </div> -->
           <div class="row mb-3">
-          <div class="col-sm-3 test">
-              <input class="form-control"  type="email"  placeholder="email">
+          <div class="col-sm-6 test">
+              <input class="form-control"  type="email"  placeholder="email" formControlName="email">
             </div>
-            <div class="col-md-3">
-              <input class="form-control"  type="text" placeholder="login">
+            <div class="col-md-6">
+              <input class="form-control"  type="text" placeholder="login" formControlName="login">
             </div>
     
-            <div class="col-md-3">
-              <input class="form-control"  type="password" placeholder="password">
-            </div>
-            <div class="col-md-3">
-              <input class="form-control"  type="number" placeholder="telephone">
-            </div>
-          </div>
+            
       </div>
         
       </div>
       <br>
       <div style="text-align:center;">
           <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
-            <button type="button" class="btn btn-success"  style = "float:center;"><i class="fa fa-save"></i>&nbsp;Valider</button>
+            <button type="button" (click)="Addpersonnel()"class="btn btn-success"  style = "float:center;"><i class="fa fa-save"></i>&nbsp;Valider</button>
         </ul>
-        </div>
+      </div>
+      </div>
+      </form>
     </div>
   </div>
   </div>
 </ng-template>
 
-      <div class="col-xl-4 col-sm-6" *ngFor="let list of listData" >
+      <div class="col-xl-4 col-sm-6"  *ngFor="let dataPersonnel of personnels " >
         <div class="card" style="border: 1px solid #1e88e5 ">
           <div class="card-body">
             <div class="row">
@@ -79,27 +76,27 @@
             
               <div class="col-lg-4">
                 <div class="text-lg-center">
-                  <div *ngIf="!list.image" class="avatar-sm me-3 mx-lg-auto mb-3 float-start float-lg-none">
+                  <div  class="avatar-sm me-3 mx-lg-auto mb-3 float-start float-lg-none">
                     <span class="avatar-title rounded-circle bg-soft bg-primary text-primary font-size-16">
-                      {{ list.name.charAt(0)}}
+                      {{ dataPersonnel.nom.charAt(0)}}
                     </span>
                   </div>
-                  <img *ngIf="list.image" src="{{list.image}}"
-                    class="avatar-sm me-3 mx-lg-auto mb-3 mt-1 float-start float-lg-none rounded-circle" alt="img">
-                  <h5 class="mb-1 font-size-15 text-truncate">{{ list.name }}</h5>
-                  <a href="javascript: void(0);" class="text-muted"><i class="fa fa-location"></i><i class="mdi mdi-map-marker"></i>&nbsp;Ouakam</a>
+                  <!-- <img *ngIf="dataPersonnel.image" src="{{dataPersonnel.image}}"
+                    class="avatar-sm me-3 mx-lg-auto mb-3 mt-1 float-start float-lg-none rounded-circle" alt="img"> -->
+                  <h5 class="mb-1 font-size-15 text-truncate">{{ dataPersonnel.nom + ', ' + dataPersonnel.prenom }}</h5>
+                  <a href="javascript: void(0);" class="text-muted"><i class="fa fa-location"></i><i class="mdi mdi-map-marker"></i>&nbsp;{{ dataPersonnel.adresse }}</a>
                 </div>
               </div>
   
               <div class="col-lg-8">
                 <div>
                   <ul class="list-inline mb-0">
-                    <h5 class="text-truncate mb-4 mb-lg-5"><i class="bx bx-mail"></i>{{ list.title }} </h5>
-                    <p><i class="fa fa-phone"></i>&nbsp;{{ list.tel }}</p>
+                    <h5 class="text-truncate mb-4 mb-lg-5"><i class="bx bx-mail"></i>{{ dataPersonnel.email }} </h5>
+                    <p><i class="fa fa-phone"></i>&nbsp;{{ dataPersonnel.telephone }}</p>
                     <!-- <h6 class="text-truncate mb-4 mb-lg-5"></h6> -->
                     <li class="list-inline-item me-3">
-                      <button type="button" class="btn btn-white">
-                        <i class="bx bx-edit text-warning my-custom-icon" ></i> 
+                      <button type="button" class="btn btn-white" (click)="ModalUpdatePersonnel(dataPersonnel.login,contentUpdatePersonnel)">
+                        <i class="bx bx-edit text-warning my-custom-icon" ></i>  
                       </button>
                       <button type="button" class="btn btn-white">
                         <i class="bx bx-trash text-danger my-custom-icon" ></i> 
@@ -123,6 +120,61 @@
         </div>
       </div> <!-- end col-->
     </div>
+    <ng-template #contentUpdatePersonnel role="document" let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Modifier Personnel</h5>
+        <button type="button" class="btn-close" aria-hidden="true"
+                (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="modal-body">
+      <form (ngSubmit)="updatePersonnel()" [formGroup]="formPersonnel" >
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="row mb-3">
+            <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
+            <div class="col-sm-3 test">
+              <input class="form-control"  type="text"  placeholder="nom"  formControlName="nom">
+            </div>
+            <div class="col-md-3">
+              <input class="form-control"  type="text" placeholder="Prenom" formControlName="prenom">
+            </div>
+            <div class="col-md-3">
+              <input class="form-control"  type="text" placeholder="adresse" formControlName="adresse">
+            </div>
+            <div class="col-md-3">
+              <input class="form-control"  type="text" placeholder="telephone" formControlName="telephone">
+            </div>
+          </div>
+          <!-- <div class="row mb-3">
+            <label class="col-md-6 col-form-label">Date debut</label>
+            <label class="col-md-6 col-form-label">Date Fin</label>
+          </div> -->
+          <div class="row mb-3">
+          <div class="col-sm-6 test">
+              <input class="form-control"  type="email"  placeholder="email" formControlName="email">
+            </div>
+            <div class="col-md-6">
+              <input class="form-control"  type="text" placeholder="login" formControlName="login">
+            </div>
+    
+            
+      </div>
+        
+      </div>
+      <br>
+      <div style="text-align:center;">
+          <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+            <button type="button" class="btn btn-success"  style = "float:center;" (click)="updatePersonnel()"><i class="fa fa-save"></i>&nbsp;Enregistrer Modification</button>
+        </ul>
+      </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+    </ng-template>
   
   </div> <!-- container-fluid -->
   

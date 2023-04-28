@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { MatiereRoutingModule } from './matiere-routing.module';
 import { MatiereComponent } from './matiere/matiere.component';
 import { UIModule } from "../../shared/ui/ui.module";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -15,7 +17,10 @@ import { FormsModule } from '@angular/forms';
         CommonModule,
         MatiereRoutingModule,
         UIModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule,
+        NgbPaginationModule
+       
     ]
 })
 export class MatiereModule { }

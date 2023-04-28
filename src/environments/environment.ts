@@ -5,7 +5,7 @@
 export const environment = {
 
   production: false,
-  defaultauth: 'fackbackend',
+  defaultauth: 'https://samastock.alwaysdata.net/yole/api',
   firebaseConfig: {
     apiKey: '',
     authDomain: '',

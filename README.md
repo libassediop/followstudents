@@ -23,3 +23,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+##
+rm docs ; ng build --output-path docs --base-href followstudents ; git add . ; git commit -m "Suppression du fichier docs, construction de l'application avec le chemin de sortie docs et base-href followstudents" ; git push origin aida
+

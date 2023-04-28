@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="181.211" height="124.237" viewBox="0 0 181.211 124.237">
+  <g id="OBJECTS" transform="translate(-19.364 -304.858)">
+    <g id="Groupe_9" data-name="Groupe 9" transform="translate(111.575 354.655)" style="isolation: isolate">
+      <text id="STUDENT" transform="translate(40 19)" fill="#37474f" font-size="18" font-family="Baltica-Bold, Baltica" font-weight="700" letter-spacing="0.1em"><tspan x="-48.339" y="0">STUDENT</tspan></text>
+    </g>
+    <g id="Groupe_43" data-name="Groupe 43" transform="translate(35.546 273.873)">
+      <path id="Tracé_97" data-name="Tracé 97" d="M118.713,379.573c-30.155,12.4-65.188-.755-78.25-29.38s.795-61.882,30.95-74.282a62.142,62.142,0,0,1,58.42,5.983" transform="translate(-48.546 -237.243)" fill="none" stroke="#fb404b" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6"/>
+      <text id="FOLLOW" transform="translate(93.891 79.475)" fill="#fb404b" font-size="23" font-family="Didot-HTF-M64-Medium, Didot" font-weight="500" letter-spacing="0.1em"><tspan x="-56.074" y="0">FOLLOW</tspan></text>
+      <path id="Tracé_98" data-name="Tracé 98" d="M130.733,396.9s2.93-8.043-1.705-17.953c0,0-1.166,3.645-2.455,4.663,0,0,3.481-6.1-4.647-13.91a155.317,155.317,0,0,1-13.233-14.311s2.321,8.426,1.941,10.338c0,0-4.614-10.782-4.921-12.411l-1,4.51s-6.389-15.3-17.4-21.705l-.8,3.638s-4.778-7.709-10.075-9.314-16.605-4.674-10.952,8.684,12.03,17.757,12.03,17.757l-2.454-1.215s2.768,5.846,8.966,6.338a26.141,26.141,0,0,1-6.708.732s7.625,7.107,14.032,14.622,12.438,16.974,21.619,17.583a20.645,20.645,0,0,1-6.428,1.242,53.394,53.394,0,0,0,16.509,2.2c8.63-.353,14.318,13.186,14.318,13.186s-1.394-7.425-10.517-15.609-47.6-49.544-50.382-53.511Z" transform="translate(-54.069 -256.342)" fill="#fb404b"/>
+    </g>
+  </g>
+</svg>

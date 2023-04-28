@@ -1,10 +1,12 @@
+import { DefaultComponent } from 'src/app/pages/dashboards/default/default.component';
 import { MenuItem } from './menu.model';
 
 export const MENU: MenuItem[] = [
     {
         id: 1,
-        label: 'Accueil',
+        label: 'accueil',
         icon: 'bx-home-circle',
+       
     },
     {
         id: 2,

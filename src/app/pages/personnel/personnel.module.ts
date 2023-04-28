@@ -6,7 +6,7 @@ import { PersonnelComponent } from './personnel/personnel.component';
 import { UIModule } from 'src/app/shared/ui/ui.module';
 import { NgbNavModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { WidgetModule } from 'src/app/shared/widget/widget.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     NgbNavModule,
     WidgetModule,
     FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PersonnelModule { }
