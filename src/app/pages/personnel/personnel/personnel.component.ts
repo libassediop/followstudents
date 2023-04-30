@@ -246,6 +246,7 @@ ModalUpdatePersonnel(login, centerModal?: any) {
         personnel.telephone.toLowerCase().startsWith(searchStr.toLowerCase()),
         personnel.email.toLowerCase().startsWith(searchStr.toLowerCase()),
         personnel.adresse.toLowerCase().startsWith(searchStr.toLowerCase())
+        
         ;
       });
     }

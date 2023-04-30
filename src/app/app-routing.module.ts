@@ -11,9 +11,13 @@ const routes: Routes = [
   { path: '', redirectTo: 'account', pathMatch: 'full' },
   // tslint:disable-next-line: max-line-length
  // { path: 'pages', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
-  { path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), 
-  canActivate: [AuthGuard]},
+  { path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
  // { path: '**', component: Page404Component },
+//  {
+//   path: '',
+//   redirectTo: 'login',
+//   pathMatch: 'full',
+//   },
  {
     path: 'login',
     component: LoginComponent,

@@ -68,31 +68,35 @@ export class LoginComponent implements OnInit {
       input.addEventListener('focus', addcl);
       input.addEventListener('blur', remcl);
     });
-    this.f = new FormGroup({
-      login: new FormControl('milk'),
-      password: new FormControl('passer')
+    this.f = this.fb.group({
+      login: ['milk', [Validators.required]],
+      password: ['passer', [Validators.required]],
     });
   }
 
   
-  onLogin(value) {
-   
+  onLogin() {
+    this.submitted = true;
+    this.u.login = this.f.value.login;
+    this.u.password = this.f.value.password;
+    // this.u.login=this.f.login.value;
+    // this.u.password=this.f.password.value;
+    console.log(this.u)
       this.authService.login(this.u).subscribe(resp => {
-        if (resp['user'].password_changed === 0) {
-          console.log(resp);
-          localStorage.setItem('id', resp['user'].id);
-          localStorage.setItem('login', resp['user'].login);
-          localStorage.setItem('token', resp['token']);
-          this.router.navigate(['first']);
-        } else {
+        // if (resp['user'].password_changed === 0) {
+        //   // console.log(resp);
+        //   localStorage.setItem('id', resp['user'].id);
+        //   localStorage.setItem('login', resp['user'].login);
+        //   localStorage.setItem('token', resp['token']);
+        //   this.router.navigate(['first']);
+        // } else {
           this.authService.saveToken(resp['token'], resp['user'].nom, resp['user'].prenom, resp['user'].profilId, resp['user'].id, resp['user'].login);
           this.router.navigate(['pages']);
         }
-      }, error1 => {
+      , error1 => {
         // this.Toast('danger', 'Erreur !', 'Identifiant ou mot de passe incorect!')
         this.error = error1 ? error1 : 'Identifiant ou mot de passe incorect!';
 
-      });
-    
+      }); 
   }
 }

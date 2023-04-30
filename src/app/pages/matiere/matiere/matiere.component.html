@@ -20,9 +20,9 @@
             
             <div class="text-center mt-4">
               <div class="text-center">
-                <button  type="button" class="btn btn-success btn-rounded mb-2 me-2" (click)="Addmatiere()"><i class="mdi mdi-plus mr-1"></i>
+                <button  *ngIf="!update" type="button" class="btn btn-success btn-rounded mb-2 me-2" [disabled]="formM.invalid" (click)="Addmatiere()"><i class="mdi mdi-plus mr-1"></i>
                   Ajouter</button>
-                <button *ngIf="update"  type="button" class="btn btn-warning btn-rounded mb-2 me-2" (click)="Modifiermatiere()" ><i class="mdi mdi-plus mr-1"></i>
+                <button *ngIf="update"  type="button" class="btn btn-warning btn-rounded mb-2 me-2" [disabled]="formM.invalid" (click)="Modifiermatiere()" ><i class="mdi mdi-plus mr-1"></i>
                   Modifier</button> &nbsp;
                 <button *ngIf="update"  type="button" class="btn btn-danger btn-rounded mb-2 me-2" (click)="annuler()"><i class="mdi mdi-plus mr-1"></i>
                   Annuler</button>

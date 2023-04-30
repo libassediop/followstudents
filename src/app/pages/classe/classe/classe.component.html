@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-    <app-page-title title="Gestion Des Classes" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="Gestion Des Classes" ></app-page-title>
     <div class="row">
       <div class="col-xl-4">
         <div class="card">
@@ -12,27 +12,28 @@
               </div> -->
   
             </div>
-            <form  >
+            <form  (ngSubmit)="Addclasse()" [formGroup]="formClasse">
             <div class="text-center mt-4">
               <div class="input-group bg-light rounded" >
                 <input type="text" class="form-control bg-transparent border-0"
-                       placeholder="Nom Classe" >
+                       placeholder="Nom Classe" formControlName ="libelle" >
               </div>
             </div>
             
             <div class="text-center mt-4">
               <div class="input-group bg-light rounded" >
                 <select type="text" class="form-control bg-transparent border-0"
-                        placeholder="Veuillez choisir un niveau ">
-                  <option >1er Cycle</option>
-                  <option >2eme Cycle</option>
-                  <option >3eme Cycle</option>
+                          formControlName="niveau">
+                  <option value="" selected disabled >Veuillez choisir le niveau</option>
+                  <option value="1">1er Cycle</option>
+                  <option value="2">2eme Cycle</option>
+                  <option value="3">3eme Cycle</option>
                 </select>
               </div>
             </div>
             <div class="text-center mt-4">
               <div class="text-center">
-                <button  type="button" class="btn btn-success btn-rounded mb-2 me-2" ><i class="mdi mdi-plus mr-1"></i>
+                <button  type="button" class="btn btn-success btn-rounded mb-2 me-2" (click)="Addclasse()" [disabled]="formClasse.invalid" ><i class="mdi mdi-plus mr-1"></i>
                   Ajouter</button>
                 <!-- <button *ngIf="update"  type="button" class="btn btn-warning btn-rounded mb-2 me-2" (click)="ModifierMatierePremiere()" ><i class="mdi mdi-plus mr-1"></i>
                   Modifier</button> &nbsp;
@@ -94,18 +95,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr >
+                        <tr *ngFor="let dataClasse of classes" >
                           <td>
                             <a href="javascript: void(0);" class="text-body fw-bold"> 1</a>
                           </td>
-                          <td style="text-align: center;">Cinquieme  </td>
-                          <td style="text-align: center;">1er Cycle</td>
+                          <td style="text-align: center;">{{dataClasse.libelle}}  </td>
+                          <td style="text-align: center;">{{dataClasse.niveau}}</td>
                           <td style="text-align: center;">
                             <button type="button" class="btn btn-warning" ><i
                               class="fas fa-edit"  ></i></button>&nbsp;
                            </td>
                            <td style="text-align: center;">
-                            <button type="button" routerLink="/classe/listeEleveParClasse" class="btn btn-outline-success" ><i
+                            <button type="button" routerLink="/pages/classe/listeEleveParClasse" class="btn btn-outline-success" ><i
                               class="fas fa-eye"  ></i>&nbsp;Listes Eleves</button>
                            </td>
                            </tr>
