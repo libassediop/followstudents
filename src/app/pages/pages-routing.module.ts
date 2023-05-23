@@ -9,13 +9,18 @@ import { MatiereModule } from './matiere/matiere.module';
 import { PersonnelModule } from './personnel/personnel.module';
 import { ProfesseurModule } from './professeur/professeur.module';
 import { LayoutComponent } from '../layouts/layout.component';
+import { ClasseEnseignerComponent } from './professeur/classe-enseigner/classe-enseigner.component';
+import { AccueilModule } from './accueil/accueil.module';
+
 
 
 const route: Routes = [
     
   { path: '', redirectTo: 'dashboard' },
+ 
+ 
   { path: 'dashboard', component: DefaultComponent },
-  { path: 'dashboards', loadChildren: () => DashboardsModule },
+  { path: 'accueil', loadChildren: () => AccueilModule },
   { path: 'alerte', loadChildren: () => AlerteModule },
   { path: 'classe', loadChildren: () => ClasseModule },
   { path: 'inscription', loadChildren: () => InscriptionModule},
@@ -23,30 +28,27 @@ const route: Routes = [
   { path: 'personnel', loadChildren: () => PersonnelModule },
   { path: 'professeur', loadChildren: () => ProfesseurModule },
   
-  
 ];
 const routes: Routes = [{
     path: '',
     component: LayoutComponent,
     children: [
   // tslint:disable-next-line:no-trailing-whitespace
-  
-      {
-        path: 'dashboards',
-        loadChildren: () => import('./dashboards/dashboards.module')
-          .then(m => m.DashboardsModule),
-      },
+
+      { path: 'accueil',loadChildren: () =>  AccueilModule },
+
       { path: 'alerte', loadChildren: () => AlerteModule },
-    { path: 'classe', loadChildren: () => ClasseModule },
-    { path: 'inscription', loadChildren: () => InscriptionModule},
-    { path: 'matiere', loadChildren: () => MatiereModule },
-    { path: 'personnel', loadChildren: () => PersonnelModule },
-    { path: 'professeur', loadChildren: () => ProfesseurModule },
-  
+      { path: 'classe', loadChildren: () => ClasseModule },
+      { path: 'inscription', loadChildren: () => InscriptionModule},
+      { path: 'matiere', loadChildren: () => MatiereModule },
+      { path: 'personnel', loadChildren: () => PersonnelModule },
+      { path: 'professeur', loadChildren: () => ProfesseurModule },
       { path: '', redirectTo: 'dashboards', pathMatch: 'full' },
       { path: '**', redirectTo: 'dashboards' },
+
     ],
   }];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

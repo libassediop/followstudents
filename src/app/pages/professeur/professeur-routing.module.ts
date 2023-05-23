@@ -9,7 +9,7 @@ const routes: Routes = [
     component:ProfesseurComponent
   },
   {
-    path: 'classeEnseigner',
+    path: 'classeEnseigner/:id',
     component: ClasseEnseignerComponent
   },
 ];

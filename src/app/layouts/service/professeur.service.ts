@@ -13,7 +13,6 @@ export class ProfesseurService {
   constructor(private http:HttpClient) { }
 
 
-
   getAllProfeeseur(){
     return this.http.get(this.host+'/user/getAllProf?token='+localStorage.getItem('token'));
   }

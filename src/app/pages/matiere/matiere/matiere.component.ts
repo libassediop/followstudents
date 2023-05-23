@@ -155,7 +155,8 @@ idMatiere;
       );
     } else {
       this.matieres = this.matieres.filter((matiere) => {
-        return matiere.libelle.toLowerCase().startsWith(searchStr.toLowerCase());
+        return matiere.libelle.toLowerCase().startsWith(searchStr.toLowerCase())  ||
+        matiere.libelle.toLowerCase() === searchStr;
       });
     }
   }
@@ -163,6 +164,7 @@ idMatiere;
   print() {
     window.print();
   }
+  
   currentPage = 1;
   pageSize = 6;
 
@@ -172,5 +174,36 @@ idMatiere;
 
   get endIndex() {
     return Math.min(this.startIndex + this.pageSize, this.matieres.length);
+  }
+  
+  DeleteMatiere(id: string) {
+    Swal.fire({
+      title: 'êtes vous sure?',
+      text: 'Vous ne pourrez pas revenir en arrière !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Oui, effacer le!'
+    }).then(result => {
+      if (result.value) {
+        this.serviceMatiere.supprimerMatiereById(id).subscribe(
+          value => {
+            if (value['success']) {
+              Swal.fire('Supprimé!', 'La Matiere  a  été supprimée.', 'success');
+            }
+            this.serviceMatiere.getAllMatiere().subscribe(
+              (result) => {
+                this.matieres=result['reponse']
+              },
+              error=>{
+                console.log(error)
+              }
+            );
+
+          }
+        )
+      }
+    });
   }
 }

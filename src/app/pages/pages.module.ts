@@ -19,6 +19,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -46,7 +47,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgbCollapseModule,
     SimplebarAngularModule,
     LightboxModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
 })
 export class PagesModule { }

@@ -38,21 +38,22 @@
                 </div>
 
                 <div class="mb-3">
+                  <i class="fas fa-lock"></i>
                   <label for="password">Password</label>
                   <div class="input-group auth-pass-inputgroup">
-                    <i class="fas fa-lock"></i>
+                    
                     <input type="password" formControlName="password" class="form-control"  autocomplete="password" placeholder="Enter password" autocomplete="current-password" />
                     <!-- <button class="btn btn-light ms-0" type="button" id="password-addon"><i
                         class="mdi mdi-eye-outline"></i></button> -->
-                        <div  *ngIf="f.get('password').touched && f.get('password').invalid" class="invalid-feedback">
-                          <span *ngIf="f.get('password').errors?.required">Password is required</span>
-                        </div>
+                        
                   </div>
                 </div>
 
                 <div class="mt-3 d-grid">
                   <button class="btn btn-primary" type="submit"  value="Login" (click)="onLogin()" >Log In</button>
                 </div>
+
+                <div *ngIf="error" class="error-message">{{ error }}</div>
                 
                  
                 <div class="mt-4 text-center">

@@ -1,96 +1,101 @@
-
 <div class="container-fluid">
-    <app-page-title title="Espace Professeur" ></app-page-title>
-    <div class="row">
-      <div class="col-xl-4">
-        <div class="card overflow-hidden">
-          <div class="bg-soft bg-primary">
-            <div class="row">
-              <div class="col-7">
-                <div class="text-black p-3">
-                  <h5 class="text-black-50">Bienvenue!</h5>
-                  <p>Espace Professeur</p>
-                </div>
-              </div>
-              <div class="col-5 align-self-end">
-                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+  <div class=" mt-2 mt-sm-0">
+    <button class="btn btn-info" routerLink="/pages/professeur/professeur">
+      <i class="fa fa-arrow-left me-1"></i> Retour </button>
+    <!-- <app-page-title title="Espace Professeur" style="text-align: end;"></app-page-title> -->
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="card overflow-hidden">
+        <div class="bg-soft bg-primary">
+          <div class="row">
+            <div class="col-7">
+              <div class="text-black p-3">
+                <h5 class="text-black-50">Bienvenue!</h5>
+                <p>Espace Professeur</p>
               </div>
             </div>
+            <div class="col-5 align-self-end">
+              <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+            </div>
           </div>
-          <div class="card-body pt-0">
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="avatar-md profile-user-wid mb-4">
-                  <img src="assets/images/users/avatar-2.jpg" alt="" class="img-thumbnail rounded-circle">
-                </div>
-                <h5 class="font-size-15 text-truncate">Malick Ndoye</h5>
-                <p class="text-muted mb-0 text-truncate">77 777 77 77</p>
+        </div>
+        <div class="card-body pt-0">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="avatar-md profile-user-wid mb-4">
+                <img src="assets/images/users/avatar-2.jpg" alt="" class="img-thumbnail rounded-circle">
               </div>
+              <h5 class="font-size-15 text-truncate">{{nomPro }}</h5>
+              <p class="text-muted mb-0 text-truncate">{{numPro}}</p>
+            </div>
 
-              <div class="col-sm-8">
-                <div class="pt-4">
-                  <div class="row">
-                    <div class="col-6">
-                      <h5 class="font-size-15">5</h5>
-                      <p class="text-muted mb-0">Classes</p>
-                    </div>
-                    <div class="col-6">
-                      <h5 class="font-size-15">300</h5>
-                      <p class="text-muted mb-0">eleves</p>
-                    </div>
+            <div class="col-sm-8">
+              <div class="pt-4">
+                <div class="row">
+                  <div class="col-6">
+                    <h5 class="font-size-15">{{nbClasses}}</h5>
+                    <p class="text-muted mb-0">Classes</p>
                   </div>
-                  <!-- <div class="mt-4">
+                  <div class="col-6">
+                    <h5 class="font-size-15">300</h5>
+                    <p class="text-muted mb-0">eleves</p>
+                  </div>
+                </div>
+                <!-- <div class="mt-4">
                     <a href="javascript: void(0);" class="btn btn-success btn-sm">En Cours </a>
                   </div> -->
-                </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- end card -->
-
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title mb-4"> Informations Personnelles</h4>
-
-            <div class="table-responsive">
-              <table class="table table-nowrap mb-0">
-                <tbody>
-                  <tr>
-                    <th scope="row">Nom Complet:</th>
-                    <td>Malick Ndoye</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Mobile :</th>
-                    <td>(+221) 77 777 77 77</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Adresse :</th>
-                    <td> Parcelles</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Email</th>
-                    <td>malickndoye@gmail.com</td>
-                  </tr>
-                </tbody>
-                
-              </table>
-            </div>
-          </div>
-        </div>
-        <!-- end card -->
-
-        <!-- end card -->
       </div>
+      <!-- end card -->
 
-      <div class="col-xl-8">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4"> Informations Personnelles</h4>
 
-        <div class="row">
-          <div *ngFor="let stat of statData" class="col-md-6 text-info">
-            <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
+          <div class="table-responsive">
+            <table class="table table-nowrap mb-0">
+              <tbody>
+                <tr>
+                  <th scope="row">Nom Complet:</th>
+                  <td>{{nomPro}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mobile :</th>
+                  <td>{{numPro}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Adresse :</th>
+                  <td> {{adresse}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td>{{email}}</td>
+                </tr>
+              </tbody>
+
+            </table>
           </div>
         </div>
-        <!-- <div class="card">
+      </div>
+      <!-- end card -->
+
+      <!-- end card -->
+    </div>
+
+    <div class="col-xl-8">
+
+      <div class="row">
+        <div *ngFor="let stat of statData" class="col-md-6 text-info">
+          <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
+        </div>
+      </div>
+      <!-- <div class="card">
           <div class="card-body">
             <h4 class="card-title mb-4">Revenue</h4>
             <apx-chart dir="ltr" class="apex-charts" [series]="revenueBarChart.series" [chart]="revenueBarChart.chart"
@@ -101,103 +106,93 @@
           </div>
         </div> -->
 
-        <div class="card">
-          <div class="card-body">
-            <div class="row mb-2">
-              <div class="col-sm-4">
-                <div class="search-box me-2 mb-2 d-inline-block">
-                  <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
-                    <i class="bx bx-search-alt search-icon"></i>
-                  </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                  <i class="bx bx-search-alt search-icon"></i>
                 </div>
               </div>
-              <div class="col-sm-8">
-                <div class="text-sm-end">
-                    <button type="button" class="btn btn-outline-success" (click)="openModalAffecterClasse(content)"><i
-                        class="fas fa-plus"  ></i>&nbsp;Affecter Classe</button>
-                </div>
-              </div><!-- end col-->
             </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button type="button" class="btn btn-outline-success" (click)="openModalAffecterClasse(content)"><i
+                    class="fas fa-plus"></i>&nbsp;Affecter Classe</button>
+              </div>
+            </div><!-- end col-->
+          </div>
 
-            <!-- Table data -->
-            <div class="table-responsive mb-0">
-              <table class="table table-centered table-nowrap">
-                <thead class="table-light">
+          <!-- Table data -->
+          <div class="table-responsive mb-0">
+            <table class="table table-centered table-nowrap">
+              <thead class="table-light">
                 <tr>
-                  <th class="">Id</th>
+                  <th class="">#</th>
                   <th class="">Classe</th>
                   <th class="">Matiere</th>
-                  <th class=""  style="text-align: center;">Actions</th>
+                  <th class="" style="text-align: center;">Actions</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr>
-                <td>1</td>
-                  <td>  CM1 </td>
-                  <td>SVT</td>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of classes | slice:startIndex:endIndex; let i = index;">
+                  <td>{{i+1}}</td>
+                  <td> {{c.libelle}} </td>
+                  <td> {{c.libelle_matiere}} </td>
                   <td style="text-align: center;">
-                    <button type="button" class="btn btn-warning" ><i
-                      class="fas fa-edit"  ></i></button>&nbsp;
-                      <button type="button" class="btn btn-danger" ><i
-                        class="fas fa-trash"  ></i></button>&nbsp;
-                   </td>
+                    <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
+                    <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
+                  </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                      <td>  CM1 </td>
-                      <td>Histoire</td>
-                      <td style="text-align: center;">
-                        <button type="button" class="btn btn-warning" ><i
-                          class="fas fa-edit"  ></i></button>&nbsp;
-                          <button type="button" class="btn btn-danger" ><i
-                            class="fas fa-trash"  ></i></button>&nbsp;
-                       </td>
-                    </tr>
-                </tbody>
-              </table>
 
-              <ng-template #content role="document" let-modal>
-                <div class="modal-body">
+              </tbody>
+            </table>
+
+            <ng-template #content role="document" let-modal>
+              <div class="modal-body">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0">Affecter classe</h5>
-                    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+                  <h5 class="modal-title mt-0">Affecter classe</h5>
+                  <button type="button" class="btn-close" aria-hidden="true"
+                    (click)="modal.dismiss('Cross click')"></button>
+                </div>
+                <form #form="ngForm" (ngSubmit)="affecterProfesseur(form)">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="mb-3">
+                        <label class="control-label" style="font-weight: bold;">Classe</label>
+                        <select class="form-control" placeholder="" type="text" name="idClasse"
+                          [(ngModel)]="val.idClasse">
+                          <option value="">choisissez une classe...</option>
+                          <option *ngFor="let c of classe" [value]="c.id">{{c.libelle}}</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="control-label" style="font-weight: bold;">Designation</label>
+                        <select class="form-control" placeholder="" type="text" name="idmatiere"
+                          [(ngModel)]="val.idmatiere">
+                          <option value="">choisissez une matiére...</option>
+                          <option *ngFor="let m of matieres" [value]="m.id">{{m.libelle}}</option>
+                        </select>
+                      </div>
+                      <div style="text-align: center;">
+                        <button type="submit" class="btn btn-success" [disabled]="!form.valid"
+                          (click)="affecterProfesseur(form)"><i class="fa fa-save"></i>&nbsp;Enregistrer
+                        </button>
+                      </div>
+
+                    </div>
                   </div>
-                    <form >
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="mb-3">
-                            <label class="control-label" style="font-weight: bold;">Classe</label>
-                            <select class="form-control" placeholder="" type="text"   >
-                                <option>choisir classe...</option>
-                                <option>CM1</option>
-                                <option>CM2</option>
-                                <option>Terminale L</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="control-label" style="font-weight: bold;">Designation</label>
-                            <select class="form-control" placeholder="" type="text"   >
-                                <option>choisir matiére...</option>
-                                <option>Histoire</option>
-                                <option>Allemand</option>
-                                <option>SVT/option>
-                            </select>
-                          </div>
-                          <div style="text-align: center;">
-                      <button type="submit" class="btn btn-success" >Enregistrer
-                      </button>
-                      </div>
-                        
-                      </div>
-                      </div>
-                    </form>
-                  </div>
-                <!-- <div class="modal-footer">
+                </form>
+              </div>
+              <!-- <div class="modal-footer">
                   <button class="btn btn-secondary">Close</button>
                 </div> -->
-              </ng-template>
-            </div>
+            </ng-template>
+          </div>
+          <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2" [(page)]="currentPage"
+            [pageSize]="pageSize" [collectionSize]="classes.length">
             <ul class="pagination pagination-rounded justify-content-end mb-2">
               <li class="page-item disabled">
                 <a class="page-link" href="javascript: void(0);" aria-label="Previous">
@@ -212,9 +207,10 @@
               </li>
 
             </ul>
-          </div>
+          </ngb-pagination>
         </div>
       </div>
     </div>
-    <!-- end row -->
   </div>
+  <!-- end row -->
+</div>

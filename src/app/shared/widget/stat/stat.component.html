@@ -3,7 +3,8 @@
     <div class="media">
       <div class="media-body">
         <p class="text-muted fw-medium">{{title}}</p>
-        <h4 class="mb-0">{{value}}</h4>
+        <h4 *ngIf ="value" class="mb-0">{{value}}</h4>
+        <h4 *ngIf ="value1" class="mb-0">{{value}}</h4>
       </div>
 
       <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">

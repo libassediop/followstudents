@@ -4,8 +4,9 @@ import { MenuItem } from './menu.model';
 export const MENU: MenuItem[] = [
     {
         id: 1,
-        label: 'accueil',
+        label: 'Accueil',
         icon: 'bx-home-circle',
+        link:'accueil/accueil'
        
     },
     {

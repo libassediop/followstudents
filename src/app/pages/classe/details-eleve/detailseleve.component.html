@@ -1,255 +1,253 @@
 <div class="container-fluid">
+ <!--  <br> -->
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
 
-    <app-page-title title="Espace Abonné" ></app-page-title>
+          <div class="media">
 
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="card">
-          <div class="card-body">
-           
-            <div class="media">
-              
-              <img src="assets/images/companies/img-1.png" alt="" class="avatar-sm me-4">
-              
-              <div class="media-body overflow-hidden">
-                <h5 class="text-truncate font-size-15">Limamou Diop</h5>
-                <p class="text-muted"><i class="bx bx-calendar me-1 text-primary"></i> 31/01/23&nbsp;&nbsp;<i class="fa fa-map-marker  text-primary"></i>&nbsp;Ouakam</p> 
-              </div>
-              <!-- <div class="col-5 align-self-end">
-                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
-            </div> -->
+            <img src="assets/images/companies/img-1.png" alt="" class="avatar-sm me-4">
+
+            <div class="media-body overflow-hidden" *ngFor="let dataIE of donneesEleve">
+              <h5 class="text-truncate font-size-15">{{dataIE.nom  + ', ' + dataIE.prenom}}</h5>
+              <p class="text-muted"><i class="bx bx-calendar me-1 text-primary"></i>
+                {{dataIE.dateNaissance}}&nbsp;&nbsp;<i
+                  class="fa fa-map-marker  text-primary"></i>&nbsp;{{dataIE.adresse}}</p>
             </div>
-  
-            <h5 class="font-size-15 mt-4">Info students:</h5>
-  
-  
-            <div class="row task-dates">
-              <div class="col-sm-3 col-6">
-                <div class="mt-4">
-                  <h5 class="font-size-14"><i class="bx bxs-school  me-1 text-primary"></i> Classe</h5>
-                  <p class="text-muted mb-0">CM2</p>
-                </div>
-              </div>
-  
-              <div class="col-sm-3 col-6">
-                <div class="mt-4">
-                  <h5 class="font-size-14"><i class="bx bx-calendarme-1 text-primary"></i> Tuteur</h5>
-                  <p class="text-muted mb-0">Nom: Aida Mbaye <br><i class="fa fa-phone"></i>&nbsp;Contact : 778446899 </p>
-                </div>
-              </div>
-              
-             
+            <div class="col-2 align-self-end">
+              <img src="assets/images/profile-img.png" alt="" class="img-fluid">
             </div>
-
-            
           </div>
-          
+
+          <h5 class="font-size-15 mt-4">Info students:</h5>
+          <div class="row task-dates">
+            <div class="col-sm-3 col-6">
+              <div class="mt-4" *ngFor="let dataIE of donneesEleve">
+                <h5 class="font-size-14"><i class="bx bxs-school  me-1 text-primary"></i> Classe</h5>
+                <p class="text-muted mb-0">{{dataIE.classeId}}</p>
+              </div>
+            </div>
+            <div class="col-sm-3 col-6">
+              <div class="mt-4" *ngFor="let dataIE of donneesEleve">
+                <h5 class="font-size-14"><i class="bx bx-calendarme-1 text-primary"></i> Tuteur</h5>
+                <p class="text-muted mb-0">Nom:{{dataIE.nomParent + ' , ' + dataIE.prenomParent}} <br><i
+                    class="fa fa-phone"></i>&nbsp;Contact :{{dataIE.telephoneParent}} </p>
+              </div>
+            </div>
+
+
+          </div>
+
+
         </div>
+
       </div>
-      <!-- end col -->
-  
-      <div class="col-lg-4">
-        <div class="card" style="background-color: pink;">
-          <div class="card-body">
-            <div class="avatar-xs me-3">
-              <span
-                  class="avatar-title rounded-circle bg-danger bg-soft text-danger font-size-18">
-                  <i class="bx bx-copy-alt"></i>
-              </span>
+    </div>
+    <!-- end col -->
+
+    <div class="col-lg-4">
+      <div class="card" style="background-color: pink;">
+        <div class="card-body">
+          <div class="avatar-xs me-3">
+            <span class="avatar-title rounded-circle bg-danger bg-soft text-danger font-size-18">
+              <i class="bx bx-copy-alt"></i>
+            </span>
           </div>
-            <h4 class="card-title mb-4">Nombre d'absence</h4>
-            <div class="d-flex align-items-center mb-3">
+          <h4 class="card-title mb-4">Nombre d'absence</h4>
+          <div class="d-flex align-items-center mb-3">
           </div>
           <div class="text-muted mt-4">
-              <div class="d-flex">
-                  <h4 style="font-size:30px " > 10</h4> 
-              </div>
-          </div>
+            <div class="d-flex">
+              <h4 style="font-size:30px ">{{nbAbsences}} </h4>
+            </div>
           </div>
         </div>
       </div>
-      <!-- end col -->
-    
-      
-  <div class="checkout-tabs">
-    <div class="row">
-      <div class="col-xl-2 col-sm-3">
-        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills flex-column">
-          <li [ngbNavItem]="1">
-            <a ngbNavLink>
-              <i class="bx bx-note d-block check-nav-icon mt-4 mb-2" ></i>
-              <p class="fw-bold mb-4" style="font-weight: bold;">Notes</p>
-            </a>
-            <ng-template ngbNavContent>
-              <div class="card">
-                <div class="card-body">
-                  <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
-                         aria-labelledby="v-pills-shipping-tab">
-                      <!--                       formulaire-->
-                      <div class="row">
-                        <div class="col-lg-12">
+    </div>
+    <!-- end col -->
+
+
+    <div class="checkout-tabs">
+      <div class="row">
+        <div class="col-xl-2 col-sm-3">
+          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills flex-column">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>
+                <i class="bx bx-note d-block check-nav-icon mt-4 mb-2"></i>
+                <p class="fw-bold mb-4" style="font-weight: bold;">Notes</p>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
+                        aria-labelledby="v-pills-shipping-tab">
+                        <!--                       formulaire-->
+                        <div class="row">
+                          <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-body">
-                                  <div class="row mb-2">
-                                    <div class="col-sm-4">
-                                      <div class="search-box me-2 mb-2 d-inline-block">
-                                        <div class="position-relative">
-                                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
-                                          <i class="bx bx-search-alt search-icon"></i>
-                                        </div>
+                              <div class="card-body">
+                                <div class="row mb-2">
+                                  <div class="col-sm-4">
+                                    <div class="search-box me-2 mb-2 d-inline-block">
+                                      <div class="position-relative">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <i class="bx bx-search-alt search-icon"></i>
                                       </div>
                                     </div>
-                                    <div class="col-sm-8">
-                                      <div class="text-sm-end">
-                                            <button type="button" class="btn btn-success  btn-sm btn-rounded"  style=" color:white ;"  ><i class="fa fa-print"></i>&nbsp;Imprimer</button>
-                                      </div>
-                                    </div><!-- end col-->
                                   </div>
-                        
-                                  <div class="table-responsive mb-0">
-                                    <table class="table table-centered table-nowrap">
-                                      <thead class="table-info">
+                                  <div class="col-sm-8">
+                                    <div class="text-sm-end">
+                                      <button type="button" class="btn btn-success  btn-sm btn-rounded"
+                                        style=" color:white ;"><i class="fa fa-print"></i>&nbsp;Imprimer</button>
+                                    </div>
+                                  </div><!-- end col-->
+                                </div>
+                                 <div class="table-responsive mb-0">
+                                  <table class="table table-centered table-nowrap">
+                                    <thead class="table-info">
                                       <tr>
                                         <th class="">Note </th>
                                         <th class="">Matiere</th>
                                         <th class="">Date d'evaluation</th>
                                         <th class="">Marqué Par</th>
                                       </tr>
-                                      </thead>
-                                      <tbody>
-                                      <tr>
-                                        <td style="text-align: center;">  </td>
-                                       <td style="text-align: center;"></td>
-                                       <td>
-                                        <a href="javascript: void(0);" class="text-body fw-bold"></a>
-                                      </td>
-                                      
-                                      
-                                       <td style="text-align: center;"></td>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let dataNE of donneesEleve">
+                                        <td style="text-align: center;">{{dataNE.Note}}/20 </td>
+                                        <td style="text-align: center;"> {{dataNE.libelle}}</td>
+                                        <td>
+                                          <a href="javascript: void(0);" class="text-body fw-bold"></a>
+                                          {{dataNE.nom_user}} {{dataNE.prenom_user}}
+                                        </td>
+                                        <td style="text-align: center;"> {{dataNE.date_evaluation}}</td>
                                       </tr>
-                                     
-                                      </tbody>
-                                    </table>
-                        
-                                   
-                                  </div>
-                                  <ul class="pagination pagination-rounded justify-content-end mb-2">
-                                    <li class="page-item disabled">
-                                      <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                        <i class="mdi mdi-chevron-left"></i>
-                                      </a>
-                                    </li>
-                                    <li class="page-item active">
-                                      <a class="page-link" href="javascript: void(0);">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                      <a class="page-link" href="javascript: void(0);">2</a>
-                                    </li>
-                        
-                                  </ul>
-                                </div>
+
+                                    </tbody>
+                                  </table>
+                                  <!-- <td style="text-align: center;">{{dataNE.Note}}/20 </td>
+                                    <td style="text-align: center;">{{dataNE.libelle}}</td>
+                                    <td style="text-align: center;"> {{dataNE.date_evaluation}}  </td>
+                                    <td style="text-align: center;">{{dataNE.nom_user}} {{dataNE.prenom_user}}</td> -->
+
+                              </div>
+                              <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2"
+                                [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="eleves?.length">
+                                <ul class="pagination pagination-rounded justify-content-end mb-2">
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                                      <i class="mdi mdi-chevron-left"></i>
+                                    </a>
+                                  </li>
+                                  <li class="page-item active">
+                                    <a class="page-link" href="javascript: void(0);">1</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="javascript: void(0);">2</a>
+                                  </li>
+
+                                </ul>
+                              </ngb-pagination>
                             </div>
+                          </div>
                         </div>
-                
-                       
-                    </div>
+
+
                       </div>
+                    </div>
                   </div>
-                </div> 
-              </div><!-- end card -->
-              
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="2">
-            <a ngbNavLink>
-              <i class="bx bxs-alarm d-block check-nav-icon mt-4 mb-2" ></i>
-              <p class="fw-bold mb-4" style="font-weight: bold;" >Absences</p>
-            </a>
-            <ng-template ngbNavContent>
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="card">
-                        <div class="card-body">
+                </div>
+        </div><!-- end card -->
 
-                          <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                  <div class="row mb-2">
-                                    <div class="col-sm-4">
-                                      <div class="search-box me-2 mb-2 d-inline-block">
-                                        <div class="position-relative">
-                                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
-                                          <i class="bx bx-search-alt search-icon"></i>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-8">
-                                      <div class="text-sm-end">
-                                            <button type="button" class="btn btn-success  btn-sm btn-rounded"  style=" color:white ;"  ><i class="fa fa-print"></i>&nbsp;Imprimer</button>
-                                      </div>
-                                    </div><!-- end col-->
-                                  </div>
-                        
-                                  <div class="table-responsive mb-0">
-                                    <table class="table table-centered table-nowrap">
-                                      <thead class="table-info">
-                                      <tr>
-                                        <th class="" style="text-align: center;"> 1 </th>
-                                        <th class="" style="text-align: center;">Heure Debut </th>
-                                        <th class="" style="text-align: center;">Heure Fin</th>
-                                        <th class="" style="text-align: center;">Date Absence</th>
-                                        <th class="" style="text-align: center;">Matiére</th>
-                                        <th class="" style="text-align: center;">Marqué Par</th>
-                                      </tr>
-                                      </thead>
-                                      <tbody>
-                                      <tr>
-                                        <td style="text-align: center;"> 1 </td>
-                                        <td style="text-align: center;">09h  </td>
-                                       <td style="text-align: center;">11h</td>
-                                       <td>
-                                        <a href="javascript: void(0);" class="text-body fw-bold">05/03/2023</a>
-                                      </td>
-                                       <td>Anglais</td>
-                                       <td style="text-align: center;">Aida Mbaye</td>
-                                      </tr>
-                                     
-                                      </tbody>
-                                    </table>
-                        
-                                   
-                                  </div>
-                                  <ul class="pagination pagination-rounded justify-content-end mb-2">
-                                    <li class="page-item disabled">
-                                      <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                        <i class="mdi mdi-chevron-left"></i>
-                                      </a>
-                                    </li>
-                                    <li class="page-item active">
-                                      <a class="page-link" href="javascript: void(0);">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                      <a class="page-link" href="javascript: void(0);">2</a>
-                                    </li>
-                        
-                                  </ul>
-                                </div>
+        </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>
+            <i class="bx bxs-alarm d-block check-nav-icon mt-4 mb-2"></i>
+            <p class="fw-bold mb-4" style="font-weight: bold;">Absences</p>
+          </a>
+          <ng-template ngbNavContent>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row mb-2">
+                          <div class="col-sm-4">
+                            <div class="search-box me-2 mb-2 d-inline-block">
+                              <div class="position-relative">
+                                <input type="text" class="form-control" placeholder="Search..."
+                                  (input)="searchAbsence($event)">
+                                <i class="bx bx-search-alt search-icon"></i>
+                              </div>
                             </div>
+                          </div>
+                          <div class="col-sm-8">
+                            <div class="text-sm-end">
+                              <button type="button" class="btn btn-success  btn-sm btn-rounded"
+                                style=" color:white ;"><i class="fa fa-print"></i>&nbsp;Imprimer</button>
+                            </div>
+                          </div><!-- end col-->
                         </div>
 
+                        <div class="table-responsive mb-0">
+                          <table class="table table-centered table-nowrap">
+                            <thead class="table-info">
+                              <tr>
+                                <th class="" style="text-align: center;"> #</th>
+                                <th class="" style="text-align: center;">Heure Debut </th>
+                                <th class="" style="text-align: center;">Heure Fin</th>
+                                <th class="" style="text-align: center;">Date Absence</th>
+                                <th class="" style="text-align: center;">Matiére</th>
+                                <th class="" style="text-align: center;">Marqué Par</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let dataAPE of eleves; let i = index">
+                                <td style="text-align: center;"> {{i+1}} </td>
+                                <td style="text-align: center;">{{dataAPE.Heure_debut}}h </td>
+                                <td style="text-align: center;">{{dataAPE.Heure_fin}}h</td>
+                                <td>
+                                  {{dataAPE.date_absence}}
+                                </td>
+                                <td>{{dataAPE.libelle}}</td>
+                                <td style="text-align: center;">{{dataAPE.nom_user}} {{dataAPE.prenom_user}}</td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+
+
                         </div>
+                        <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2"
+                          [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="eleves?.length">
+                          <ul class="pagination pagination-rounded justify-content-end mb-2">
+                            <li class="page-item disabled">
+                              <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                                <i class="mdi mdi-chevron-left"></i>
+                              </a>
+                            </li>
+                            <li class="page-item active">
+                              <a class="page-link" href="javascript: void(0);">1</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="javascript: void(0);">2</a>
+                            </li>
+
+                          </ul>
+                        </ngb-pagination>
                       </div>
                     </div>
-                  
+                  </div>
                 </div>
               </div>
-             
-              </div>
-            </ng-template>
-          </li>
+
+            </div>
+          </ng-template>
+        </li>
 
         </ul>
       </div>
@@ -262,14 +260,5 @@
 
 </div>
 
-
-        
-           
-
-            
-          
-      
-      
-    </div>
-    <!-- end row -->
-  
+</div>
+<!-- end row -->

@@ -1,232 +1,164 @@
-const ordersData = [
-   
-   
-]
-const editableTable = [
-  {
-    id: 1,
-    name: 'Aida Mbaye',
-    email: 'Sincere@april.biz',
-  },
-  {
-    id: 2,
-    name: ' Tiko Kane',
-    email: 'Shanna@melissa.tv',
-  },
-  {
-    id: 3,
-    name: 'Malick Gueye',
-    email: 'Rey.Padberg@rosamond.biz',
-  },
-  {
-    id: 4,
-    name: 'Limamou Diop',
-    email: 'Julianne.OConner@kory.org',
-  },
-  {
-    id: 5,
-    name: 'Khalifa Mbengue',
-    email: 'Lucio_Hettinger@annie.ca',
-  },
-  {
-    id: 6,
-    name: 'Adama Mbengue',
-    email: 'Karley_Dach@jasper.info',
-  },
-  {
-    id: 7,
-    name: 'Aida MBAYE',
-    email: 'Telly.Hoeger@billy.biz',
-  },
-  {
-    id: 8,
-    name: 'LimsMetik',
-    email: 'Sherwood@rosamond.me',
-  }
-];
+import { ChartType } from './dashboard.model';
 
-const userGridData = [
-  {
-      id: 1,
-      name: 'Aida Mbaye',
-      designation: 'UI/UX Designer',
-      projects: ['Gerant'],
-      email: 'david@skote.com'
-  },
-  {
-      id: 2,
-      name: 'Limamou Diop',
-      designation: 'Frontend Developer',
-      projects: ['Gerant'],
-      email: 'frank@skote.com'
-  },
-  {
-      id: 3,
-      name: 'Thierno KANE',
-      designation: 'Backend Developer',
-      projects: ['Distributeur'],
-      email: 'Rafael@skote.com'
-  },
-  {
-      id: 4,
-      name: 'Malick Gueye',
-      designation: 'Full Stack Developer',
-      projects: ['Gerant'],
-      email: 'mark@skote.com'
-  },
-  {
-      id: 5,
-      name: 'Aida Mbaye',
-      designation: 'Frontend Developer',
-      projects: ['Distributeur'],
-      email: 'minnie@skote.com'
-  },
-  {
-      id: 6,
-      name: 'Abdou Ndiaye',
-      designation: 'UI/UX Designer',
-      projects: ['Gerant'],
-      email: 'shirley@skote.com'
-  },
-  {
-      id: 7,
-      name: 'Aida Mbaye',
-      designation: 'Full Stack Developer',
-      projects: ['Distributeur'],
-      email: 'john@skote.com'
-  },
-  {
-      id: 8,
-      name: 'Miliko ',
-      designation: 'Backend Developer',
-      projects: ['Distributeur'],
-      email: 'colin@skote.com'
-  },
-];
-import { ChartType } from "src/modeles/profile.model";
-
-const revenueBarChart: ChartType = {
+const emailSentBarChart: ChartType = {
     chart: {
-        height: 300,
+        height: 340,
         type: 'bar',
+        stacked: true,
         toolbar: {
-            show: false,
+            show: false
+        },
+        zoom: {
+            enabled: true
         }
     },
     plotOptions: {
         bar: {
             horizontal: false,
-            columnWidth: '14%',
+            columnWidth: '15%',
             endingShape: 'rounded'
         },
     },
     dataLabels: {
         enabled: false
     },
-    stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-    },
     series: [{
-        name: 'Revenue',
-        data: [42, 85, 101, 56, 37, 105, 38, 58, 92, 82, 72, 32]
+        name: 'Series A',
+        data: [44, 55, 41, 67, 22, 43, 36, 52, 24, 18, 36, 48]
+    }, {
+        name: 'Series B',
+        data: [13, 23, 20, 8, 13, 27, 18, 22, 10, 16, 24, 22]
+    }, {
+        name: 'Series C',
+        data: [11, 17, 15, 15, 21, 14, 11, 18, 17, 12, 20, 18]
     }],
     xaxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
-    yaxis: {
-        title: {
-            text: '$ (thousands)'
-        }
+    colors: ['#556ee6', '#f1b44c', '#34c38f'],
+    legend: {
+        position: 'bottom',
     },
     fill: {
         opacity: 1
-
     },
-    colors: ['#556ee6'],
 };
 
-const statData = [
+const monthlyEarningChart: ChartType = {
+    chart: {
+        height: 200,
+        type: 'radialBar',
+        offsetY: -10
+    },
+    plotOptions: {
+        radialBar: {
+            startAngle: -135,
+            endAngle: 135,
+            dataLabels: {
+                name: {
+                    fontSize: '13px',
+                    color: undefined,
+                    offsetY: 60
+                },
+                value: {
+                    offsetY: 22,
+                    fontSize: '16px',
+                    color: undefined,
+                    formatter: (val) => {
+                        return val + '%';
+                    }
+                }
+            }
+        }
+    },
+    colors: ['#556ee6'],
+    fill: {
+        type: 'gradient',
+        gradient: {
+            shade: 'dark',
+            shadeIntensity: 0.15,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 50, 65, 91]
+        },
+    },
+    stroke: {
+        dashArray: 4,
+    },
+    series: [67],
+    labels: ['Series A'],
+};
+
+const transactions = [
     {
-        icon: 'bx bx-user', 
-        title: 'Nombre Cliens',
-        value: '125',
-       
+        id: '#SK2540',
+        name: 'Neal Matthews',
+        date: '07 Oct, 2019',
+        total: '$400',
+        status: 'Paid',
+        payment: ['fa-cc-mastercard', 'Mastercard'],
+        index: 1
     },
-     {
-        icon: 'bx bx-store',
-        title: 'Nombre Circuit',
-        value: '12'
-    }, {
-        icon: 'bx bx-undo',
-        title: 'Pourcentage de retour',
-        value: '10%'
+    {
+        id: '#SK2541',
+        name: 'Jamal Burnett',
+        date: '07 Oct, 2019',
+        total: '$380',
+        status: 'Chargeback',
+        payment: ['fa-cc-visa', 'Visa'],
+        index: 2
     },
-    
+    {
+        id: '#SK2542',
+        name: 'Juan Mitchell',
+        date: '06 Oct, 2019',
+        total: '$384',
+        status: 'Paid',
+        payment: ['fab fa-cc-paypal', 'Paypal'],
+        index: 3
+    },
+    {
+        id: '#SK2543',
+        name: 'Barry Dick',
+        date: '05 Oct, 2019',
+        total: '$412',
+        status: 'Paid',
+        payment: ['fa-cc-mastercard', 'Mastercard'],
+        index: 4
+    },
+    {
+        id: '#SK2544',
+        name: 'Ronald Taylor',
+        date: '04 Oct, 2019',
+        total: '$404',
+        status: 'Refund',
+        payment: ['fa-cc-visa', 'Visa'],
+        index: 5
+    },
+    {
+        id: '#SK2545',
+        name: 'Jacob Hunter',
+        date: '04 Oct, 2019',
+        total: '$392',
+        status: 'Paid',
+        payment: ['fab fa-cc-paypal', 'Paypal'],
+        index: 6
+    }
 ];
-const listData = [
-    {
-        name: 'Aida Mbaye',
-        id: '#1',
-        title: 'aidambaye@gmail.com',
-        tel: '77877777'
-        
-    },
-    {
-        
-        name: 'Limamou Diop',
-        id: '#2',
-        title: 'limamoudiop@gmail.com',
-        tel: '77877777'
-    },
-    {
-       
-        name: 'Malick Gueye',
-        id: '#3',
-        title: 'malickgueye@gmail.com',
-        tel: '77877777'
-    },
-    
-    {
-        
-        name: 'Tiko Kane',
-        id: '#4',
-        title: 'thierno@gmail.com',
-        tel: '77877777'
-    },
-    {
-        name: 'Adama Mbeungue',
-        id: '#5',
-        title: 'adama@gmail.com',
-        tel: '77877777'
-    },
-    {
-        image: 'assets/images/users/avatar-1.jpg',
-        name: 'Ama Ndiaye',
-        id: '#6',
-        title: 'amandiaye@gmail.com',
-        tel: '77877777'
-    },
-    {
-        name: 'Khalifa Mbengue',
-        id: '#7',
-        title: 'khalifa@gmail.com',
-        tel: '77877777'
-    },
-    {
-        image: 'assets/images/users/avatar-4.jpg',
-        name: 'Aida Mbaye',
-        id: '#8',
-        title: 'aidambaye@gmail.com',
-        tel: '77877777'
-    },
-];
 
+const statData = [{
+    icon: 'bx bx-copy-alt',
+    title: 'Orders',
+    value: '1,235'
+}, {
+    icon: 'bx bx-archive-in',
+    title: 'Revenue',
+    value: '$35, 723'
+}, {
+    icon: 'bx bx-purchase-tag-alt',
+    title: 'Average Price',
+    value: '$16.2'
+}];
 
-
-
-
-export { ordersData, editableTable, userGridData,revenueBarChart, statData, listData };
-
-
+export { emailSentBarChart, monthlyEarningChart, transactions, statData };

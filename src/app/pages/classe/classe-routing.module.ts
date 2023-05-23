@@ -10,11 +10,11 @@ const routes: Routes = [
     component: ClasseComponent
   },
   {
-    path: 'listeEleveParClasse',
+    path: 'listeEleveParClasse/:id',
     component: ListeEleveParClasseComponent
   },
   {
-    path: 'detailsEleve',
+    path: 'detailsEleve/:matricule',
     component: DetailsEleveComponent
   },
 ];

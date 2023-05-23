@@ -21,6 +21,8 @@ import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 if (environment.defaultauth === 'firebase') {
@@ -61,6 +63,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     HttpClientModule,
     NgbPaginationModule,
+    CommonModule,
+    
     // NgxPaginationModule
     
   ],

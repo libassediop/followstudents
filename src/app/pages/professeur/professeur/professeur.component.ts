@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClasseService } from 'src/app/layouts/service/classe.service';
 import { Classe, Matiere, Professeur } from 'src/app/layouts/service/general.model';
 import { ProfesseurService } from 'src/app/layouts/service/professeur.service';
-import { userGridData } from 'src/app/services/data';
-import { Usergrid } from 'src/modeles/usergrid.model';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,6 +22,9 @@ export class ProfesseurComponent implements OnInit {
   trouveLogin = false;
   trouveEmail = false;
   modif;
+  itemsPerPage = 12;
+  totalItems: number;
+  allItems: any = [];
 
   idprofesseur;
   public classes: any = [];
@@ -48,7 +51,7 @@ export class ProfesseurComponent implements OnInit {
     classeId:'',
     matiereId: ''
 }
-  constructor(private serviceClasse: ClasseService,private modalService : NgbModal, private professeurService: ProfesseurService,  public fb: FormBuilder) { 
+  constructor(private route: Router,private serviceClasse: ClasseService,private modalService : NgbModal, private professeurService: ProfesseurService,  public fb: FormBuilder) { 
     this.formprofesseur = this.fb.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
@@ -74,28 +77,40 @@ export class ProfesseurComponent implements OnInit {
         });
     this.professeurService.getAllProfeeseur().subscribe(
       (result) => {
-      this.professeurs = result;
-      // console.log(this.professeurs);
+      // this.professeurs = result;
+      this.allItems = result;
+      this.totalItems = this.allItems.length;
+      this.professeurs = this.allItems.slice(0, this.itemsPerPage);
+      console.log(this.professeurs);
   }, error1 => {
       console.log(error1)
   });
-
-   
   }
-  // get form() {
-  //   return this.userForm.controls;
-  // }
+
+  loadMore() {
+    const startIndex = this.professeurs.length;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.professeurs = [...this.professeurs, ...this.allItems.slice(startIndex, endIndex)];
+  }
+
+  gotoClasseEnseigne(id: any) {
+    this.route.navigate(['/pages/professeur/classeEnseigner', id]);
+    console.log(this.route);
+}
+  
 
  /**
    * Open extra large modal
    * @param exlargeModal extra large modal data
    */
  extraLarge(exlargeModal: any) {
-  this.modalService.open(exlargeModal, { size: 'xl', centered: true });
+  this.modalService.open(exlargeModal, { size: 'l', centered: true });
   
 }
+
 ModalUpdateprofesseur(login, centerModal?: any) {
   this.professeurService.getProfessurByLogin(login).subscribe(value => {
+    console.log(value);
     this.formprofesseur.setValue({
       nom: value[0].nom,
       prenom: value[0].prenom,
@@ -103,12 +118,33 @@ ModalUpdateprofesseur(login, centerModal?: any) {
       telephone: value[0].telephone,
       email: value[0].email,
       login: value[0].login,
+      matiereId: 0,
+      classeId: 0
     
       });
+      console.log(this.formprofesseur);
      this.idprofesseur=value[0].id;
      },error1 => {
      })
-  this.modalService.open(centerModal, {size: 'xl', centered: true });
+  this.modalService.open(centerModal, {size: 'l', centered: true });
+}
+
+annuler(){
+  
+  this.formprofesseur.reset();
+  this.professeur = {
+    adresse: '',
+    dateNaissance: '1999-03-31',
+    email: '',
+    lieuDeNaissance: null, // Utilisez null sans les guillemets pour représenter une valeur nulle
+    nom: '',
+    prenom: '',
+    sexe: null, 
+    telephone: '',
+    login: '',
+    classeId: '',
+    matiereId: ''
+  };
 }
 
 updateprofesseur() {
@@ -156,7 +192,7 @@ updateprofesseur() {
   }
 
 testEmail($event: any) {
-  this.professeurService.verifieMail(this.professeur.email).subscribe(value => {
+  this.professeurService.verifieMail(this.formprofesseur.value.email).subscribe(value => {
       if (value['succes'] == true) {
           this.trouveEmail = true;
       } else {
@@ -169,7 +205,7 @@ testEmail($event: any) {
 
 testIdentifiant($event: any) {
 
-  this.professeurService.verifieLogin(this.professeur.login).subscribe(value => {
+  this.professeurService.verifieLogin(this.formprofesseur.value.login).subscribe(value => {
       if (value['succes'] == true) {
           this.trouveLogin = true;
       } else {
@@ -180,7 +216,7 @@ testIdentifiant($event: any) {
 }
 
 testTelephone($event: any) {
-  this.professeurService.verifieTel(this.professeur.telephone).subscribe(value => {
+  this.professeurService.verifieTel(this.formprofesseur.value.telephone).subscribe(value => {
       if (value['succes'] == true) {
           this.trouveTel = true;
       } else {
@@ -190,9 +226,6 @@ testTelephone($event: any) {
   })
 
 }
-
-
- 
 
 AddProfesseur() {
   // console.log(this.professeur);
@@ -247,8 +280,9 @@ AddProfesseur() {
     }
   )
 }
+
 searchFilter(e) {
-  const searchStr = e.target.value;
+  const searchStr = e.target.value.trim().toLowerCase();
   if (searchStr.length === 0) {
     this.professeurService.getAllProfeeseur().subscribe(
       (result) => {
@@ -260,16 +294,17 @@ searchFilter(e) {
     );
   } else {
     this.professeurs = this.professeurs.filter((professeur) => {
-      return professeur.nom.toLowerCase().startsWith(searchStr.toLowerCase()),
-      professeur.telephone.toLowerCase().startsWith(searchStr.toLowerCase()),
-      professeur.email.toLowerCase().startsWith(searchStr.toLowerCase()),
-      professeur.adresse.toLowerCase().startsWith(searchStr.toLowerCase()),
-      professeur.classeId.toLowerCase().startsWith(searchStr.toLowerCase()),
-      professeur.matiereId.toLowerCase().startsWith(searchStr.toLowerCase())
-      ;
+      return (professeur.nom && professeur.nom.toLowerCase().startsWith(searchStr.toLowerCase())) ||
+            (professeur.prenom && professeur.prenom.toLowerCase().startsWith(searchStr.toLowerCase())) ||
+             (professeur.telephone && professeur.telephone.toLowerCase().startsWith(searchStr.toLowerCase())) ||
+             (professeur.email && professeur.email.toLowerCase().startsWith(searchStr.toLowerCase())) ||
+             (professeur.adresse && professeur.adresse.toLowerCase().startsWith(searchStr.toLowerCase())) ||
+             (professeur.classeId && professeur.classeId.toLowerCase().startsWith(searchStr.toLowerCase())) ||
+             (professeur.matiereId && professeur.matiereId.toLowerCase().startsWith(searchStr.toLowerCase()));
     });
   }
 }
+
 
 
 }

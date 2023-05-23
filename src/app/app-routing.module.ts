@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './account/auth/login/login.component';
 import { FirstConnexionComponent } from './account/auth/first-connexion/first-connexion.component';
-import { AuthGuard } from './account/auth/auth-guard.service';
+// import { AuthGuard } from './account/auth/auth-guard.service';
+import { ClasseEnseignerComponent } from './pages/professeur/classe-enseigner/classe-enseigner.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     path: 'first',
     component: FirstConnexionComponent
   },
+
   
 ];
 

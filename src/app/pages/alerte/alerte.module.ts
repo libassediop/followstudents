@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { AlerteRoutingModule } from './alerte-routing.module';
 import { AlerteNoteComponent } from './alerte-note/alerte-note.component';
 import {UIModule} from "../../shared/ui/ui.module";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AlerteAbsenceComponent } from './alerte-absence/alerte-absence.component';
 import { AlerteMessageComponent } from './alerte-message/alerte-message.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {NgSelectModule} from "@ng-select/ng-select";
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -23,7 +24,10 @@ import {NgSelectModule} from "@ng-select/ng-select";
         UIModule,
         FormsModule,
         CKEditorModule,
-        NgSelectModule
+        NgSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbPaginationModule
     ]
 })
 export class AlerteModule { }

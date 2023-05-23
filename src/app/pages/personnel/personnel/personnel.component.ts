@@ -20,7 +20,12 @@ export class PersonnelComponent implements OnInit {
   formPersonnel : FormGroup;
   trouveTel = false;
   trouveLogin = false;
-  trouveEmail = false
+  trouveEmail = false;
+  itemsPerPage = 9;
+  totalItems: number;
+  allItems: any = [];
+  update: any;
+  add : false;
 
   idPersonnel;
   public personnels: any = [] ;
@@ -49,7 +54,10 @@ export class PersonnelComponent implements OnInit {
   ngOnInit() {
     this.professeurService.getAllSecretaire().subscribe(
       (result) => {
-      this.personnels = result;
+      // this.personnels = result;
+      this.allItems = result;
+      this.totalItems = this.allItems.length;
+      this.personnels = this.allItems.slice(0, this.itemsPerPage);
       // console.log(this.personnels);
   }, error1 => {
       console.log(error1)
@@ -64,7 +72,7 @@ export class PersonnelComponent implements OnInit {
    * @param exlargeModal extra large modal data
    */
  extraLarge(exlargeModal: any) {
-  this.modalService.open(exlargeModal, { size: 'xl', centered: true });
+  this.modalService.open(exlargeModal, { size: 'l', centered: true });
 }
 
 Addpersonnel() {
@@ -95,8 +103,8 @@ Addpersonnel() {
             console.log(error);
           }
         );
-
-      }
+        }
+      
       this.personnel = {
         // id:'',
         nom: '',
@@ -112,13 +120,14 @@ Addpersonnel() {
     },
     error => {
       console.log(error)
+     
     }
   )
 }
 
 
 testEmail($event: any) {
-  this.professeurService.verifieMail(this.personnel.email).subscribe(value => {
+  this.professeurService.verifieMail(this.formPersonnel.value.email).subscribe(value => {
       if (value['succes'] == true) {
           this.trouveEmail = true;
       } else {
@@ -131,7 +140,7 @@ testEmail($event: any) {
 
 testIdentifiant($event: any) {
 
-  this.professeurService.verifieLogin(this.personnel.login).subscribe(value => {
+  this.professeurService.verifieLogin(this.formPersonnel.value.login).subscribe(value => {
       if (value['succes'] == true) {
           this.trouveLogin = true;
       } else {
@@ -142,33 +151,27 @@ testIdentifiant($event: any) {
 }
 
 testTelephone($event: any) {
-  this.professeurService.verifieTel(this.personnel.telephone).subscribe(value => {
+  // console.log(this.personnel.telephone)
+  this.professeurService.verifieTel(this.formPersonnel.value.telephone).subscribe(value => {
+    console.log(value)
       if (value['succes'] == true) {
           this.trouveTel = true;
       } else {
           this.trouveTel = false;
       }
   }, error1 => {
+    console.log(error1)
   })
 
 }
 
-//   getSecretaireById(login) {
-//     this.professeurService.getSecretaireByLogin(login).subscribe(value => {
-//       this.formPersonnel.setValue({
-//         libelle: value[0].libelle,
-//         nom: value[0].nom,
-//         prenom: value[0].prenom,
-//         adresse: value[0].adresse,
-//         telephone: value[0].telephone,
-//         email: value[0].telephone,
-//         login: value[0].Login,
-//         });
-//        this.idPersonnel=login;
-//        },error1 => {
-   
-//        })
-// }
+
+annuler() {
+  
+  this.formPersonnel.reset();
+  console.log(this.formPersonnel)
+  
+}
 ModalUpdatePersonnel(login, centerModal?: any) {
   this.professeurService.getSecretaireByLogin(login).subscribe(value => {
     this.formPersonnel.setValue({
@@ -206,6 +209,7 @@ ModalUpdatePersonnel(login, centerModal?: any) {
               console.log(err)
             }
           );
+          this.formPersonnel.reset();
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -214,7 +218,8 @@ ModalUpdatePersonnel(login, centerModal?: any) {
             timer: 1500
           });
           this.formPersonnel.reset();
-        } else {
+        }
+         else {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -223,14 +228,15 @@ ModalUpdatePersonnel(login, centerModal?: any) {
           
         }
       },
-      
-       
-      
+
     );
+    this.modalService.dismissAll();
+      this.formPersonnel.reset();
+  
   }
 
   searchFilter(e) {
-    const searchStr = e.target.value;
+    const searchStr = e.target.value.trim().toLowerCase();
     if (searchStr.length === 0) {
       this.professeurService.getAllSecretaire().subscribe(
         (result) => {
@@ -242,16 +248,23 @@ ModalUpdatePersonnel(login, centerModal?: any) {
       );
     } else {
       this.personnels = this.personnels.filter((personnel) => {
-        return personnel.nom.toLowerCase().startsWith(searchStr.toLowerCase()),
-        personnel.telephone.toLowerCase().startsWith(searchStr.toLowerCase()),
-        personnel.email.toLowerCase().startsWith(searchStr.toLowerCase()),
-        personnel.adresse.toLowerCase().startsWith(searchStr.toLowerCase())
-        
-        ;
+        return personnel.nom.toLowerCase().startsWith(searchStr) ||
+               personnel.nom.toLowerCase() === searchStr ||
+               personnel.prenom.toLowerCase().startsWith(searchStr) ||
+               personnel.prenom.toLowerCase() === searchStr ||
+               personnel.telephone.toLowerCase().startsWith(searchStr) ||
+               personnel.telephone.toLowerCase() === searchStr ||
+               personnel.adresse.toLowerCase().startsWith(searchStr) ||
+               personnel.adresse.toLowerCase() === searchStr;
       });
     }
   }
   
- 
+  loadMore() {
+    const startIndex = this.personnels.length;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.personnels = [...this.personnels, ...this.allItems.slice(startIndex, endIndex)];
+  }
 
+  
 }

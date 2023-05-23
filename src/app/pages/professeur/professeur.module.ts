@@ -33,6 +33,7 @@ import { ArchwizardModule } from 'angular-archwizard';
         NgbDatepickerModule,
         Ng2SmartTableModule,
         ArchwizardModule,
+        
     
     ]
 })

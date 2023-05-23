@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
       input.addEventListener('focus', addcl);
       input.addEventListener('blur', remcl);
     });
+    
     this.f = this.fb.group({
       login: ['milk', [Validators.required]],
       password: ['passer', [Validators.required]],
@@ -76,11 +77,13 @@ export class LoginComponent implements OnInit {
 
   
   onLogin() {
+    if (this.f.invalid) {
+      this.error = 'Veuillez remplir tous les champs.';
+      return;
+    }else{
     this.submitted = true;
     this.u.login = this.f.value.login;
     this.u.password = this.f.value.password;
-    // this.u.login=this.f.login.value;
-    // this.u.password=this.f.password.value;
     console.log(this.u)
       this.authService.login(this.u).subscribe(resp => {
         // if (resp['user'].password_changed === 0) {
@@ -96,7 +99,7 @@ export class LoginComponent implements OnInit {
       , error1 => {
         // this.Toast('danger', 'Erreur !', 'Identifiant ou mot de passe incorect!')
         this.error = error1 ? error1 : 'Identifiant ou mot de passe incorect!';
-
       }); 
+    }
   }
 }
