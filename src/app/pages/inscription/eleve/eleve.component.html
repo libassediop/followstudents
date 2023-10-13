@@ -21,7 +21,7 @@
                           <div class="card">
                             <div class="card-body">
 
-                              <h4 class="card-title mb-4" style="text-align: center;">Saisir informations eleves</h4>
+                              <h4 class="card-title mb-4" style="text-align: center;"> Informations de l'élève</h4>
 
 
                               <div class="row">
@@ -57,6 +57,8 @@
                                 </div>
                               </div>
 
+
+
                               <div class="row">
                                 <div class="col-lg-6">
                                   <div class="mb-3" [formGroup]="formInscription">
@@ -71,6 +73,20 @@
                                       <option value="" selected>Choisir classe...</option>
                                       <option *ngFor="let c of classes" [value]="c.id">{{c.libelle}}</option>
                                     </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3" [formGroup]="formInscription">
+                                    <label>Montant  Inscription</label>
+                                    <input type="text" disabled  class="form-control" placeholder="50.000" formControlName="adresse">
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3" [formGroup]="formInscription">
+                                    <label> Montant  Reçu</label>
+                                    <input type="text"  class="form-control" formControlName="adresse">
                                   </div>
                                 </div>
                               </div>
@@ -114,7 +130,7 @@
                           <div class="col-lg-12">
                             <div class="card">
                               <div class="card-body">
-                                <h4 class="card-title mb-4" style="text-align: center;">Saisir Informations du tuteur
+                                <h4 class="card-title mb-4" style="text-align: center;"> Informations du tuteur
                                 </h4>
 
 
@@ -135,6 +151,12 @@
                                   <label class="col-sm-3 col-form-label">Prenom</label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
                                     <input type="text" class="form-control" formControlName="prenomParent">
+                                  </div>
+                                </div>
+                                <div class="row mb-4">
+                                  <label class="col-sm-3 col-form-label">Email</label>
+                                  <div class="col-sm-9" [formGroup]="formInscription">
+                                    <input type="email" class="form-control" formControlName="prenomParent">
                                   </div>
                                 </div>
                                 <br>

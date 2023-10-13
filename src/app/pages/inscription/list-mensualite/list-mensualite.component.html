@@ -1,0 +1,161 @@
+<div class="container-fluid">
+
+  <app-page-title title="Mensualité"></app-page-title>
+
+  <div class="row">
+    <div class="col-xl-4">
+      <!-- end card -->
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="me-2">
+              <h5 class="card-title mb-4 " style="color: #ce8e24;">Classe</h5>
+            </div>
+
+          </div>
+          <div class="text-center mt-4">
+            <div class="form-floating mb-3">
+              <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse"
+                      (ngModelChange)="recuperation($event)">
+                <option value="" selected>Liste des classes</option>
+                <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
+              </select>
+              <label for="floatingSelectGrid">veuillez choisir une classe</label>
+            </div>
+          </div>
+          <div class="text-center mt-4" *ngIf="matieres">
+            <div class="form-floating mb-3">
+              <select class="form-select" aria-label="Floating label select example" [(ngModel)]="contenue.idMatiere">
+                <option value="" selected>Mois</option>
+                <option *ngFor="let matiere of matieres" [value]="matiere.id">{{matiere.libelle}}</option>
+
+              </select>
+              <label for="floatingSelectGrid">veuillez choisir un mois</label>
+            </div>
+          </div>
+          <div class="text-center mt-4" *ngIf="matieres">
+            <div class="form-floating mb-3">
+              <input type="text" disabled  class="form-control" id="floatingnameInput" placeholder="Enter Name" value="50.000">
+              <label for="floatingnameInput">Montant à payer</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <!-- end card -->
+    </div>
+
+    <div class="col-xl-8" >
+
+
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="me-2">
+              <h5 class="card-title mb-4">Liste des eleves</h5>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row mb-2">
+                    <div class="col-sm-4">
+                      <div class="search-box me-2 mb-2 d-inline-block">
+                        <div class="position-relative">
+                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                          <i class="bx bx-search-alt search-icon"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- end col-->
+                  </div>
+
+                  <!-- Table data -->
+                  <!--          <app-transaction [transactions]="transactions |  filter:term"></app-transaction>-->
+                  <div class="table-responsive mb-0" *ngIf="contenue.idMatiere">
+                    <table class="table table-centered table-nowrap" (ngSubmit)="addNote()">
+                      <thead class="bg-primary bg-soft p-4">
+                      <tr>
+                        <th style="text-align: center;">
+                          id
+                        </th>
+                        <th style="text-align: center;">Nom complet</th>
+                        <th style="text-align: center;">Date Naissance</th>
+                        <th style="text-align: center;">Mois</th>
+                        <th style="text-align: center;">Status</th>
+                        <th style="text-align: center;">Montant reçu</th>
+                        <th style="text-align: center;">Montant restant</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let data of eleves">
+                        <td>
+                          <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+                        </td>
+                        <td style="text-align: center;">{{data.nom}}</td>
+                        <td style="text-align: center;">{{data.prenom}}</td>
+                        <td style="text-align: center;">{{data.dateNaissance}}</td>
+                        <td>
+          <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-danger': data.sexe === '1',
+                        'badge-soft-warning':data.status === 'Refund' }">Invalide</span>
+                        </td>
+                        <td style="text-align: center;">{{data.sexe}}</td>
+                        <td style="text-align: center;">{{data.parent_telephone}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+
+                    <td style="text-align: center;">
+                      <button type="reset" class="btn btn-info no-print"><i class="fas fa-undo" id="annuler"></i>
+                        Annuler</button>&nbsp;
+                      <button type="button" id="envoyer" class="btn btn-success no-print"><i class="fas fa-save"
+                                                                                             (click)="addNote()"></i> Envoyer</button>&nbsp;
+
+                    </td>
+
+                  </div>
+                  <!--          -->
+                  <ul class="pagination pagination-rounded justify-content-end mb-2">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                        <i class="mdi mdi-chevron-left"></i>
+                      </a>
+                    </li>
+                    <li class="page-item active">
+                      <a class="page-link " href="javascript: void(0);">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">2</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">3</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">4</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);">5</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                        <i class="mdi mdi-chevron-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+</div>
+

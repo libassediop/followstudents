@@ -1,0 +1,252 @@
+<div class="container-fluid">
+  <div class=" mt-2 mt-sm-0">
+    <button class="btn btn-info" routerLink="/pages/inscription/mensualite">
+      <i class="fa fa-arrow-left me-1"></i> Retour </button>
+    <!-- <app-page-title title="Espace Professeur" style="text-align: end;"></app-page-title> -->
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="card overflow-hidden">
+        <div class="bg-soft bg-primary">
+          <div class="row">
+            <div class="col-7">
+              <div class="text-black p-3">
+                <h5 class="text-black-50">Bienvenue!</h5>
+                <p>Espace Élève</p>
+              </div>
+            </div>
+            <div class="col-5 align-self-end">
+              <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-0">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="avatar-md profile-user-wid mb-4">
+                <img src="assets/images/users/avatar-2.jpg" alt="" class="img-thumbnail rounded-circle">
+              </div>
+              <h5 class="font-size-15 text-truncate">Limamou Diop</h5>
+              <p class="text-muted mb-0 text-truncate">775402051</p>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="pt-4">
+                <div class="row">
+                  <div class="col-6">
+                    <h5 class="font-size-15">CM2</h5>
+                    <p class="text-muted mb-0">Classes</p>
+                  </div>
+                  <div class="col-6">
+                    <h5 class="font-size-15">300</h5>
+                    <p class="text-muted mb-0">eleves</p>
+                  </div>
+                </div>
+                <!-- <div class="mt-4">
+                    <a href="javascript: void(0);" class="btn btn-success btn-sm">En Cours </a>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end card -->
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4"> Effectué un nouvel Paiement</h4>
+
+          <div class="table-responsive">
+            <table class="table table-nowrap mb-0">
+              <tbody>
+              <tr>
+                <th scope="row">Nom Complet:</th>
+                <td>{{nomPro}} Limamou diop</td>
+              </tr>
+              <tr>
+                <th scope="row">Nombre de mois :</th>
+                <td> <select id="formrow-inputState" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>1 mois</option>
+                  <option>2 mois</option>
+                  <option>3 mois</option>
+                  <option>4 mois</option>
+                  <option>5 mois</option>
+                </select></td>
+              </tr>
+              <tr>
+                <th scope="row">Montant à payer :</th>
+                <td > 35.0000 FCFA</td>
+              </tr>
+              <tr>
+                <th scope="row">Montant reçu</th>
+                <td><input type="text" class="form-control" id="formrow-inputCity"></td>
+              </tr>
+              </tbody>
+
+              <button class="btn btn-success" id="suivant"
+                      style=" color: white; "><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- end card -->
+
+      <!-- end card -->
+    </div>
+
+    <div class="col-xl-8">
+
+      <div class="row">
+        <div *ngFor="let stat of statData" class="col-md-6 text-info">
+          <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
+        </div>
+      </div>
+      <!-- <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Revenue</h4>
+            <apx-chart dir="ltr" class="apex-charts" [series]="revenueBarChart.series" [chart]="revenueBarChart.chart"
+              [xaxis]="revenueBarChart.xaxis" [colors]="revenueBarChart.colors" [yaxis]="revenueBarChart.yaxis"
+              [dataLabels]="revenueBarChart.dataLabels" [stroke]="revenueBarChart.stroke"
+              [plotOptions]="revenueBarChart.plotOptions" [fill]="revenueBarChart.fill">
+            </apx-chart>
+          </div>
+        </div> -->
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <h5 class="text-black-50">Details paiement!</h5>
+              </div>
+            </div><!-- end col-->
+          </div>
+
+          <!-- Table data -->
+          <div class="table-responsive mb-0">
+            <table class="table table-centered table-nowrap">
+              <thead class="table-light">
+              <tr>
+                <th class="">#</th>
+                <th class="">Mois payé</th>
+                <th class="">Montant à payer</th>
+                <th class="">Montant reçu</th>
+                <th class="">Date</th>
+                <th class="" style="text-align: center;">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr >
+                <td></td>
+                <td> octobre</td>
+                <td> 55.000 </td>
+                <td> 55.000 </td>
+                <td> 12/05/2021</td>
+                <td style="text-align: center;">
+                  <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
+                  <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
+                </td>
+              </tr>
+              <tr >
+                <td></td>
+                <td> Novembre</td>
+                <td> 55.000 </td>
+                <td> 55.000 </td>
+                <td> 12/05/2021</td>
+                <td style="text-align: center;">
+                  <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
+                  <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
+                </td>
+              </tr>
+              <tr >
+                <td></td>
+                <td> Decembre</td>
+                <td> 55.000 </td>
+                <td> 55.000 </td>
+                <td> 12/05/2021</td>
+                <td style="text-align: center;">
+                  <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
+                  <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+
+            <ng-template #content role="document" let-modal>
+              <div class="modal-body">
+                <div class="modal-header">
+                  <h5 class="modal-title mt-0">Affecter classe</h5>
+                  <button type="button" class="btn-close" aria-hidden="true"
+                          (click)="modal.dismiss('Cross click')"></button>
+                </div>
+                <form #form="ngForm" (ngSubmit)="affecterProfesseur(form)">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="mb-3">
+                        <label class="control-label" style="font-weight: bold;">Classe</label>
+                        <select class="form-control" placeholder="" type="text" name="idClasse"
+                                [(ngModel)]="val.idClasse">
+                          <option value="">choisissez une classe...</option>
+                          <option *ngFor="let c of classe" [value]="c.id">{{c.libelle}}</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="control-label" style="font-weight: bold;">Designation</label>
+                        <select class="form-control" placeholder="" type="text" name="idmatiere"
+                                [(ngModel)]="val.idmatiere">
+                          <option value="">choisissez une matiére...</option>
+                          <option *ngFor="let m of matieres" [value]="m.id">{{m.libelle}}</option>
+                        </select>
+                      </div>
+                      <div style="text-align: center;">
+                        <button type="submit" class="btn btn-success" [disabled]="!form.valid"
+                                (click)="affecterProfesseur(form)"><i class="fa fa-save"></i>&nbsp;Enregistrer
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- <div class="modal-footer">
+                  <button class="btn btn-secondary">Close</button>
+                </div> -->
+            </ng-template>
+          </div>
+          <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2" [(page)]="currentPage"
+                          [pageSize]="pageSize" [collectionSize]="classes.length">
+            <ul class="pagination pagination-rounded justify-content-end mb-2">
+              <li class="page-item disabled">
+                <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                  <i class="mdi mdi-chevron-left"></i>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript: void(0);">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript: void(0);">2</a>
+              </li>
+
+            </ul>
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+</div>
+

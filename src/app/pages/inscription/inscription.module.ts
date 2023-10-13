@@ -4,13 +4,22 @@ import { CommonModule } from '@angular/common';
 import { InscriptionRoutingModule } from './inscription-routing.module';
 import { EleveComponent } from './eleve/eleve.component';
 import {UIModule} from "../../shared/ui/ui.module";
-import {NgbNavModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbNavModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MensualiteComponent } from './mensualite/mensualite.component';
+import { ListMensualiteComponent } from './list-mensualite/list-mensualite.component';
+import { ListInscriptionComponent } from './list-inscription/list-inscription.component';
+import { SuiviPaiementComponent } from './suivi-paiement/suivi-paiement.component';
+import {WidgetModule} from "../../shared/widget/widget.module";
 
 
 @NgModule({
   declarations: [
-    EleveComponent
+    EleveComponent,
+    MensualiteComponent,
+    ListMensualiteComponent,
+    ListInscriptionComponent,
+    SuiviPaiementComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UIModule,
     NgbNavModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    WidgetModule,
+    NgbPaginationModule
   ]
 })
 export class InscriptionModule { }
