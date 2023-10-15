@@ -3,7 +3,7 @@
     <div class="d-flex">
       <!-- LOGO -->
       <div class="navbar-brand-box">
-        <a routerLink="/" class="logo logo-dark">
+        <a  class="logo logo-dark">
           <span class="logo-sm">
             <img src="assets/images/logo.svg" alt="" height="22">
           </span>
@@ -12,7 +12,7 @@
           </span>
         </a>
 
-        <a routerLink="/" class="logo logo-light">
+        <a  class="logo logo-light">
           <span class="logo-sm">
             <img src="assets/images/logo-light.svg" alt="" height="22">
           </span>
@@ -186,23 +186,23 @@
         </div>
       </div>
 
-      <div class="dropdown d-inline-block" ngbDropdown>
-        <button type="button" class="btn header-item" id="page-header-user-dropdown" ngbDropdownToggle>
-          <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" alt="Header Language" height="16"> <span
-            class="ms-1">{{countryName}}</span>
-          <img *ngIf="flagvalue === undefined" src="{{valueset}}" alt="Header Language" height="16">
-          <span *ngIf="flagvalue === undefined" class="ms-1">English</span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-          <!-- item-->
-          <a href="javascript:void(0);" class="dropdown-item notify-item" *ngFor="let item of listLang"
-            (click)="setLanguage(item.text, item.lang, item.flag)" [ngClass]="{'active': cookieValue === item.lang}">
-            <img src="{{item.flag}}" alt="user-image" class="ms-1" height="12"> <span
-              class="align-middle">{{item.text}}</span>
-          </a>
-          <!-- item-->
-        </div>
-      </div>
+<!--      <div class="dropdown d-inline-block" ngbDropdown>-->
+<!--        <button type="button" class="btn header-item" id="page-header-user-dropdown" ngbDropdownToggle>-->
+<!--          <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" alt="Header Language" height="16"> <span-->
+<!--            class="ms-1">{{countryName}}</span>-->
+<!--          <img *ngIf="flagvalue === undefined" src="{{valueset}}" alt="Header Language" height="16">-->
+<!--          <span *ngIf="flagvalue === undefined" class="ms-1">English</span>-->
+<!--        </button>-->
+<!--        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>-->
+<!--          &lt;!&ndash; item&ndash;&gt;-->
+<!--          <a href="javascript:void(0);" class="dropdown-item notify-item" *ngFor="let item of listLang"-->
+<!--            (click)="setLanguage(item.text, item.lang, item.flag)" [ngClass]="{'active': cookieValue === item.lang}">-->
+<!--            <img src="{{item.flag}}" alt="user-image" class="ms-1" height="12"> <span-->
+<!--              class="align-middle">{{item.text}}</span>-->
+<!--          </a>-->
+<!--          &lt;!&ndash; item&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
 
       <!-- <div class="dropdown d-none d-lg-inline-block me-1" ngbDropdown>
         <button type="button" class="btn header-item noti-icon" ngbDropdownToggle>
@@ -357,16 +357,16 @@
         </button>
         <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
           <!-- item-->
-          <a class="dropdown-item" href="javascript: void(0);"><i class="bx bx-user font-size-16 align-middle me-1"></i>
-            {{ 'HEADER.LOGIN.PROFILE' | translate}}</a>
-          <a class="dropdown-item" href="javascript: void(0);"><i
-              class="bx bx-wallet font-size-16 align-middle me-1"></i>{{ 'HEADER.LOGIN.MY_WALLET' | translate}}</a>
-          <a class="dropdown-item d-block" href="javascript: void(0);"><span
-              class="badge bg-success float-end">11</span><i
-              class="bx bx-wrench font-size-16 align-middle me-1"></i>{{ 'HEADER.LOGIN.SETTINGS' | translate}} </a>
-          <a class="dropdown-item" href="javascript: void(0);"><i
-              class="bx bx-lock-open font-size-16 align-middle me-1"></i>
-            {{ 'HEADER.LOGIN.LOCK_SCREEN' | translate}}</a>
+<!--          <a class="dropdown-item" href="javascript: void(0);"><i class="bx bx-user font-size-16 align-middle me-1"></i>-->
+<!--            {{ 'HEADER.LOGIN.PROFILE' | translate}}</a>-->
+<!--          <a class="dropdown-item" href="javascript: void(0);"><i-->
+<!--              class="bx bx-wallet font-size-16 align-middle me-1"></i>{{ 'HEADER.LOGIN.MY_WALLET' | translate}}</a>-->
+<!--          <a class="dropdown-item d-block" href="javascript: void(0);"><span-->
+<!--              class="badge bg-success float-end">11</span><i-->
+<!--              class="bx bx-wrench font-size-16 align-middle me-1"></i>{{ 'HEADER.LOGIN.SETTINGS' | translate}} </a>-->
+<!--          <a class="dropdown-item" href="javascript: void(0);"><i-->
+<!--              class="bx bx-lock-open font-size-16 align-middle me-1"></i>-->
+<!--            {{ 'HEADER.LOGIN.LOCK_SCREEN' | translate}}</a>-->
           <div class="dropdown-divider"></div>
           <a class="dropdown-item text-danger" href="javascript: void(0);" (click)="logout()"><i
               class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
@@ -375,7 +375,7 @@
       </div>
 
       <div class="dropdown d-inline-block">
-        <button type="button" class="btn header-item noti-icon right-bar-toggle" (click)="onSettingsButtonClicked()">
+        <button type="button" class="btn header-item noti-icon right-bar-toggle">
           <i class="bx bx-cog bx-spin"></i>
         </button>
       </div>

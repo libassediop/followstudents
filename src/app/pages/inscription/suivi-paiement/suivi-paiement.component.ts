@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
+import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import {ChartType} from "ng-apexcharts";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ClasseService} from "../../../layouts/service/classe.service";
@@ -8,6 +8,8 @@ import {ActivatedRoute} from "@angular/router";
 import {EleveService} from "../../../layouts/service/eleve.service";
 import Swal from "sweetalert2";
 import {affecterProf} from "../../professeur/classe-enseigner/classe-enseigner.component";
+import {InscriptionreinscriptionService} from "../../../layouts/service/inscriptionreinscription.service";
+import {Inscription, Mensualite} from "../../../layouts/service/general.model";
 
 @Component({
   selector: 'app-suivi-paiement',
@@ -30,12 +32,25 @@ export class SuiviPaiementComponent implements OnInit {
   matieres:  any = [] ;
   matiere;
   eleves;
+  matricule;
+  donneesEleve;
+  donneesPaiement;
+  formMensualite: FormGroup;
 
   val: affecterProf = {
     idClasse: '',
     idmatiere: '',
     idProf: ''
   }
+
+
+  mensualite: Mensualite = {
+   moisId: '',
+    montant:'',
+    eleveId:'',
+    userId:localStorage.getItem('id')
+
+  };
 
   form: FormGroup;
   transactions;
@@ -55,29 +70,38 @@ export class SuiviPaiementComponent implements OnInit {
 
   ];
 
-  constructor(private modalService: NgbModal, private fb : FormBuilder,  private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private eleveService: EleveService) {
+  constructor(private modalService: NgbModal, private fb : FormBuilder,  private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private seviceInscription:InscriptionreinscriptionService,private eleveService: EleveService) {
 
   }
-
+  selectValue: string[];
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Contacts' }, { label: 'Profile', active: true }];
-    let login: string;
-    login = this.route.snapshot.params.id;
-    this.serviceProfesseur.getProfessurByLogin(login).subscribe(value => {
-      this.data = value , console.log(this.data), this.nomPro = value['0'].prenom + ' ' + value['0'].nom, this.numPro = value['0'].telephone,this.adresse =value['0'].adresse,this.email =value['0'].email, this.val.idProf = value['0'].id
-      this.serviceProfesseur.getlisteClasseByProfesseur(this.data['0'].id).subscribe(value => {
-        this.classes = value , console.log(value)
-        this.nbClasses = this.classes.length;
-        this.statData[0].value = this.nbClasses;
-      }, error1 => console.log(error1));
-      console.log(this.classes)
-      // this.eleveService. getAllEleveByClasse(this.data['0'].id).subscribe(value1 => {
-      //   this.eleves = value1
-      //   this.nbEleves = this.eleves.length
-      //   this.statData[0].value = this.nbEleves;
-      // } );
+    this.selectValue = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Novembre', 'Decembre'];
 
-    }, error1 => console.log(error1))
+    this.breadCrumbItems = [{ label: 'Contacts' }, { label: 'Profile', active: true }];
+    this.formMensualite = this.fb.group({
+      // Ajoutez ici les contrôles de vot
+      mois: ['', Validators.required],
+      montant: ['', Validators.required],
+      avance: ['', Validators.required],
+    })
+
+    this.matricule = this.route.snapshot.params.matricule;
+    console.log(this.matricule);
+
+    this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
+      console.log(resp)
+      this.donneesEleve = resp;
+      this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve[0].id).subscribe(resp => {
+        this.donneesPaiement = resp['response'];
+        console.log(this.donneesPaiement);
+        console.log(resp);
+      });
+    }, error1 => {
+    });
+
+
+
+
     this.serviceClasse.getAllClasse().subscribe(resp => {
       this.classe = resp;
     }, error1 => {
@@ -92,7 +116,18 @@ export class SuiviPaiementComponent implements OnInit {
 
 
 
+  getLibelleMoisById(moisId: number): string {
+    const mois = [
+      'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+      'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+    ];
 
+    if (moisId >= 1 && moisId <= 12) {
+      return mois[moisId - 1];
+    } else {
+      return 'Mois invalide';
+    }
+  }
   /**
    * Open modal
    * @param content modal content
@@ -156,4 +191,15 @@ export class SuiviPaiementComponent implements OnInit {
   }
 
 
+  Valider() {
+    this.mensualite.eleveId=this.donneesEleve[0].id;
+    this.mensualite.montant = this.formMensualite.value.avance;
+    this.mensualite.moisId = this.formMensualite.value.mois;
+    console.log(this.mensualite);
+    this.seviceInscription.addMensualite(this.mensualite).subscribe(res => {
+      console.log(res);
+      }
+    );
+
+  }
 }

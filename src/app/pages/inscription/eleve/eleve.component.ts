@@ -51,7 +51,7 @@ navItem1: HTMLElement;
 
 
   constructor(private professeurService : ProfesseurService,   private fb : FormBuilder, private classeService: ClasseService, private serviceInscription: InscriptionreinscriptionService) {
-   
+
    }
 
   ngOnInit(): void {
@@ -66,6 +66,8 @@ navItem1: HTMLElement;
       nomParent: ['', Validators.required],
       prenomParent: ['', Validators.required],
       telephoneParent: ['', Validators.required],
+      montant: ['', Validators.required],
+      avance: ['', Validators.required],
     })
     this.classeService.getAllClasse().subscribe(
       resp => {
@@ -98,6 +100,8 @@ navItem1: HTMLElement;
     this.inscription.nomParent = this.formInscription.value.nomParent;
     this.inscription.prenomParent = this.formInscription.value.prenomParent;
     this.inscription.telephoneParent = this.formInscription.value.telephoneParent;
+    this.inscription.montant = this.formInscription.value.montant;
+    this.inscription.avance = this.formInscription.value.avance;
     this.serviceInscription.addInscription(this.inscription).subscribe(
       result => {
         console.log(result);
@@ -110,7 +114,7 @@ navItem1: HTMLElement;
             timer: 1500
           });
           this.formInscription.reset();
-      
+
         }
         this.inscription = {
           id:'',

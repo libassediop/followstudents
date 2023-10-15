@@ -58,6 +58,7 @@ export class ListInscriptionComponent implements OnInit {
     this.note=[];
     this.serviceEleve.getAllEleveByClasse(this.test).subscribe(resp => {
       this.eleves = resp;
+      console.log(this.eleves);
       for (let i = 0; i < this.eleves.length; i++) {
         this.note.push({idEleve: this.eleves[i].id, noteEleve: '0'})
       }
