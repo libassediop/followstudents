@@ -27,7 +27,7 @@ const routes: Routes = [
     component: ListInscriptionComponent
   },
   {
-    path: 'suivipaiement/:id',
+    path: 'suivipaiement/:matricule',
     component: SuiviPaiementComponent
   }
 ];

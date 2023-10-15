@@ -11,6 +11,7 @@ import { ListMensualiteComponent } from './list-mensualite/list-mensualite.compo
 import { ListInscriptionComponent } from './list-inscription/list-inscription.component';
 import { SuiviPaiementComponent } from './suivi-paiement/suivi-paiement.component';
 import {WidgetModule} from "../../shared/widget/widget.module";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 
 @NgModule({
@@ -21,15 +22,16 @@ import {WidgetModule} from "../../shared/widget/widget.module";
     ListInscriptionComponent,
     SuiviPaiementComponent
   ],
-  imports: [
-    CommonModule,
-    InscriptionRoutingModule,
-    UIModule,
-    NgbNavModule,
-    FormsModule,
-    ReactiveFormsModule,
-    WidgetModule,
-    NgbPaginationModule
-  ]
+    imports: [
+        CommonModule,
+        InscriptionRoutingModule,
+        UIModule,
+        NgbNavModule,
+        FormsModule,
+        ReactiveFormsModule,
+        WidgetModule,
+        NgbPaginationModule,
+        NgSelectModule
+    ]
 })
 export class InscriptionModule { }

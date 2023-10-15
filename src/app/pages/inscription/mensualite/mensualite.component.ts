@@ -5,7 +5,7 @@ import {ClasseService} from "../../../layouts/service/classe.service";
 import {EleveService} from "../../../layouts/service/eleve.service";
 import {NoteService} from "../../../layouts/service/note.service";
 import Swal from "sweetalert2";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-mensualite',
@@ -39,6 +39,8 @@ export class MensualiteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     this.breadCrumbItems = [{ label: 'Dashboards' }, { label: 'Saas', active: true }];
 
 
@@ -107,7 +109,7 @@ export class MensualiteComponent implements OnInit {
 
   }
 
-  suiviPaiement(id) {
-    this.route.navigate(['/pages/inscription/suivipaiement', id]);
+  suiviPaiement(matricule) {
+    this.route.navigate(['/pages/inscription/suivipaiement', matricule]);
   }
 }

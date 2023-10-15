@@ -1,6 +1,6 @@
 export class Classe {
     libelle:string;
-    niveau:string; 
+    niveau:string;
     }
     export class Matiere {
         libelle:string;
@@ -61,6 +61,18 @@ export class Inscription {
 
 }
 
+export class Mensualite{
+  eleveId:string;
+  moisId:string;
+  montant:string;
+  userId:string;
+}
+
+export class Mois{
+  id:string;
+  libelle:string;
+}
+
 
 export class Reinscription {
     matricule:string;
@@ -77,7 +89,7 @@ export class General {
 
 
 export class ClasseYol {
-  
+
     libelle: string;
 }
 export class Users {
@@ -106,11 +118,11 @@ export class Entreprise {
               idClasse:string;
             date_debut:string;
             date_fin:string;
-       
+
             matiere_id:string;
             user_ida:string;
              }
-             
+
 export class Note {
 
     noteEleve:string;

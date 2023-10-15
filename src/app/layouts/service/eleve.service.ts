@@ -32,6 +32,10 @@ export class EleveService {
     return this.http.get(this.host+'/eleve/getEleveByMatricule?matricule='+matricule+'&token='+localStorage.getItem('token'));
   }
 
+  getEleveById(matricule){
+    return this.http.get(this.host+'/eleve/getEleveById?idEleve='+matricule+'&token='+localStorage.getItem('token'));
+  }
+
   getFicheEleveByMatricule(matricule){
     return this.http.get(this.host+'/eleve/getFicheEleveByMatricule?matricule='+matricule+'&token='+localStorage.getItem('token'));
   }
@@ -50,6 +54,6 @@ export class EleveService {
 
 
   }
- 
+
 
 }

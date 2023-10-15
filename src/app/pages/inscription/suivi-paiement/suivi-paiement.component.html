@@ -28,20 +28,22 @@
               <div class="avatar-md profile-user-wid mb-4">
                 <img src="assets/images/users/avatar-2.jpg" alt="" class="img-thumbnail rounded-circle">
               </div>
-              <h5 class="font-size-15 text-truncate">Limamou Diop</h5>
-              <p class="text-muted mb-0 text-truncate">775402051</p>
+              <h5 class="font-size-15 text-truncate">{{ this.donneesEleve[0].prenom +' '+ this.donneesEleve[0].nom}}</h5>
+              <p class="text-muted mb-0 text-truncate">{{this.donneesEleve[0].telephone }}</p>
             </div>
 
             <div class="col-sm-8">
               <div class="pt-4">
                 <div class="row">
                   <div class="col-6">
-                    <h5 class="font-size-15">CM2</h5>
+
                     <p class="text-muted mb-0">Classes</p>
+                    <h5 class="font-size-15">{{this.donneesEleve[0].classe }}</h5>
                   </div>
                   <div class="col-6">
-                    <h5 class="font-size-15">300</h5>
-                    <p class="text-muted mb-0">eleves</p>
+                    <p class="text-muted mb-0">Matricule</p>
+                    <h5 class="font-size-15">{{this.donneesEleve[0].matricule }}</h5>
+
                   </div>
                 </div>
                 <!-- <div class="mt-4">
@@ -63,31 +65,39 @@
               <tbody>
               <tr>
                 <th scope="row">Nom Complet:</th>
-                <td>{{nomPro}} Limamou diop</td>
+                <td>{{this.donneesEleve[0].prenom +' '+ this.donneesEleve[0].nom}}</td>
               </tr>
-              <tr>
+              <tr [formGroup]="formMensualite">
                 <th scope="row">Nombre de mois :</th>
-                <td> <select id="formrow-inputState" class="form-control">
+                <td> <select id="formrow-inputState" class="form-control"  formControlName="mois">
                   <option selected>Choose...</option>
-                  <option>1 mois</option>
-                  <option>2 mois</option>
-                  <option>3 mois</option>
-                  <option>4 mois</option>
-                  <option>5 mois</option>
+                  <option value="1">Janvier</option>
+                  <option value="2">Fevrier</option>
+                  <option value="3">Mars</option>
+                  <option value="4">Avril</option>
+                  <option value="5">Mai</option>
+                  <option value="6">Juin</option>
+                  <option value="7">Juilet</option>
+                  <option value="8">Aout</option>
+                  <option value="9">Septembre</option>
+                  <option value="10">Octobre</option>
+                  <option value="11">Novembre</option>
+                  <option value="12">Decembre</option>
                 </select></td>
+<!--                <td><ng-select [items]="selectValue" formControlName="mois" [multiple]="true"></ng-select></td>-->
               </tr>
-              <tr>
-                <th scope="row">Montant à payer :</th>
-                <td > 35.0000 FCFA</td>
-              </tr>
-              <tr>
+<!--              <tr [formGroup]="formMensualite">-->
+<!--                <th scope="row">Montant à payer :</th>-->
+<!--                <td ><input type="text" class="form-control" id="formrow-inputCit" formControlName="montant"></td>-->
+<!--              </tr>-->
+              <tr [formGroup]="formMensualite">
                 <th scope="row">Montant reçu</th>
-                <td><input type="text" class="form-control" id="formrow-inputCity"></td>
+                <td><input type="text" class="form-control" id="formrow-inputCity" formControlName="avance"></td>
               </tr>
               </tbody>
 
               <button class="btn btn-success" id="suivant"
-                      style=" color: white; "><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;
+                      style=" color: white; "  (click)="Valider()"><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;
 
             </table>
           </div>
@@ -148,34 +158,12 @@
               </tr>
               </thead>
               <tbody>
-              <tr >
+              <tr *ngFor="let data of donneesPaiement">
                 <td></td>
-                <td> octobre</td>
-                <td> 55.000 </td>
-                <td> 55.000 </td>
-                <td> 12/05/2021</td>
-                <td style="text-align: center;">
-                  <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
-                  <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
-                </td>
-              </tr>
-              <tr >
-                <td></td>
-                <td> Novembre</td>
-                <td> 55.000 </td>
-                <td> 55.000 </td>
-                <td> 12/05/2021</td>
-                <td style="text-align: center;">
-                  <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
-                  <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
-                </td>
-              </tr>
-              <tr >
-                <td></td>
-                <td> Decembre</td>
-                <td> 55.000 </td>
-                <td> 55.000 </td>
-                <td> 12/05/2021</td>
+                <td> {{getLibelleMoisById(data.moisId)}}</td>
+                <td> {{data.montant}} </td>
+                <td> {{data.restant}} </td>
+                <td> {{ data.date}}</td>
                 <td style="text-align: center;">
                   <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
                   <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
