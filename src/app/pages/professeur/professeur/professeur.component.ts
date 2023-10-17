@@ -51,7 +51,7 @@ export class ProfesseurComponent implements OnInit {
     classeId:'',
     matiereId: ''
 }
-  constructor(private route: Router,private serviceClasse: ClasseService,private modalService : NgbModal, private professeurService: ProfesseurService,  public fb: FormBuilder) { 
+  constructor(private route: Router,private serviceClasse: ClasseService,private modalService : NgbModal, private professeurService: ProfesseurService,  public fb: FormBuilder) {
     this.formprofesseur = this.fb.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
@@ -97,7 +97,7 @@ export class ProfesseurComponent implements OnInit {
     this.route.navigate(['/pages/professeur/classeEnseigner', id]);
     console.log(this.route);
 }
-  
+
 
  /**
    * Open extra large modal
@@ -105,7 +105,7 @@ export class ProfesseurComponent implements OnInit {
    */
  extraLarge(exlargeModal: any) {
   this.modalService.open(exlargeModal, { size: 'l', centered: true });
-  
+
 }
 
 ModalUpdateprofesseur(login, centerModal?: any) {
@@ -120,7 +120,7 @@ ModalUpdateprofesseur(login, centerModal?: any) {
       login: value[0].login,
       matiereId: 0,
       classeId: 0
-    
+
       });
       console.log(this.formprofesseur);
      this.idprofesseur=value[0].id;
@@ -130,7 +130,7 @@ ModalUpdateprofesseur(login, centerModal?: any) {
 }
 
 annuler(){
-  
+
   this.formprofesseur.reset();
   this.professeur = {
     adresse: '',
@@ -139,7 +139,7 @@ annuler(){
     lieuDeNaissance: null, // Utilisez null sans les guillemets pour représenter une valeur nulle
     nom: '',
     prenom: '',
-    sexe: null, 
+    sexe: null,
     telephone: '',
     login: '',
     classeId: '',
@@ -148,11 +148,11 @@ annuler(){
 }
 
 updateprofesseur() {
-  this.professeur.nom = this.formprofesseur.value.nom; 
-  this.professeur.prenom = this.formprofesseur.value.prenom; 
+  this.professeur.nom = this.formprofesseur.value.nom;
+  this.professeur.prenom = this.formprofesseur.value.prenom;
   this.professeur.adresse = this.formprofesseur.value.adresse;
-  this.professeur.telephone = this.formprofesseur.value.telephone; 
-  this.professeur.email = this.formprofesseur.value.telephone; 
+  this.professeur.telephone = this.formprofesseur.value.telephone;
+  this.professeur.email = this.formprofesseur.value.telephone;
   this.professeur.login = this.formprofesseur.value.login;
   console.log(this.idprofesseur, this.professeur)
     this.professeurService.updateProfesseur(this.idprofesseur, this.professeur).subscribe(
@@ -185,7 +185,7 @@ updateprofesseur() {
             title: 'Oops...',
             text: 'La modification a échoué!'
           });
-          
+
         }
       },
     );
@@ -229,14 +229,14 @@ testTelephone($event: any) {
 
 AddProfesseur() {
   // console.log(this.professeur);
-  this.professeur.nom = this.formprofesseur.value.nom; 
-  this.professeur.prenom = this.formprofesseur.value.prenom; 
+  this.professeur.nom = this.formprofesseur.value.nom;
+  this.professeur.prenom = this.formprofesseur.value.prenom;
   this.professeur.adresse = this.formprofesseur.value.adresse;
-  this.professeur.telephone = this.formprofesseur.value.telephone; 
-  this.professeur.email = this.formprofesseur.value.email; 
+  this.professeur.telephone = this.formprofesseur.value.telephone;
+  this.professeur.email = this.formprofesseur.value.email;
   this.professeur.login = this.formprofesseur.value.login;
-  this.professeur.classeId = this.formprofesseur.value.classeId; 
-  this.professeur.matiereId = this.formprofesseur.value.matiereId; 
+  this.professeur.classeId = this.formprofesseur.value.classeId;
+  this.professeur.matiereId = this.formprofesseur.value.matiereId;
   console.log(this.professeur);
   this.professeurService.addProfesseur(this.professeur).subscribe(
     result => {
@@ -284,6 +284,7 @@ AddProfesseur() {
 searchFilter(e) {
   const searchStr = e.target.value.trim().toLowerCase();
   if (searchStr.length === 0) {
+    // Si la chaîne de recherche est vide, réinitialise la liste
     this.professeurService.getAllProfeeseur().subscribe(
       (result) => {
         this.professeurs = result;
@@ -294,13 +295,13 @@ searchFilter(e) {
     );
   } else {
     this.professeurs = this.professeurs.filter((professeur) => {
-      return (professeur.nom && professeur.nom.toLowerCase().startsWith(searchStr.toLowerCase())) ||
-            (professeur.prenom && professeur.prenom.toLowerCase().startsWith(searchStr.toLowerCase())) ||
-             (professeur.telephone && professeur.telephone.toLowerCase().startsWith(searchStr.toLowerCase())) ||
-             (professeur.email && professeur.email.toLowerCase().startsWith(searchStr.toLowerCase())) ||
-             (professeur.adresse && professeur.adresse.toLowerCase().startsWith(searchStr.toLowerCase())) ||
-             (professeur.classeId && professeur.classeId.toLowerCase().startsWith(searchStr.toLowerCase())) ||
-             (professeur.matiereId && professeur.matiereId.toLowerCase().startsWith(searchStr.toLowerCase()));
+      return (professeur.nom && professeur.nom.toLowerCase().startsWith(searchStr)) ||
+             (professeur.prenom && professeur.prenom.toLowerCase().startsWith(searchStr)) ||
+             (professeur.telephone && professeur.telephone.toLowerCase().startsWith(searchStr)) ||
+             (professeur.email && professeur.email.toLowerCase().startsWith(searchStr)) ||
+             (professeur.adresse && professeur.adresse.toLowerCase().startsWith(searchStr)) ||
+             (professeur.classeId && professeur.classeId.toLowerCase().startsWith(searchStr)) ||
+             (professeur.matiereId && professeur.matiereId.toLowerCase().startsWith(searchStr));
     });
   }
 }
