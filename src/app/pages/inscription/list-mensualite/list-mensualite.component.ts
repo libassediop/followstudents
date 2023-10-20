@@ -32,6 +32,21 @@ export class ListMensualiteComponent implements OnInit {
     idMatiere: '',
     noteEleve: '',
   };
+
+  tabMois: { id: number, mois: string }[] = [
+    { id: 1, mois: 'Janvier' },
+    { id: 2, mois: 'Février' },
+    { id: 3, mois: 'Mars' },
+    { id: 4, mois: 'Avril' },
+    { id: 5, mois: 'Mai' },
+    { id: 6, mois: 'Juin' },
+    { id: 7, mois: 'Juillet' },
+    { id: 8, mois: 'Août' },
+    { id: 9, mois: 'Septembre' },
+    { id: 10, mois: 'Octobre' },
+    { id: 11, mois: 'Novembre' },
+    { id: 12, mois: 'Décembre' }
+  ];
   constructor(private fb : FormBuilder ,private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviveNote: NoteService) {
 
 

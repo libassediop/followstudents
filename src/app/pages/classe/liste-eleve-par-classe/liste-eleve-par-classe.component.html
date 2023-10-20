@@ -1,240 +1,227 @@
 <div class="container-fluid">
-  <app-page-title title="Gestion Des Classes"></app-page-title>
-  <div class="row">
-    <div class="col-xl-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="me-2">
-              <h5 class="card-title mb-4">Liste des élèves de la classe de {{libelle}} </h5>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
+    <app-page-title title="Gestion Des Classes"></app-page-title>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
                 <div class="card-body">
-                  <div class="row mb-2">
-                    <div class="col-sm-4">
-                      <div class="search-box me-4 mb-2 d-inline-block">
-                        <div class="position-relative">
-                          <input type="text" class="form-control" placeholder="Recherche..."
-                            [(ngModel)]="term">
-                          <i class="bx bx-search-alt search-icon"></i>
-
+                    <div class="d-flex">
+                        <div class="me-2">
+                            <h5 class="card-title mb-4">Liste des élèves de la classe de {{libelle}} </h5>
                         </div>
-                      </div>
                     </div>
-                    <!-- end col-->
-                    <div class="col-sm-8">
-                      <div class="text-sm-end">
-                        <button type="button" class="btn  btn-sm btn-rounded"
-                          style="background-color: #1e88e5; color:white ;"><i
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-4">
+                                            <div class="search-box me-4 mb-2 d-inline-block">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term">
+                                                    <i class="bx bx-search-alt search-icon"></i>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end col-->
+                                        <div class="col-sm-8">
+                                            <div class="text-sm-end">
+                                                <button type="button" class="btn  btn-sm btn-rounded" style="background-color: #1e88e5; color:white ;"><i
                             class="fa fa-print"></i>&nbsp;Imprimer</button>
-                      </div>
-                    </div><!-- end col-->
-                  </div>
-                  <div class="table-responsive mb-0">
-                    <table class="table table-centered table-nowrap">
-                      <thead class="bg-info bg-soft p-4">
-                        <tr>
-                          <th style="text-align: center;">
-                            #
-                          </th>
-                          <th style="text-align: center;">Nom</th>
-                          <th style="text-align: center;">Prénom</th>
-                          <th style="text-align: center;">date de naissance</th>
-                          <th style="text-align: center;">Sexe</th>
-                          <th style="text-align: center;">Contact parent</th>
-                          <th style="text-align: center;">Actions</th>
-
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let dataDC of eleves ; let i = index;">
-                          <td>
-                            <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
-                          </td>
-                          <td style="text-align: center;">{{dataDC.nom  | uppercase }} </td>
-                          <td style="text-align: center;">{{dataDC.prenom}}</td>
-                          <td style="text-align: center;">{{dataDC.dateNaissance}}</td>
-                          <td style="text-align: center;">{{ dataDC.sexe === '1' ? 'M' : 'F' }}</td>
-                          <td style="text-align: center;">{{dataDC.parent_telephone}}</td>
-                          <td style="text-align: center;">
-                            <button type="button" class="btn btn-warning"><i class="fas fa-edit"
-                                (click)="ModalUpdateEleve(dataDC.matricule, contentUpdateEleve)"></i>Modifier</button>&nbsp;
-                            <button type="button" (click)="goDetailsEleve(dataDC.matricule)"
-                              class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Détails</button>
-                          </td>
-
-                        </tr>
-
-
-                      </tbody>
-                    </table>
-
-
-
-                    <!-- Formulaire de Modification des indos d'un eleve -->
-                    <ng-template #contentUpdateEleve role="document" let-modal>
-                      <aw-wizard [navBarLayout]="'large-empty-symbols'">
-                        <aw-wizard-step stepTitle="Ajout Professeur">
-                          <ng-template awWizardStepSymbol>1</ng-template>
-                          <div class="row">
-                            <div class="col-md-12">
-
-                              <div class="card card-body">
-                                <div class="row mt-3">
-                                  <div class="col-12">
-                                    <div class="row mb-3">
-                                      <div class="col-md-4">
-                                        <input class="form-control" type="text" placeholder="Nom"
-                                          [(ngModel)]="inscription.nom">
-                                      </div>
-                                      <div class="col-md-4">
-                                        <input class="form-control" type="text" placeholder="Prénom"
-                                          [(ngModel)]="inscription.prenom">
-                                      </div>
-                                      <div class="col-md-4">
-                                        <input class="form-control" type="text" placeholder="Adresse"
-                                          [(ngModel)]="inscription.adresse">
-                                      </div>
+                                            </div>
+                                        </div>
+                                        <!-- end col-->
                                     </div>
-                                    <div class="row mb-3">
-                                      <div class="col-md-4">
-                                        <input class="form-control" type="text" placeholder="Sexe"
-                                          [(ngModel)]="inscription.sexe">
-                                      </div>
-                                      <div class="col-md-4">
-                                        <input class="form-control" type="date" placeholder="dateNaissance"
-                                          [(ngModel)]="inscription.dateNaissance">
-                                      </div>
+                                    <div class="table-responsive mb-0">
+                                        <table class="table table-centered table-nowrap">
+                                            <thead class="bg-info bg-soft p-4">
+                                                <tr>
+                                                    <th style="text-align: center;">
+                                                        #
+                                                    </th>
+                                                    <th style="text-align: center;">Nom</th>
+                                                    <th style="text-align: center;">Prénom</th>
+                                                    <th style="text-align: center;">Date de naissance</th>
+                                                    <th style="text-align: center;">Sexe</th>
+                                                    <th style="text-align: center;">Contact du tuteur</th>
+                                                    <th style="text-align: center;">Actions</th>
 
-                                      <div class="col-md-4">
-                                        <select class="form-select" id="autoSizingSelect"
-                                          [(ngModel)]="inscription.classeId">
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let dataDC of eleves ; let i = index;">
+                                                    <td>
+                                                        <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
+                                                    </td>
+                                                    <td style="text-align: center;">{{dataDC.nom | uppercase }} </td>
+                                                    <td style="text-align: center;">{{dataDC.prenom}}</td>
+                                                    <td style="text-align: center;">{{dataDC.dateNaissance}}</td>
+                                                    <td style="text-align: center;">{{ dataDC.sexe === '1' ? 'M' : 'F' }}</td>
+                                                    <td style="text-align: center;">{{dataDC.parent_telephone}}</td>
+                                                    <td style="text-align: center;">
+                                                        <button type="button" class="btn btn-warning" (click)="ModalUpdateEleve(dataDC.matricule, contentUpdateEleve)">
+                                                          <i class="fas fa-edit">
+                                                          </i> Modifier
+                                                      </button> &nbsp;
+                                                        <button type="button" (click)="goDetailsEleve(dataDC.matricule)" class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Détails</button>
+                                                    </td>
+
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                        <!-- Formulaire de Modification des indos d'un eleve -->
+                                        <ng-template #contentUpdateEleve role="document" let-modal>
+                                            <aw-wizard [navBarLayout]="'large-empty-symbols'">
+                                                <aw-wizard-step stepTitle="Ajout Professeur">
+                                                    <ng-template awWizardStepSymbol>1</ng-template>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+                                                            <div class="card card-body">
+                                                                <div class="row mt-3">
+                                                                    <div class="col-12">
+                                                                        <div class="row mb-3">
+                                                                            <div class="col-md-4">
+                                                                                <input class="form-control" type="text" placeholder="Nom" [(ngModel)]="inscription.nom">
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <input class="form-control" type="text" placeholder="Prénom" [(ngModel)]="inscription.prenom">
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <input class="form-control" type="text" placeholder="Adresse" [(ngModel)]="inscription.adresse">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <div class="col-md-4">
+                                                                                <input class="form-control" type="text" placeholder="Sexe" [(ngModel)]="inscription.sexe">
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <input class="form-control" type="date" placeholder="dateNaissance" [(ngModel)]="inscription.dateNaissance">
+                                                                            </div>
+
+                                                                            <div class="col-md-4">
+                                                                                <select class="form-select" id="autoSizingSelect" [(ngModel)]="inscription.classeId">
                                           <option value="" selected='selected' disabled>Veuillez lui afecter une classe
                                           </option>
                                           <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}
                                           </option>
                                         </select>
-                                      </div>
+                                                                            </div>
 
-                                    </div>
-                                  </div>
-                                </div>
-                                <br>
-                                <div style="text-align:center;">
-                                  <ul class="list-inline wizard mb-0"
-                                    style="text-align: center; display: inline-block;">
-                                    <li class="list-inline-item float-end">
-                                      <button class="btn btn-success" awNextStep>Suivant&nbsp;<i
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+                                                                <div style="text-align:center;">
+                                                                    <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+                                                                        <li class="list-inline-item float-end">
+                                                                            <button class="btn btn-success" awNextStep>Suivant&nbsp;<i
                                           class="fa fa-arrow-right"></i></button>
-                                    </li>
-                                    <li class="list-inline-item float-end">
-                                      <button class="btn btn-light" awNextStep style="color: black;" disabled><i
+                                                                        </li>
+                                                                        <li class="list-inline-item float-end">
+                                                                            <button class="btn btn-light" awNextStep style="color: black;" disabled><i
                                           class="fa fa-arrow-left"></i>&nbsp;Précédent</button>&nbsp;
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
 
-                            </div>
-                          </div>
+                                                        </div>
+                                                    </div>
 
-                        </aw-wizard-step>
+                                                </aw-wizard-step>
 
-                        <aw-wizard-step stepTitle="Informations Tuteur">
-                          <ng-template awWizardStepSymbol>2</ng-template>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="card card-body">
+                                                <aw-wizard-step stepTitle="Informations Tuteur">
+                                                    <ng-template awWizardStepSymbol>2</ng-template>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-body">
 
-                                <div class="row mt-3">
-                                  <div class="col-md-4">
-                                    <div class="col-sm-auto">
-                                      <input class="form-control" type="text" placeholder="telephoneParent"
-                                        [(ngModel)]="inscription.telephoneParent">
-                                    </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <div class="col-sm-auto">
-                                      <input class="form-control" type="text" placeholder="prenomParent"
-                                        [(ngModel)]="inscription.prenomParent">
-                                    </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <div class="col-sm-auto">
-                                      <input class="form-control" type="text" placeholder="nomParent"
-                                        [(ngModel)]="inscription.nomParent">
-                                    </div>
-                                  </div>
+                                                                <div class="row mt-3">
+                                                                    <div class="col-md-4">
+                                                                        <div class="col-sm-auto">
+                                                                            <input class="form-control" type="text" placeholder="telephoneParent" [(ngModel)]="inscription.telephoneParent">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="col-sm-auto">
+                                                                            <input class="form-control" type="text" placeholder="prenomParent" [(ngModel)]="inscription.prenomParent">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="col-sm-auto">
+                                                                            <input class="form-control" type="text" placeholder="nomParent" [(ngModel)]="inscription.nomParent">
+                                                                        </div>
+                                                                    </div>
 
-                                </div>
-                                <br>
-                                <div style="text-align:center;">
-                                  <ul class="list-inline wizard mb-0"
-                                    style="text-align: center; display: inline-block;">
-                                    <li class="list-inline-item float-end">
-                                      <button class="btn btn-success" awFinishWizard
-                                        (click)="updateinscriptions()">Confirmer&nbsp;<i
+                                                                </div>
+                                                                <br>
+                                                                <div style="text-align:center;">
+                                                                    <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+                                                                        <li class="list-inline-item float-end">
+                                                                            <button class="btn btn-success" awFinishWizard (click)="updateinscriptions()">Confirmer&nbsp;<i
                                           class="fa fa-save"></i></button>
-                                    </li>
-                                    <li class="list-inline-item float-end">
-                                      <button class="btn btn-light" awPreviousStep style="color: black;"><i
+                                                                        </li>
+                                                                        <li class="list-inline-item float-end">
+                                                                            <button class="btn btn-light" awPreviousStep style="color: black;"><i
                                           class="fa fa-arrow-left"></i>&nbsp;Précédent</button>&nbsp;
-                                    </li>
-                                  </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </aw-wizard-step>
+
+                                            </aw-wizard>
+                                        </ng-template>
+
+
+                                        <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2" [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="eleves?.length">
+                                            <ul class="pagination pagination-rounded justify-content-end mb-2">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                                                        <i class="mdi mdi-chevron-left"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link " href="javascript: void(0);" style="background-color: #1e88e5;">1</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript: void(0);">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript: void(0);">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript: void(0);">4</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript: void(0);">5</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                                                        <i class="mdi mdi-chevron-right"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </ngb-pagination>
+                                    </div>
                                 </div>
-
-                              </div>
                             </div>
-                          </div>
-                        </aw-wizard-step>
-
-                      </aw-wizard>
-                    </ng-template>
-
-
-                    <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2"
-                      [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="eleves?.length">
-                    <ul class="pagination pagination-rounded justify-content-end mb-2">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                          <i class="mdi mdi-chevron-left"></i>
-                        </a>
-                      </li>
-                      <li class="page-item active">
-                        <a class="page-link " href="javascript: void(0);" style="background-color: #1e88e5;">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript: void(0);">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript: void(0);">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript: void(0);">4</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript: void(0);">5</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                          <i class="mdi mdi-chevron-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                    </ngb-pagination>
-                  </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <!-- end card -->
             </div>
-          </div>
-        </div>
-        <!-- end card -->
-      </div>
-      <!-- end col -->
+            <!-- end col -->
 
+        </div>
+        <!-- end row -->
     </div>
-    <!-- end row -->
-  </div>
