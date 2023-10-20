@@ -17,6 +17,10 @@ export class EleveService {
     return this.http.get(this.host+'/eleve/getEleveByClasse/'+idClasse+'?token='+localStorage.getItem('token'));
   }
 
+  getAllInscriptionByClasse(idClasse){
+    return this.http.get(this.host+'/inscription/getInscriptionByClasse?classe_id='+idClasse+'&token='+localStorage.getItem('token'));
+  }
+
   getAllEleve(){
     return this.http.get(this.host+'/eleve/getAllEleve'+'?token='+localStorage.getItem('token'));
   }

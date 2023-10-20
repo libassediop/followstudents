@@ -93,8 +93,6 @@ export class SuiviPaiementComponent implements OnInit {
       this.donneesEleve = resp;
       this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve[0].id).subscribe(resp => {
         this.donneesPaiement = resp['response'];
-        console.log(this.donneesPaiement);
-        console.log(resp);
       });
     }, error1 => {
     });
@@ -198,6 +196,9 @@ export class SuiviPaiementComponent implements OnInit {
     console.log(this.mensualite);
     this.seviceInscription.addMensualite(this.mensualite).subscribe(res => {
       console.log(res);
+      this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve[0].id).subscribe(resp => {
+        this.donneesPaiement = resp['response'];
+      });
       }
     );
 
