@@ -51760,7 +51760,7 @@ class ClasseComponent {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'classe ajouté avec success',
+                    title: 'classe ajouté avec succèss',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -53548,7 +53548,7 @@ class MatiereComponent {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'matiere ajouté avec success',
+                    title: 'matiere ajouté avec succèss',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -53593,7 +53593,7 @@ class MatiereComponent {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'matiere modifié avec success',
+                    title: 'matiere modifié avec succèss',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -54320,7 +54320,7 @@ class PersonnelComponent {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'personnel ajouté avec success',
+                    title: 'personnel ajouté avec succèss',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -55471,7 +55471,7 @@ class ProfesseurComponent {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'professeur ajouté avec success',
+                    title: 'professeur ajouté avec succèss',
                     showConfirmButton: false,
                     timer: 1500
                 });

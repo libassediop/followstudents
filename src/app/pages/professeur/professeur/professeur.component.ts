@@ -241,7 +241,7 @@ AddProfesseur() {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Professeur ajouté avec success',
+          title: 'Professeur ajouté avec succèss',
           showConfirmButton: false,
           timer: 1500
         });

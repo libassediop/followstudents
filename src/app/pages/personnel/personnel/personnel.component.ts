@@ -69,6 +69,9 @@ export class PersonnelComponent implements OnInit {
    * @param exlargeModal extra large modal data
    */
  extraLarge(exlargeModal: any) {
+  this.trouveEmail = false;
+  this.trouveTel = false;
+  this.trouveLogin = false;
   this.modalService.open(exlargeModal, { size: 'l', centered: true });
 }
 
@@ -86,7 +89,7 @@ Addpersonnel() {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Personnel ajouté avec success',
+          title: 'Personnel ajouté avec succèss',
           showConfirmButton: false,
           timer: 1500
         });
@@ -237,6 +240,9 @@ ModalUpdatePersonnel(login, centerModal?: any) {
             timer: 1500
           });
           this.formPersonnel.reset();
+          this.trouveEmail = false;
+          this.trouveTel = false;
+          this.trouveLogin = false;
         }
          else {
           Swal.fire({

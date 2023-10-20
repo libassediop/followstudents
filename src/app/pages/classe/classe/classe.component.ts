@@ -64,7 +64,7 @@ idClasse;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'classe ajouté avec success',
+            title: 'Classe ajoutée avec succèss',
             showConfirmButton: false,
             timer: 1500
           });
@@ -137,7 +137,7 @@ idClasse;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Classe modifiée avec success',
+            title: 'Classe modifiée avec succèss',
             showConfirmButton: false,
             timer: 1500
           });

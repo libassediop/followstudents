@@ -117,7 +117,7 @@ navItem1: HTMLElement;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'inscription ajoutée avec success',
+            title: 'inscription ajoutée avec succèss',
             showConfirmButton: false,
             timer: 1500
           });

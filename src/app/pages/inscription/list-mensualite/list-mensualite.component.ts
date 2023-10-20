@@ -91,7 +91,7 @@ export class ListMensualiteComponent implements OnInit {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'matiere ajouté avec success',
+            title: 'matiere ajouté avec succèss',
             showConfirmButton: false,
             timer: 1500
           });

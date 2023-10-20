@@ -54,7 +54,7 @@ idMatiere;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Matière ajoutée avec success',
+            title: 'Matière ajoutée avec succèss',
             showConfirmButton: false,
             timer: 1500
           });
@@ -67,6 +67,7 @@ idMatiere;
               console.log(error);
             }
           );
+          this.formM.reset()
 
         }
         else{
@@ -124,7 +125,7 @@ idMatiere;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Matiere modifiée avec success',
+            title: 'Matiere modifiée avec succèss',
             showConfirmButton: false,
             timer: 1500
           });
@@ -181,7 +182,7 @@ idMatiere;
   }
 
   currentPage = 1;
-  pageSize = 6;
+  pageSize = 15;
 
   get startIndex() {
     return (this.currentPage - 1) * this.pageSize;
