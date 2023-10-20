@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
   <!-- start page title -->
-  <app-page-title title="Liste Personnel"></app-page-title>
+  <app-page-title title="Liste du personnel"></app-page-title>
   <!-- end page title -->
 
   <div class="row">
@@ -9,16 +9,20 @@
       <div class="col-sm-4">
         <div class="search-box me-2 mb-2 d-inline-block">
           <div class="position-relative">
-            <input type="text" class="form-control" placeholder="Search..." (input)="searchFilter($event)" />
+            <input type="text" class="form-control" placeholder="Recherche..." (input)="searchFilter($event)" />
             <i class="bx bx-search-alt search-icon"></i>
           </div>
         </div>
       </div>
       <button class="btn btn-success  btn-rounded  ms-auto mb-2" (click)="extraLarge(content)">
-        <i class="mdi mdi-plus me-1"></i>Ajouter Personnel </button>
+        <i class="mdi mdi-plus me-1"></i>Nouveau personnel </button>
     </div>
     <!--modal pour l'ajout personnel-->
     <ng-template #content role="document" let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Ajout d'un nouveau personnel</h5>
+        <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="card card-body">
@@ -28,19 +32,19 @@
                   <div class="row mb-3">
                     <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
                     <div class="col-sm-6 test">
-                      <input class="form-control" type="text" placeholder="nom" formControlName="nom">
+                      <input class="form-control" type="text" placeholder="Nom" formControlName="nom">
                     </div>
                     <div class="col-md-6">
-                      <input class="form-control" type="text" placeholder="Prenom" formControlName="prenom">
+                      <input class="form-control" type="text" placeholder="Prénom" formControlName="prenom">
                     </div>
                     </div>
                     <div class="row mb-3">
 
                     <div class="col-md-6">
-                      <input class="form-control" type="text" placeholder="adresse" formControlName="adresse">
+                      <input class="form-control" type="text" placeholder="Adresse" formControlName="adresse">
                     </div>
                     <div class="col-md-6">
-                      <input class="form-control" type="text" placeholder="telephone" formControlName="telephone" (ngModelChange)="testTelephone($event)">
+                      <input class="form-control" type="text" placeholder="Téléphone" required formControlName="telephone" (ngModelChange)="testTelephone($event)">
                       <span class="text-danger" *ngIf="trouveTel" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce  numéro existe deja</span>
                     </div>
                   </div>
@@ -50,11 +54,11 @@
           </div> -->
                   <div class="row mb-3">
                     <div class="col-sm-6 test">
-                      <input class="form-control" type="email" placeholder="email" formControlName="email" (ngModelChange)="testEmail($event)">
+                      <input class="form-control" type="email" placeholder="Email" formControlName="email" (ngModelChange)="testEmail($event)">
                       <span class="text-danger" *ngIf="trouveEmail" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;cet email existe deja</span>
                     </div>
                     <div class="col-md-6">
-                      <input class="form-control" type="text" placeholder="login" formControlName="login" (ngModelChange)="testIdentifiant($event)">
+                      <input class="form-control" type="text" placeholder="Login" formControlName="login" (ngModelChange)="testIdentifiant($event)">
                       <span class="text-danger" *ngIf="trouveLogin" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce login existe deja</span>
                     </div>
 
@@ -66,10 +70,10 @@
                 <div style="text-align:center;">
                   <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
                     <button type="button"  
-                    class="btn btn-light" style="float:center;"><i class="fa fa-closed" (click)="annuler()"></i>&nbsp;Annuler</button>
+                    class="btn btn-primary" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
                     &nbsp;
-                    <button type="button" [disabled]="formPersonnel.invalid" (click)="Addpersonnel()"
-                      class="btn btn-success" style="float:center;"><i class="fa fa-save"></i>&nbsp;Valider</button>
+                    <button type="button" [disabled]="formPersonnel.invalid || trouveTel || trouveLogin || trouveEmail" (click)="Addpersonnel()"
+                      class="btn btn-success" style="float:center;"><i class="fa fa-save"></i>&nbsp;Ajouter</button>
                   </ul>
                 </div>
               </div>
@@ -87,29 +91,30 @@
           <div class="row">
 
 
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <div class="text-lg-center">
                 <div class="avatar-sm me-3 mx-lg-auto mb-3 float-start float-lg-none">
                   <span class="avatar-title rounded-circle bg-soft bg-primary text-primary font-size-16">
                     {{ dataPersonnel.nom.charAt(0)}}
                   </span>
                 </div>
-                <!-- <img *ngIf="dataPersonnel.image" src="{{dataPersonnel.image}}"
-                    class="avatar-sm me-3 mx-lg-auto mb-3 mt-1 float-start float-lg-none rounded-circle" alt="img"> -->
-                <h5 class="mb-1 font-size-15 text-truncate"> {{ dataPersonnel.email }}</h5>
-                <a href="javascript: void(0);" class="text-muted"><i class="fa fa-location"></i><i
-                    class="mdi mdi-map-marker"></i>&nbsp;{{ dataPersonnel.adresse }}</a>
-              </div>
+
+              <div>
+                    <a href="javascript: void(0);" class="text-muted"><i class="fa fa-phone"></i>&nbsp;{{ dataPersonnel.telephone }}</a>
+                  </div>
+                  <div>
+                    <a href="javascript: void(0);" class="text-muted"><i class="fa fa-map-marker"></i>&nbsp;{{ dataPersonnel.adresse }}</a>
+                  </div>
+                  </div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-7">
               <div>
                 <ul class="list-inline mb-0">
                   <h5 class="text-truncate mb-4 mb-lg-5"><i
                       class="bx bx-mail"></i>{{ dataPersonnel.nom + ', ' + dataPersonnel.prenom }} </h5>
-                  <p><i class="fa fa-phone"></i>&nbsp;{{ dataPersonnel.telephone }}</p>
                   <!-- <h6 class="text-truncate mb-4 mb-lg-5"></h6> -->
-                  <li class="list-inline-item me-3">
+                  <li class="list-inline-item me-2">
                     <button type="button" class="btn btn-white"
                       (click)="ModalUpdatePersonnel(dataPersonnel.login,contentUpdatePersonnel)">
                       <i class="bx bx-edit text-warning my-custom-icon"></i>
@@ -140,7 +145,7 @@
   <!--modal pour modifier personnel-->
   <ng-template #contentUpdatePersonnel role="document" let-modal>
     <div class="modal-header">
-      <h5 class="modal-title mt-0">Modifier Personnel</h5>
+      <h5 class="modal-title mt-0">Modification du personnel {{ formPersonnel.get('nom').value }} {{ formPersonnel.get('prenom').value }}</h5>
       <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="row">
@@ -152,19 +157,19 @@
                 <div class="row mb-3">
                   <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
                   <div class="col-sm-6 test">
-                    <input class="form-control" type="text" placeholder="nom" formControlName="nom">
+                    <input class="form-control" type="text" placeholder="Nom" formControlName="nom">
 
                   </div>
                   <div class="col-md-6">
-                    <input class="form-control" type="text" placeholder="Prenom" formControlName="prenom">
+                    <input class="form-control" type="text" placeholder="Prénom" formControlName="prenom">
                   </div>
                   </div>
                   <div class="row mb-3">
                   <div class="col-md-6">
-                    <input class="form-control" type="text" placeholder="adresse" formControlName="adresse">
+                    <input class="form-control" type="text" placeholder="Adresse" formControlName="adresse">
                   </div>
                   <div class="col-md-6">
-                    <input class="form-control" type="text" placeholder="telephone" formControlName="telephone" (ngModelChange)="testTelephone($event)">
+                    <input class="form-control" type="text" placeholder="Téléphone" formControlName="telephone" (ngModelChange)="testTelephone($event)">
                     <label class="rouge" *ngIf="trouveTel"><i class="pe-7s-info" aria-hidden="true"></i>ce numéro existe
                       deja</label>
                   </div>
@@ -175,12 +180,12 @@
           </div> -->
                 <div class="row mb-3">
                   <div class="col-sm-6 test">
-                    <input class="form-control" type="email" placeholder="email" formControlName="email">
+                    <input class="form-control" type="email" placeholder="Email" formControlName="email" (ngModelChange)="testEmail($event)">
                     <label class="rouge" *ngIf="trouveEmail"><i class="pe-7s-info" aria-hidden="true"></i>ce mail existe
                       deja</label>
                   </div>
                   <div class="col-md-6">
-                    <input class="form-control" type="text" placeholder="login" formControlName="login">
+                    <input class="form-control" type="text" placeholder="Login" formControlName="login" (ngModelChange)="testIdentifiant($event)">
                     <label class="rouge" *ngIf="trouveLogin"><i class="pe-7s-info" aria-hidden="true"></i>ce login
                       existe deja</label>
                   </div>
@@ -193,10 +198,10 @@
               <div style="text-align:center;">
                 <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
                   <button type="button"  
-                    class="btn btn-light" style="float:center;"><i class="fa fa-closed" (click)="annuler()"></i>&nbsp;Annuler</button>
+                    class="btn btn-primary" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
                     &nbsp;
-                  <button type="button" class="btn btn-success" style="float:center;" (click)="updatePersonnel()"><i
-                      class="fa fa-save"></i>&nbsp;Enregistrer Modification</button>
+                  <button type="button" class="btn btn-success" style="float:center;" (click)="updatePersonnel()" [disabled]="formPersonnel.invalid || trouveTel || trouveLogin || trouveEmail"><i
+                      class="fa fa-save"></i>&nbsp;Modifier</button>
                 </ul>
               </div>
             </div>

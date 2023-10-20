@@ -19,9 +19,12 @@ update: any;
 idClasse;
   modif: string;
   searchTerm: any;
-  
+  public filteredClasses: any = [];
 
-
+  activeSortColumn: string = 'libelle';  // Colonne de tri par défaut
+  activeSortColumnNiveau: string = 'niveau'; 
+  isAscending: boolean = false;
+  isAscendingNiveau: boolean = false;      
    
   constructor(private route: Router,private serviceClasse : ClasseService, public fb: FormBuilder, private modalService : NgbModal) {
     this.formClasse = this.fb.group({
@@ -38,8 +41,10 @@ idClasse;
   ngOnInit(): void {
     this.serviceClasse.getAllClasse().subscribe(
       (result)=>{
-        console.log(result)
         this.classes=result
+        this.filteredClasses = result;
+        this.filterClasses();  // Appliquer le filtre initial
+        this.sortClasses();    // Trier les classes initiales
       },
       err =>{
         console.log(err)
@@ -49,12 +54,11 @@ idClasse;
   
 
   Addclasse() {
-    console.log(this.classe);
     this.classe.libelle = this.formClasse.value.libelle;
     this.classe.niveau = this.formClasse.value.niveau;
     this.serviceClasse.addClasse(this.classe).subscribe(
       result => {
-        console.log(result);
+       
         this.modalService.dismissAll();
         if (result['sucsess']) {
           Swal.fire({
@@ -67,13 +71,20 @@ idClasse;
           this.formClasse.reset()
           this.serviceClasse.getAllClasse().subscribe(
             (result) => {
-              this.classes = result;
+              this.filteredClasses = result;
             },
             error => {
               console.log(error);
             }
           );
           this.formClasse.reset()
+        }
+        else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops... L\'ajout de la classe a échoué',
+            text: 'Pouvez-vous vérifier si la classe n\'existe pas déjà!'
+          });
         }
         this.classe = {
           libelle: '',
@@ -82,6 +93,7 @@ idClasse;
       },
       error => {
         console.log(error)
+        
       }
     )
   }
@@ -101,7 +113,6 @@ idClasse;
     }
 
   ModifierClasse (){
-    console.log(this.idClasse , this.classe)
     this.classe.libelle = this.formClasse.value.libelle;
     this.classe.niveau = this.formClasse.value.niveau;
     this.serviceClasse.modifierClasse(this.idClasse, this.classe).subscribe(
@@ -116,7 +127,8 @@ idClasse;
           this.formClasse.reset();
           this.serviceClasse.getAllClasse().subscribe(
             (result) => {
-              this.classes = result;
+              this.filteredClasses = result;
+              this.update=false;
             },
             error => {
               console.log(error);
@@ -125,7 +137,7 @@ idClasse;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'classe modifié avec success',
+            title: 'Classe modifiée avec success',
             showConfirmButton: false,
             timer: 1500
           });
@@ -136,7 +148,7 @@ idClasse;
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Une erreur est survenue lors de la modification de la matière .',
+            text: 'Une erreur est survenue lors de la modification de la classe .',
           });
         }
       },
@@ -144,6 +156,40 @@ idClasse;
     );
   }
  
+  supprimerClasse (id : any){
+   
+      Swal.fire({
+        title: 'Êtes-vous sûr?',
+        text: 'Vous ne pourrez pas revenir en arrière !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#34c38f',
+        cancelButtonColor: '#f46a6a',
+        confirmButtonText: 'Oui, continuer!'
+      }).then((result) => {
+        if (result.value) {
+          this.serviceClasse.supprimerClasseById(id).subscribe(
+            (value) => {
+              if (value['success']) {
+                Swal.fire('Suppression!', 'La classe a été supprimée avec succès.', 'success');
+                this.serviceClasse.getAllClasse().subscribe(
+                  (result)=>{
+                    this.filteredClasses=result
+                  },
+                  err =>{
+                    console.log(err)
+                  }
+                );
+              }
+              else{
+                Swal.fire('Erreur!', 'La classe ne peut pas être supprimée.', 'error');
+              }
+            }
+          );
+        }
+      });
+    }
+  
 
   annuler() {
     this.update=false;
@@ -156,7 +202,7 @@ idClasse;
 
 
   currentPage = 1;
-  pageSize = 6;
+  pageSize = 15;
 
   get startIndex() {
     return (this.currentPage - 1) * this.pageSize;
@@ -171,5 +217,76 @@ golisteClasse(id: any) {
 
   this.route.navigate(['/pages/classe/listeEleveParClasse', id]);
 
+}
+
+imprimerClasses(): void {
+  window.print();
+}
+
+filterClasses() {
+  // Vérifiez si 'term' est défini
+  if (this.term) {
+    // Filtrer les classes en fonction du terme de recherche
+    this.filteredClasses = this.classes.filter((classe) =>
+      classe.libelle.toLowerCase().includes(this.term.toLowerCase())
+    );
+  } else {
+    // Si 'term' n'est pas défini, utilisez simplement la liste complète de classes
+    this.filteredClasses = this.classes;
+  }
+}
+
+sortClasses(column: string = 'libelle') {
+  // Mettez à jour le code pour trier les classes en fonction de la colonne
+  this.filteredClasses.sort((a, b) => {
+    const valueA = a[column].toLowerCase();
+    const valueB = b[column].toLowerCase();
+
+    // Compare les valeurs en fonction de l'ordre de tri
+    let comparison = 0;
+    if (valueA > valueB) {
+      comparison = 1;
+    } else if (valueA < valueB) {
+      comparison = -1;
+    }
+
+    // Inverse l'ordre de tri si nécessaire
+    return this.isAscending ? comparison : -comparison;
+  });
+
+  // Mettez à jour la colonne de tri active
+  this.activeSortColumn = column;
+  
+
+  // Inverse l'ordre de tri pour la prochaine fois
+  this.isAscending = !this.isAscending;
+}
+
+
+
+sortNiveau(column: string = 'niveau') {
+  // Mettez à jour le code pour trier les classes en fonction de la colonne
+  this.filteredClasses.sort((a, b) => {
+    const valueA = a[column].toLowerCase();
+    const valueB = b[column].toLowerCase();
+
+    // Compare les valeurs en fonction de l'ordre de tri
+    let comparison = 0;
+    if (valueA > valueB) {
+      comparison = 1;
+    } else if (valueA < valueB) {
+      comparison = -1;
+    }
+
+    // Inverse l'ordre de tri si nécessaire
+    return this.isAscendingNiveau ? comparison : -comparison;
+  });
+
+  // Mettez à jour la colonne de tri active
+  this.activeSortColumnNiveau = column;
+
+
+  // Inverse l'ordre de tri pour la prochaine fois
+  this.isAscendingNiveau = !this.isAscendingNiveau;
 }
 }

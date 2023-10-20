@@ -178,31 +178,33 @@ idMatiere;
   
   DeleteMatiere(id: string) {
     Swal.fire({
-      title: 'êtes vous sure?',
+      title: 'Êtes-vous sûr?',
       text: 'Vous ne pourrez pas revenir en arrière !',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
       cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Oui, effacer le!'
-    }).then(result => {
+      confirmButtonText: 'Oui, continuer!'
+    }).then((result) => {
       if (result.value) {
         this.serviceMatiere.supprimerMatiereById(id).subscribe(
-          value => {
+          (value) => {
             if (value['success']) {
-              Swal.fire('Supprimé!', 'La Matiere  a  été supprimée.', 'success');
+              Swal.fire('Suppression!', 'La matière a été supprimée avec succès.', 'success');
+              this.serviceMatiere.getAllMatiere().subscribe(
+                (result)=>{
+                  this.matieres=result
+                },
+                err =>{
+                  console.log(err)
+                }
+              );
             }
-            this.serviceMatiere.getAllMatiere().subscribe(
-              (result) => {
-                this.matieres=result['reponse']
-              },
-              error=>{
-                console.log(error)
-              }
-            );
-
+            else{
+              Swal.fire('Erreur!', 'La matière ne peut pas être supprimée.', 'error');
+            }
           }
-        )
+        );
       }
     });
   }

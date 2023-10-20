@@ -1,20 +1,20 @@
-<div class="container-fluid">
-  <app-page-title title="Gestion Des Classes"></app-page-title>
+<div class="container-fluid print-content">
+  <app-page-title title="Gestion des classes"></app-page-title>
   <div class="row">
-    <div class="col-xl-4">
+    <div class="col-xl-4 no-print">
       <div class="card">
         <div class="card-body">
           <div class="d-flex">
             <div class="me-2">
-              <h5 *ngIf="!update" class="card-title mb-4 text-primary">Ajout Classe</h5>
-              <h5 *ngIf="update" class="card-title mb-4 text-primary">Modifier Classe</h5>
+              <h5 *ngIf="!update" class="card-title mb-4 text-primary">Ajout d'une nouvelle classe</h5>
+              <h5 *ngIf="update" class="card-title mb-4 text-primary">Modification de la classe {{ formClasse.get('libelle').value }}</h5>
             </div>
 
           </div>
           <form (ngSubmit)="Addclasse()">
             <div class="text-center mt-4">
               <div class="input-group bg-light rounded" [formGroup]="formClasse">
-                <input type="text" class="form-control bg-transparent border-0" placeholder="Nom Classe"
+                <input type="text" class="form-control bg-transparent border-0" placeholder="Entrer le libellé"
                   formControlName="libelle">
               </div>
             </div>
@@ -22,7 +22,7 @@
             <div class="text-center mt-4">
               <div class="input-group bg-light rounded" [formGroup]="formClasse">
                 <select type="text" class="form-control bg-transparent border-0" formControlName="niveau">
-                  <option value="" selected disabled>Veuillez choisir le niveau</option>
+                  <option value="" selected disabled>Choisir le niveau</option>
                   <option value="1">1er Cycle</option>
                   <option value="2">2eme Cycle</option>
                   <option value="3">3eme Cycle</option>
@@ -31,14 +31,13 @@
             </div>
             <div class="text-center mt-4">
               <div class="text-center">
-                <button type="button" class="btn btn-success btn-rounded mb-2 me-2" (click)="Addclasse()"
-                  [disabled]="formClasse.invalid"><i class="mdi mdi-plus mr-1"></i>
+                <button *ngIf="!update" type="button" class="btn btn-success btn-rounded mb-2 me-2" (click)="Addclasse()"
+                  [disabled]="formClasse.invalid"><i class="fa fa-save"></i>&nbsp;
                   Ajouter</button>
                 <button *ngIf="update" type="button" class="btn btn-warning btn-rounded mb-2 me-2"
-                  (click)="ModifierClasse()"><i class="mdi mdi-plus mr-1"></i>
+                  (click)="ModifierClasse()"><i class="fa fa-edit"></i>&nbsp;
                   Modifier</button> &nbsp;
-                <button *ngIf="update" type="button" class="btn btn-danger btn-rounded mb-2 me-2" (click)="annuler()"><i
-                    class="mdi mdi-plus mr-1"></i>
+                <button *ngIf="update" type="button" class="btn btn-danger btn-rounded mb-2 me-2" (click)="annuler()"><i class="fa fa-undo"></i>&nbsp;
                   Annuler</button>
               </div>
             </div>
@@ -53,7 +52,7 @@
         <div class="card-body">
           <div class="d-flex">
             <div class="me-2">
-              <h5 class="card-title mb-4">Liste des Classes</h5>
+              <h5 class="card-title mb-4">Liste des classes</h5>
             </div>
 
           </div>
@@ -62,21 +61,21 @@
               <div class="card">
                 <div class="card-body">
                   <div class="row mb-2">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 no-print">
                       <div class="search-box me-2 mb-2 d-inline-block">
                         <div class="position-relative">
-                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                          <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term" (input)="filterClasses()">
                           <i class="bx bx-search-alt search-icon"></i>
 
                         </div>
                       </div>
                     </div>
                     <!-- end col-->
-                    <div class="col-sm-8">
+                    <div class="col-sm-8 no-print">
                       <div class="text-sm-end">
-                        <button type="button" class="btn  btn-sm btn-rounded"
-                          style="background-color: #1e88e5; color:white ;"><i
-                            class="fa fa-print"></i>&nbsp;Imprimer</button>
+                        <button type="button" class="btn btn-sm btn-rounded" style="background-color: #1e88e5; color:white;" (click)="imprimerClasses()">
+                          <i class="fa fa-print"></i>&nbsp;Imprimer
+                        </button>
                       </div>
                     </div><!-- end col-->
 
@@ -88,38 +87,41 @@
                     <table class="table table-centered table-nowrap">
                       <thead class="bg-info bg-soft p-4">
                         <tr>
-                          <th style="text-align: center;">
+                          <th style="text-align: center;" class="no-print">
                             #
                           </th>
-                          <th style="text-align: center;">Classe</th>
-                          <th style="text-align: center;">Niveau</th>
-                          <th style="text-align: center;">Action</th>
-                          <th style="text-align: center;">Action</th>
+                          <th style="text-align: center; cursor: pointer;" (click)="sortClasses('libelle')">
+                            Classe
+                            <span *ngIf="activeSortColumn === 'libelle'" class="no-print">{{ isAscending ? '↓↓' : '↑↑' }}</span>
+                          </th>
+                          <th style="text-align: center; cursor: pointer;" (click)="sortNiveau('niveau')">
+                            Niveau
+                            <span *ngIf="activeSortColumnNiveau === 'niveau'" class="no-print">{{ isAscendingNiveau ? '↓↓' : '↑↑' }}</span>
+                          </th>
+                          <th style="text-align: center;" class="no-print">Action</th>
+                          <th style="text-align: center;" class="no-print">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let dataClasse of classes| slice:startIndex:endIndex; let i = index;">
-                          <td>
+                        <tr *ngFor="let dataClasse of filteredClasses | slice:startIndex:endIndex; let i = index;">
+                          <td class="no-print" style="text-align: center;">
                             <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
                           </td>
                           <td style="text-align: center;">{{dataClasse.libelle}} </td>
                           <td style="text-align: center;">{{dataClasse.niveau}} cycle</td>
-                          <td style="text-align: center;">
+                          <td style="text-align: center;" class="no-print">
                             <button type="button" class="btn btn-warning no-print"><i class="fas fa-edit"
                                 (click)="UpdateClasse(dataClasse.id)"></i></button>&nbsp;
+                                <button type="button" class="btn btn-danger no-print"><i class="fas fa-trash"
+                                  (click)="supprimerClasse(dataClasse.id)"></i></button>
                           </td>
-                          <td style="text-align: center;">
+                          <td style="text-align: center;" class="no-print">
                             <button type="button" (click)="golisteClasse(dataClasse.id)"
-                              class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Listes Eleves</button>
+                              class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Listes des élèves</button>
                           </td>
                         </tr>
-
-
                       </tbody>
                     </table>
-
-
-
                     <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2"
                       [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="classes.length">
                       <ul class="pagination pagination-rounded justify-content-end mb-2">

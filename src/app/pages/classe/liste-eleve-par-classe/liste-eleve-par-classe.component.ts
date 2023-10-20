@@ -21,6 +21,7 @@ export class ListeEleveParClasseComponent implements OnInit {
   classes: any=[];
   donneesClasses;
   mat='';
+  libelle;
   inscription: Inscription = {
       id:'',
       nom: '',
@@ -66,7 +67,7 @@ export class ListeEleveParClasseComponent implements OnInit {
         });
     this.serviceClasse.getClasseById(id).subscribe(resp => {
       this.donneesClasses = resp;
-      console.log(resp)
+      this.libelle = this.donneesClasses[0]?.libelle
   }, error1 => {
   });
   }

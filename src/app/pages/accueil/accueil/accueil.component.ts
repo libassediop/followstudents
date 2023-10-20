@@ -48,13 +48,11 @@ eleves;
        const horizontal = document.getElementById('layout-horizontal');
        if (horizontal != null) {
          horizontal.setAttribute('checked', 'true');
-         console.log(horizontal);
        }
      }
 
      this.serviceClasse.getAllClasse().subscribe(
         (result)=>{
-          console.log(result)
           this.classes=result
         },
         err =>{
@@ -62,7 +60,6 @@ eleves;
         }
       );
      this.eleveByClasseservice.getAllEleveByClasse(this.eleves).subscribe((data: any) => {
-        console.log(data)
         const nombreElevesParClasse = data.map((classe: any) => classe.eleves.length);
         this.nbrEleParCla.datasets[0].data = nombreElevesParClasse;
 
@@ -121,8 +118,8 @@ eleves;
 
     },
     {
-      icon: 'bx bxs-user',
-      title: 'Eleves',
+      icon: 'bx bx-body',
+      title: 'Élèves',
       value: '500'
     },
     {
@@ -192,7 +189,7 @@ eleves;
     ],
     datasets: [
         {
-            label: 'Nombre Eleves Par Classe',
+            label: 'Nombre élèves par classe',
             backgroundColor: 'rgba(52, 195, 143, 0.8)',
             borderColor: 'rgba(52, 195, 143, 0.8)',
             borderWidth: 1,

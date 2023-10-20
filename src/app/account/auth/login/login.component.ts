@@ -84,7 +84,6 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.u.login = this.f.value.login;
     this.u.password = this.f.value.password;
-    console.log(this.u)
       this.authService.login(this.u).subscribe(resp => {
         // if (resp['user'].password_changed === 0) {
         //   // console.log(resp);
@@ -94,7 +93,7 @@ export class LoginComponent implements OnInit {
         //   this.router.navigate(['first']);
         // } else {
           this.authService.saveToken(resp['token'], resp['user'].nom, resp['user'].prenom, resp['user'].profilId, resp['user'].id, resp['user'].login);
-          this.router.navigate(['pages']);
+          this.router.navigate(['pages/accueil/accueil']);
         }
       , error1 => {
         // this.Toast('danger', 'Erreur !', 'Identifiant ou mot de passe incorect!')

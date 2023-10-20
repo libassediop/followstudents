@@ -1,0 +1,34 @@
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-content {
+    visibility: visible;
+  }
+
+  .print-content .no-print {
+    display: none;
+  }
+
+  .print-content .print-header {
+    display: block;
+  }
+}
+
+
+th.sortable {
+    cursor: pointer;
+  }
+  
+  .sort-icon {
+    margin-left: 4px;
+  }
+  
+  .sort-icon::before {
+    content: '\2191'; /* Flèche vers le haut */
+  }
+  
+  .sort-icon.desc::before {
+    content: '\2193'; /* Flèche vers le bas */
+  }

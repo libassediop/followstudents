@@ -4,9 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Personnel } from 'src/app/layouts/service/general.model';
 import { ProfesseurService } from 'src/app/layouts/service/professeur.service';
 import Swal from 'sweetalert2';
-import { InvoiceList } from 'src/modeles/list.model';
-import { catchError, switchMap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-personnel',
@@ -76,7 +73,6 @@ export class PersonnelComponent implements OnInit {
 }
 
 Addpersonnel() {
-  console.log(this.personnel);
   this.personnel.nom = this.formPersonnel.value.nom; 
   this.personnel.prenom = this.formPersonnel.value.prenom; 
   this.personnel.adresse = this.formPersonnel.value.adresse;
@@ -85,13 +81,12 @@ Addpersonnel() {
   this.personnel.login = this.formPersonnel.value.login; 
   this.professeurService.addSecretaire(this.personnel).subscribe(
     result => {
-      console.log(result);
       this.modalService.dismissAll();
       if (result['success']) {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'personnel ajouté avec success',
+          title: 'Personnel ajouté avec success',
           showConfirmButton: false,
           timer: 1500
         });
@@ -127,51 +122,76 @@ Addpersonnel() {
 
 
 testEmail($event: any) {
-  this.professeurService.verifieMail(this.formPersonnel.value.email).subscribe(value => {
-      if (value['succes'] == true) {
-          this.trouveEmail = true;
-      } else {
-          this.trouveEmail = false;
-      }
-  }, error1 => {
-  })
+  const emailValue = this.formPersonnel.value.email;
 
+  // Vérifie si emailValue a une valeur valide avant d'appeler le service
+  if (emailValue && emailValue.trim() !== '') {
+    this.professeurService.verifieMail(emailValue).subscribe(value => {
+      if (value['succes'] == true) {
+        this.trouveEmail = true;
+      } else {
+        this.trouveEmail = false;
+      }
+    }, error1 => {
+      // Gérer les erreurs du service
+    });
+  } else {
+    // Gérer le cas où emailValue est null, undefined ou une chaîne vide
+    this.trouveEmail = false;
+  }
 }
 
 testIdentifiant($event: any) {
+  const loginValue = this.formPersonnel.value.login;
 
-  this.professeurService.verifieLogin(this.formPersonnel.value.login).subscribe(value => {
+  // Vérifie si loginValue a une valeur valide avant d'appeler le service
+  if (loginValue && loginValue.trim() !== '') {
+
+    this.professeurService.verifieLogin(loginValue).subscribe(value => {
       if (value['succes'] == true) {
-          this.trouveLogin = true;
+        this.trouveLogin = true;
       } else {
-          this.trouveLogin = false;
+        this.trouveLogin = false;
       }
-  }, error1 => {
-  })
+    }, error1 => {
+      // Gérer les erreurs du service
+    });
+  } else {
+    // Gérer le cas où loginValue est null, undefined ou une chaîne vide
+    this.trouveLogin = false;
+  }
 }
 
 testTelephone($event: any) {
-  // console.log(this.personnel.telephone)
-  this.professeurService.verifieTel(this.formPersonnel.value.telephone).subscribe(value => {
-    console.log(value)
-      if (value['succes'] == true) {
-          this.trouveTel = true;
-      } else {
-          this.trouveTel = false;
-      }
-  }, error1 => {
-    console.log(error1)
-  })
+  const telephoneValue = this.formPersonnel.value.telephone;
 
+  // Vérifie si telephoneValue a une valeur valide avant d'appeler le service
+  if (telephoneValue && telephoneValue.trim() !== '') {
+    this.professeurService.verifieTel(telephoneValue).subscribe(value => {
+      if (value['succes'] == true) {
+        this.trouveTel = true;
+      } else {
+        this.trouveTel = false;
+      }
+    }, error1 => {
+      // Gérer les erreurs du service
+    });
+  } else {
+    // Gérer le cas où telephoneValue est null, undefined ou une chaîne vide
+    this.trouveTel = false;
+  }
 }
 
 
 annuler() {
   
   this.formPersonnel.reset();
-  console.log(this.formPersonnel)
-  
+  this.modalService.dismissAll();
+  this.trouveEmail = false
+  this.trouveTel = false
+  this.trouveLogin = false
 }
+
 ModalUpdatePersonnel(login, centerModal?: any) {
   this.professeurService.getSecretaireByLogin(login).subscribe(value => {
     this.formPersonnel.setValue({
@@ -194,9 +214,8 @@ ModalUpdatePersonnel(login, centerModal?: any) {
   this.personnel.prenom = this.formPersonnel.value.prenom; 
   this.personnel.adresse = this.formPersonnel.value.adresse;
   this.personnel.telephone = this.formPersonnel.value.telephone; 
-  this.personnel.email = this.formPersonnel.value.telephone; 
+  this.personnel.email = this.formPersonnel.value.email; 
   this.personnel.login = this.formPersonnel.value.login; 
-  console.log(this.idPersonnel, this.personnel)
     this.professeurService.updatePersonnel(this.idPersonnel, this.personnel).subscribe(
       result => {
         if (result['success']) {
@@ -213,7 +232,7 @@ ModalUpdatePersonnel(login, centerModal?: any) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'personnel modifié avec succès',
+            title: 'Personnel modifié avec succès',
             showConfirmButton: false,
             timer: 1500
           });

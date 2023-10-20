@@ -81,7 +81,6 @@ export class ProfesseurComponent implements OnInit {
       this.allItems = result;
       this.totalItems = this.allItems.length;
       this.professeurs = this.allItems.slice(0, this.itemsPerPage);
-      console.log(this.professeurs);
   }, error1 => {
       console.log(error1)
   });
@@ -95,7 +94,6 @@ export class ProfesseurComponent implements OnInit {
 
   gotoClasseEnseigne(id: any) {
     this.route.navigate(['/pages/professeur/classeEnseigner', id]);
-    console.log(this.route);
 }
   
 
@@ -110,7 +108,6 @@ export class ProfesseurComponent implements OnInit {
 
 ModalUpdateprofesseur(login, centerModal?: any) {
   this.professeurService.getProfessurByLogin(login).subscribe(value => {
-    console.log(value);
     this.formprofesseur.setValue({
       nom: value[0].nom,
       prenom: value[0].prenom,
@@ -122,7 +119,6 @@ ModalUpdateprofesseur(login, centerModal?: any) {
       classeId: 0
     
       });
-      console.log(this.formprofesseur);
      this.idprofesseur=value[0].id;
      },error1 => {
      })
@@ -130,7 +126,7 @@ ModalUpdateprofesseur(login, centerModal?: any) {
 }
 
 annuler(){
-  
+  this.modalService.dismissAll();
   this.formprofesseur.reset();
   this.professeur = {
     adresse: '',
@@ -152,14 +148,13 @@ updateprofesseur() {
   this.professeur.prenom = this.formprofesseur.value.prenom; 
   this.professeur.adresse = this.formprofesseur.value.adresse;
   this.professeur.telephone = this.formprofesseur.value.telephone; 
-  this.professeur.email = this.formprofesseur.value.telephone; 
+  this.professeur.email = this.formprofesseur.value.email; 
   this.professeur.login = this.formprofesseur.value.login;
-  console.log(this.idprofesseur, this.professeur)
     this.professeurService.updateProfesseur(this.idprofesseur, this.professeur).subscribe(
       result => {
         if (result['success']) {
           this.modalService.dismissAll();
-          this.professeurService.getAllSecretaire().subscribe(
+          this.professeurService.getAllProfeeseur().subscribe(
             (result) => {
               this.professeurs = result;
             },
@@ -174,7 +169,7 @@ updateprofesseur() {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'professeur modifié avec succès',
+            title: 'Professeur modifié avec succès',
             showConfirmButton: false,
             timer: 1500
           });
@@ -246,7 +241,7 @@ AddProfesseur() {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'professeur ajouté avec success',
+          title: 'Professeur ajouté avec success',
           showConfirmButton: false,
           timer: 1500
         });
@@ -258,6 +253,14 @@ AddProfesseur() {
             console.log(error);
           }
         );
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Erreur lors de l\'ajout du professeur',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
 
       this.professeur = {
@@ -307,4 +310,36 @@ searchFilter(e) {
 
 
 
+DeleteProfesseur(id: string) {
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: 'Vous ne pourrez pas revenir en arrière !',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#34c38f',
+    cancelButtonColor: '#f46a6a',
+    confirmButtonText: 'Oui, continuer!'
+  }).then((result) => {
+    /* if (result.value) {
+      this.professeurService.supprimerMatiereById(id).subscribe(
+        (value) => {
+          if (value['success']) {
+            Swal.fire('Suppression!', 'La matière a été supprimée avec succès.', 'success');
+            this.serviceMatiere.getAllMatiere().subscribe(
+              (result)=>{
+                this.matieres=result
+              },
+              err =>{
+                console.log(err)
+              }
+            );
+          }
+          else{
+            Swal.fire('Erreur!', 'La matière ne peut pas être supprimée.', 'error');
+          }
+        }
+      );
+    }*/
+  });
+}
 }

@@ -17,9 +17,14 @@
       </div>
       <!--modal pour l'ajout professeur-->
       <ng-template #content role="document" let-modal>
+        <div class="modal-header">
+          <button type="button" class="btn-close" aria-hidden="true"
+                  (click)="modal.dismiss('Cross click')"></button>
+        </div>
         <aw-wizard [navBarLayout]="'large-empty-symbols'">
           <aw-wizard-step stepTitle="Ajout Professeur">
             <ng-template awWizardStepSymbol>1</ng-template>
+            
             <div class="row">
               <div class="col-md-12">
                 
@@ -84,7 +89,7 @@
                     <div class="col-md-12">
                       <div class="col-sm-auto" [formGroup]="formprofesseur">
                         <select class="form-select"  id="autoSizingSelect" formControlName="classeId">
-                          <option value="" selected='selected' disabled>Veuillez lui afecter une classe </option>
+                          <option value="" selected='selected' disabled>Choisir la classe à enseigner </option>
                           <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
                         </select>
                       </div>
@@ -94,7 +99,7 @@
                     <div class="col-md-12">
                       <div class="col-sm-auto" [formGroup]="formprofesseur">
                         <select class="form-select" id="autoSizingSelect" formControlName="matiereId">
-                          <option value="" selected='selected' disabled>Veuillez choisir la matiere</option>
+                          <option value="" selected='selected' disabled>Choisir la matière à enseigner</option>
                           <option *ngFor="let m of matieres" [value]="m.id">{{m.libelle}}</option>
                         </select>
                       </div>
@@ -104,7 +109,7 @@
                   <div style="text-align:center;">
                     <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
                       <li class="list-inline-item float-end">
-                        <button class="btn btn-success" awFinishWizard  (click)="AddProfesseur()">Confirmer&nbsp;<i class="fa fa-save"></i></button>
+                        <button class="btn btn-success" awFinishWizard [disabled]="formprofesseur.invalid"  (click)="AddProfesseur()">Ajouter&nbsp;<i class="fa fa-save"></i></button>
                       </li>
                       <li class="list-inline-item float-end">
                         <button class="btn btn-light" awPreviousStep style="color: black;"><i class="fa fa-arrow-left"></i>&nbsp;Précédent</button>&nbsp;
@@ -140,20 +145,22 @@
                 <p class="text-muted fs-14 mb-1 "><i class="mdi mdi-map-marker"></i>{{dataPro.adresse}}</p>
               </li>
               <li class="list-inline-item">
-                <p class="text-muted fs-14 mb-0">{{dataPro.telephone}}</p>
+                <p class="text-muted fs-14 mb-0"><i class="mdi mdi-phone"></i>{{dataPro.telephone}}</p>
               </li>
               <li class="list-inline-item">
                 <button type="button" class="btn btn-white"  (click)="ModalUpdateprofesseur(dataPro.login,contentUpdatePersonnel)">
                   <i class="bx bx-edit text-warning my-custom-icon" ></i> 
                 </button>
-                <button type="button" class="btn btn-white">
+                <button type="button" class="btn btn-white" (click)="DeleteProfesseur(dataPro.id)">
                   <i class="bx bx-trash text-danger my-custom-icon" ></i> 
                 </button>
+
+                
               </li>
             </ul>
             
           <br>
-          <div class="card-footer bg-transparent border-top" >
+          <div class="card-footer bg-transparent border-top" style="text-align: center;">
            <button (click)="gotoClasseEnseigne(dataPro.login)"  dataPro-bs-toggle="modal" class="btn btn-outline-success " ><i class="fa fa-eye"></i>&nbsp; Details</button>
             </div>
     </div>
@@ -164,7 +171,7 @@
 <!--modal pour modifier un professeur-->
 <ng-template #contentUpdatePersonnel role="document" let-modal>
   <div class="modal-header">
-    <h5 class="modal-title mt-0">Modifier Personnel</h5>
+    <h5 class="modal-title mt-0">Modification du professeur {{ formprofesseur.get('nom').value }} {{ formprofesseur.get('prenom').value }}</h5>
     <button type="button" class="btn-close" aria-hidden="true"
             (click)="modal.dismiss('Cross click')"></button>
   </div>
@@ -177,26 +184,26 @@
       <div class="row mb-3">
         <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
         <div class="col-sm-6 test">
-          <input class="form-control"  type="text"  placeholder="nom"  formControlName="nom">
+          <input class="form-control"  type="text"  placeholder="Nom"  formControlName="nom">
         </div>
         <div class="col-md-6">
-          <input class="form-control"  type="text" placeholder="Prenom" formControlName="prenom">
+          <input class="form-control"  type="text" placeholder="Prénom" formControlName="prenom">
         </div>
         </div>
         <div class="row mb-3">
         <div class="col-md-6">
-          <input class="form-control"  type="text" placeholder="adresse" formControlName="adresse">
+          <input class="form-control"  type="text" placeholder="Adresse" formControlName="adresse">
         </div>
         <div class="col-md-6">
-          <input class="form-control"  type="text" placeholder="telephone" formControlName="telephone">
+          <input class="form-control"  type="text" placeholder="Téléphone" formControlName="telephone">
         </div>
       </div>
       <div class="row mb-3">
       <div class="col-sm-6 test">
-          <input class="form-control"  type="email"  placeholder="email" formControlName="email">
+          <input class="form-control"  type="email"  placeholder="Email" formControlName="email">
         </div>
         <div class="col-md-6">
-          <input class="form-control"  type="text" placeholder="login" formControlName="login">
+          <input class="form-control"  type="text" placeholder="Login" formControlName="login">
         </div>
   
   </div>
@@ -206,9 +213,9 @@
   <div style="text-align:center;">
       <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
         <button type="button"  
-        class="btn btn-light" style="float:center;"><i class="fa fa-closed" (click)="annuler()"></i>&nbsp;Annuler</button>
+        class="btn btn-danger" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
         &nbsp;
-        <button type="button" class="btn btn-success"  style = "float:center;" [disabled]="formprofesseur.invalid" (click)="updateprofesseur()"><i class="fa fa-save"></i>&nbsp;Enregistrer Modification</button>
+        <button type="button" class="btn btn-success"  style = "float:center;" [disabled]="formprofesseur.invalid" (click)="updateprofesseur()"><i class="fa fa-save"></i>&nbsp;Enregistrer </button>
     </ul>
   </div>
   </div>
@@ -222,7 +229,7 @@
  <div class="row">
       <div class="col-12">
         <div class="text-center my-3">
-          <a href="javascript:void(0);" class="text-success"  (click)="loadMore()"><i class="bx bx-hourglass bx-spin mr-2"></i> Load more </a>
+          <a href="javascript:void(0);" class="text-success"  (click)="loadMore()"><i class="bx bx-hourglass bx-spin mr-2"></i> Voir plus </a>
         </div>
       </div> 
     </div>

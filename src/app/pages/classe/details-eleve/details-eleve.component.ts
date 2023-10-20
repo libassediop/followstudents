@@ -17,6 +17,7 @@ export class DetailsEleveComponent implements OnInit {
   matricule;
   donneesEleve;
   eleves;
+  elevesAbsences;
   nbAbsences;
   filter = '';
   constructor(private route : ActivatedRoute , private serviceEleve : EleveService , private serviceNote : NoteService, private router : Router) { }
@@ -25,20 +26,17 @@ export class DetailsEleveComponent implements OnInit {
     this.matricule = this.route.snapshot.params.matricule;
 
     this.serviceEleve.getEleveByMatricule(this.matricule).subscribe(resp => {
-      console.log(resp)
-      this.donneesEleve = resp;
+      this.donneesEleve = resp[0];
   }, error1 => {
   });
     this.serviceNote.getAllNoteByEleve(this.matricule).subscribe(resp => {
       this.eleves = resp;
-      console.log(resp);
   }, error1 => {
   });
   this.matricule = this.route.snapshot.params.matricule;
   this.serviceNote.getAllAbsenceByEleve(this.matricule).subscribe(value => {
-    this.eleves = value , console.log(value)
-            this.nbAbsences = this.eleves.length;
-    console.log(value);
+    this.elevesAbsences = value , console.log(value)
+            this.nbAbsences = this.elevesAbsences.length;
 }, error1 => {
 });
 }

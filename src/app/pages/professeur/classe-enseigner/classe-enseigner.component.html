@@ -120,11 +120,14 @@
             <div class="col-sm-8">
               <div class="text-sm-end">
                 <button type="button" class="btn btn-outline-success" (click)="openModalAffecterClasse(content)"><i
-                    class="fas fa-plus"></i>&nbsp;Affecter Classe</button>
+                    class="fas fa-plus"></i>&nbsp;Affecter à une classe</button>
               </div>
             </div><!-- end col-->
           </div>
 
+          <div class="me-2">
+            <h5 class="card-title mb-4">Liste des classes enseignées</h5>
+          </div>
           <!-- Table data -->
           <div class="table-responsive mb-0">
             <table class="table table-centered table-nowrap">
@@ -132,8 +135,9 @@
                 <tr>
                   <th class="">#</th>
                   <th class="">Classe</th>
-                  <th class="">Matiere</th>
-                  <th class="" style="text-align: center;">Actions</th>
+                  <th class="">Matière</th>
+                 <!-- <th class="" style="text-align: center;">Actions</th>
+                -->
                 </tr>
               </thead>
               <tbody>
@@ -141,10 +145,10 @@
                   <td>{{i+1}}</td>
                   <td> {{c.libelle}} </td>
                   <td> {{c.libelle_matiere}} </td>
-                  <td style="text-align: center;">
+                <!--   <td style="text-align: center;">
                     <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;
                     <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;
-                  </td>
+                  </td> -->
                 </tr>
 
               </tbody>
@@ -153,7 +157,7 @@
             <ng-template #content role="document" let-modal>
               <div class="modal-body">
                 <div class="modal-header">
-                  <h5 class="modal-title mt-0">Affecter classe</h5>
+                  <h5 class="modal-title mt-0">Affecter {{nomPro }}  à une classe</h5>
                   <button type="button" class="btn-close" aria-hidden="true"
                     (click)="modal.dismiss('Cross click')"></button>
                 </div>
@@ -164,15 +168,15 @@
                         <label class="control-label" style="font-weight: bold;">Classe</label>
                         <select class="form-control" placeholder="" type="text" name="idClasse"
                           [(ngModel)]="val.idClasse">
-                          <option value="">choisissez une classe...</option>
+                          <option value="">choisissez la classe...</option>
                           <option *ngFor="let c of classe" [value]="c.id">{{c.libelle}}</option>
                         </select>
                       </div>
                       <div class="mb-3">
-                        <label class="control-label" style="font-weight: bold;">Designation</label>
+                        <label class="control-label" style="font-weight: bold;">Matière</label>
                         <select class="form-control" placeholder="" type="text" name="idmatiere"
                           [(ngModel)]="val.idmatiere">
-                          <option value="">choisissez une matiére...</option>
+                          <option value="">choisissez la matiére...</option>
                           <option *ngFor="let m of matieres" [value]="m.id">{{m.libelle}}</option>
                         </select>
                       </div>

@@ -71,18 +71,13 @@ form: FormGroup;
     let login: string;
     login = this.route.snapshot.params.id;
     this.serviceProfesseur.getProfessurByLogin(login).subscribe(value => {
-        this.data = value , console.log(this.data), this.nomPro = value['0'].prenom + ' ' + value['0'].nom, this.numPro = value['0'].telephone,this.adresse =value['0'].adresse,this.email =value['0'].email, this.val.idProf = value['0'].id
+        this.data = value ,  this.nomPro = value['0'].prenom + ' ' + value['0'].nom, this.numPro = value['0'].telephone,this.adresse =value['0'].adresse,this.email =value['0'].email, this.val.idProf = value['0'].id
         this.serviceProfesseur.getlisteClasseByProfesseur(this.data['0'].id).subscribe(value => {
-            this.classes = value , console.log(value)
+          this.classes = value
             this.nbClasses = this.classes.length;
             this.statData[0].value = this.nbClasses;
         }, error1 => console.log(error1));
-        console.log(this.classes)
-        // this.eleveService. getAllEleveByClasse(this.data['0'].id).subscribe(value1 => {
-        //   this.eleves = value1
-        //   this.nbEleves = this.eleves.length
-        //   this.statData[0].value = this.nbEleves;
-        // } );
+  
       
     }, error1 => console.log(error1))
     this.serviceClasse.getAllClasse().subscribe(resp => {
@@ -112,13 +107,12 @@ form: FormGroup;
       // console.log(this.professeur)
       this.professeurService.affecterClasse(this.val.idClasse, this.val.idProf, this.val.idmatiere).subscribe(
         result => {
-          console.log(result);
           this.modalService.dismissAll();
-          if (result['success']) {
+          if (result['succes']) {
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: 'affectation reussie',
+              title: 'Affectation réussie',
               showConfirmButton: false,
               timer: 1500
             });
@@ -142,6 +136,14 @@ form: FormGroup;
             //     console.log(error);
             //   }
             // );
+          }else {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'Erreur lors de l\'affectation',
+              showConfirmButton: false,
+              timer: 1500
+            });
           }
         },
         error => {

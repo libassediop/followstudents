@@ -72,7 +72,6 @@ navItem1: HTMLElement;
     this.classeService.getAllClasse().subscribe(
       resp => {
           this.classes = resp;
-          console.log(resp)
       }, error1 => {
           console.log(error1)
       });
