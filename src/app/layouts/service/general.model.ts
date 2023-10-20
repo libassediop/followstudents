@@ -57,6 +57,7 @@ export class Inscription {
     fonctionParent:string;
     montant:number;
     avance:number;
+  mensualite:number;
     typeDePayement:number;
 
 }

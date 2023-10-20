@@ -2,12 +2,13 @@
   <app-page-title title="Inscription" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   <div class="checkout-tabs">
     <div class="row">
+
       <div class="col-xl-2 col-sm-3">
         <ul ngbNav #nav="ngbNav" [activeId]="active" class="nav-pills flex-column">
           <li [ngbNavItem]="1">
             <a ngbNavLink>
               <i class="bx bx-user-plus d-block check-nav-icon mt-4 mb-2"></i>
-              <p class="fw-bold mb-4">Eleves</p>
+              <p class="fw-bold mb-4"> Élève</p>
             </a>
             <ng-template ngbNavContent>
               <div class="card">
@@ -22,18 +23,18 @@
                             <div class="card-body">
 
                               <h4 class="card-title mb-4" style="text-align: center;"> Informations de l'élève</h4>
-
+                              <form [formGroup]="formInscription">
 
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Nom</label>
-                                    <input type="text" class="form-control" formControlName="nom">
+                                    <label>Nom <code>*</code></label>
+                                    <input type="text" class="form-control" formControlName="nom" required>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Prenom</label>
+                                    <label>Prenom <code>*</code></label>
                                     <input type="text" class="form-control" formControlName="prenom" />
                                   </div>
                                 </div>
@@ -41,8 +42,8 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label for="formrow-inputState">Sexe</label>
-                                    <select id="formrow-inputState" class="form-control" formControlName="sexe">
+                                    <label for="formrow-inputState">Sexe <code>*</code></label>
+                                    <select id="formrow-inputState" class="form-control" formControlName="sexe" required>
                                       <option value="" selected>Choisir sexe....</option>
                                       <option value="1">Feminin</option>
                                       <option value="2">Masculin</option>
@@ -51,7 +52,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Date de Naissance</label>
+                                    <label>Date de Naissance <code>*</code></label>
                                     <input type="date" class="form-control" formControlName="dateNaissance" />
                                   </div>
                                 </div>
@@ -68,7 +69,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Classe</label>
+                                    <label>Classe <code>*</code></label>
                                     <select type="text" class="form-control" formControlName="classeId">
                                       <option value="" selected>Choisir classe...</option>
                                       <option *ngFor="let c of classes" [value]="c.id">{{c.libelle}}</option>
@@ -79,30 +80,39 @@
                               <div class="row">
                                 <div class="col-lg-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Montant  Inscription</label>
-                                    <input type="text"   class="form-control"  formControlName="nomtant">
+                                    <label>Montant  Inscription <code>*</code></label>
+                                    <input type="text"   class="form-control"  formControlName="montant">
                                   </div>
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label> Montant  Reçu</label>
+                                    <label> Montant  Reçu <code>*</code></label>
                                     <input type="text"  class="form-control" formControlName="avance">
                                   </div>
                                 </div>
                               </div>
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3" [formGroup]="formInscription">
+                                    <label>Montant  Mensualité <code>*</code></label>
+                                    <input type="text"   class="form-control"  formControlName="mensualite">
+                                  </div>
+                                </div>
+
+                              </div>
                               <br>
                               <div style="text-align:center;">
                                 <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
-                                  <li class=" list-inline-item float-end"><button class="btn btn-light "
+                                  <li class=" list-inline-item float-end"><button class="btn btn-primary " [disabled]="onvalideEleve()"
                                       (click)=" onNavChange($event)">Suivant&nbsp;<i
                                         class="fa fa-arrow-right"></i></button>
                                   </li>
-                                  <li class=" list-inline-item float-end"><button class="btn btn-success" id="suivant"
-                                      style=" color: white; "><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;
-                                  </li>
+<!--                                  <li class=" list-inline-item float-end"><button class="btn btn-success" id="suivant"-->
+<!--                                      style=" color: white; "><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;-->
+<!--                                  </li>-->
                                 </ul>
                               </div>
-
+                              </form>
                             </div>
                           </div>
                         </div>
@@ -135,20 +145,20 @@
 
 
                                 <div class="row mb-4">
-                                  <label class="col-sm-3 col-form-label">Telephone</label>
+                                  <label class="col-sm-3 col-form-label">Télèphone <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
                                     <input type="text" class="form-control" formControlName="telephoneParent" (ngModelChange)="testTelephone($event)">
-                                    <span class="text-danger" *ngIf="trouveTel" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce  numéro existe deja</span>
+                                    <span class="text-danger" *ngIf="trouveTel" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce  numéro existe déjà</span>
                                   </div>
                                 </div>
                                 <div class="row mb-4">
-                                  <label class="col-sm-3 col-form-label">Nom</label>
+                                  <label class="col-sm-3 col-form-label">Nom <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
                                     <input type="text" class="form-control" formControlName="nomParent">
                                   </div>
                                 </div>
                                 <div class="row mb-4">
-                                  <label class="col-sm-3 col-form-label">Prenom</label>
+                                  <label class="col-sm-3 col-form-label">Prénom <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
                                     <input type="text" class="form-control" formControlName="prenomParent">
                                   </div>
@@ -156,19 +166,19 @@
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Email</label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
-                                    <input type="email" class="form-control" formControlName="prenomParent">
+                                    <input type="email" class="form-control" formControlName="emailParent">
                                   </div>
                                 </div>
                                 <br>
                                 <div style="text-align:center;">
                                   <ul class="list-inline wizard mb-0"
                                     style="text-align: center; display: inline-block;">
-                                    <li class=" list-inline-item float-end"><button class="btn btn-success "
+                                    <li class=" list-inline-item float-end"><button class="btn btn-success " [disabled]="onvalidateInscription()"
                                         (click)="addInscription()">Enregistrer&nbsp;<i class="fa fa-save"></i></button>
                                     </li>
                                     <li class=" list-inline-item float-end"><button class="btn btn-light"
                                         style=" color: black; " (click)=" onNavChangePre($event)"><i
-                                          class="fa fa-arrow-left"></i>&nbsp;précedent</button>&nbsp;
+                                          class="fa fa-arrow-left"></i>&nbsp;Précédent</button>&nbsp;
                                     </li>
                                   </ul>
                                 </div>

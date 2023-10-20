@@ -31,7 +31,7 @@ export class InscriptionreinscriptionService {
   }
 
   addInscription(inscri : Inscription){
-    return this.http.post(this.host+'/inscription/addInscription?nom='+inscri.nom+'&dateNaissance='+inscri.dateNaissance+'&prenom='+inscri.prenom+'&nationalite='+inscri.nationalite+'&lieuDeNaissance='+inscri.lieuDeNaissance+'&adresse='+inscri.adresse+'&email='+inscri.email+'&telephone='+inscri.telephone+'&sexe='+inscri.sexe+'&etat='+1+'&nomParent='+inscri.nomParent+'&prenomParent='+inscri.prenomParent+'&emailParent='+inscri.emailParent+'&telephoneParent='+inscri.telephoneParent+'&sexeParent='+inscri.sexeParent+'&fonctionParent='+inscri.fonctionParent+'&classeId='+inscri.classeId+'&montant='+inscri.montant+'&avance='+inscri.avance+'&userId='+localStorage.getItem('id')+'&typeDePayement='+inscri.typeDePayement+'&caisseId=1'+'&token='+localStorage.getItem('token'),{observe :'response'});
+    return this.http.post(this.host+'/inscription/addInscription?nom='+inscri.nom+'&dateNaissance='+inscri.dateNaissance+'&prenom='+inscri.prenom+'&nationalite='+inscri.nationalite+'&lieuDeNaissance='+inscri.lieuDeNaissance+'&adresse='+inscri.adresse+'&email='+inscri.email+'&telephone='+inscri.telephone+'&sexe='+inscri.sexe+'&etat='+1+'&nomParent='+inscri.nomParent+'&prenomParent='+inscri.prenomParent+'&emailParent='+inscri.emailParent+'&telephoneParent='+inscri.telephoneParent+'&sexeParent='+inscri.sexeParent+'&fonctionParent='+inscri.fonctionParent+'&classeId='+inscri.classeId+'&montant='+inscri.montant+'&avance='+inscri.avance+'&userId='+localStorage.getItem('id')+'&mensualite='+inscri.mensualite+'&typeDePayement='+inscri.typeDePayement+'&caisseId=1'+'&token='+localStorage.getItem('token'),{observe :'response'});
   }
 
   addReinscription(reinscri : Reinscription){
@@ -40,8 +40,8 @@ export class InscriptionreinscriptionService {
 
   addMensualite(mensualite:Mensualite) {
     console.log(mensualite);
-   // return this.http.post(this.host+'/mensualite/payerMensualite?eleveId='+mensualite.eleveId+'&moisId='+mensualite.moisId+'&montant='+mensualite.eleveId+'&userId='+localStorage.getItem('id')+'?token='+localStorage.getItem('token'),{observe :'response'});
-    return this.http.post(this.host+'/mensualite/payerMensualite?token='+localStorage.getItem('token'),mensualite);
+    return this.http.post(this.host+'/mensualite/payerMensualite?token='+localStorage.getItem('token')+'&eleveId='+mensualite.eleveId+'&moisId='+mensualite.moisId+'&montant='+mensualite.montant+'&userId='+localStorage.getItem('id'),{observe :'response'});
+   //  return this.http.post(this.host+'/mensualite/payerMensualite?token='+localStorage.getItem('token'),mensualite);
   }
 
   getMensualiteImpayerByEleve(id){

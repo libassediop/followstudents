@@ -29,6 +29,7 @@ export class ListeEleveParClasseComponent implements OnInit {
       email: '',
       adresse: '',
       avance: 0,
+    mensualite: 0,
       dateNaissance: '',
       emailParent: '',
       fonctionParent: '',
@@ -47,9 +48,9 @@ export class ListeEleveParClasseComponent implements OnInit {
   formInscription : FormGroup
   idinscriptions: any;
   donneeEleve;
-  
+
   constructor(private modalService : NgbModal,private route: ActivatedRoute,private router : Router,  private fb : FormBuilder ,private serviceClasse : ClasseService , private serviceEleve : EleveService) {
-    
+
    }
 
   ngOnInit(): void {
@@ -94,7 +95,7 @@ export class ListeEleveParClasseComponent implements OnInit {
   }
 
   updateinscriptions() {
-    
+
     console.log( this.inscription)
     this.serviceEleve.updatdeEleve(this.inscription).subscribe(
         result => {
@@ -129,7 +130,7 @@ export class ListeEleveParClasseComponent implements OnInit {
               title: 'Oops...',
               text: 'La modification a échoué!'
             });
-            
+
           }
         },
       );
@@ -148,8 +149,8 @@ export class ListeEleveParClasseComponent implements OnInit {
     goDetailsEleve(matricule: any) {
 
       this.router.navigate(['/pages/classe/detailsEleve', matricule]);
-    
+
     }
 
-    
+
 }
