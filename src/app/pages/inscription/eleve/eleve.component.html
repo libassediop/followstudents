@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Prenom <code>*</code></label>
+                                    <label>Prénom <code>*</code></label>
                                     <input type="text" class="form-control" formControlName="prenom" />
                                   </div>
                                 </div>
@@ -44,7 +44,7 @@
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label for="formrow-inputState">Sexe <code>*</code></label>
                                     <select id="formrow-inputState" class="form-control" formControlName="sexe" required>
-                                      <option value="" selected>Choisir sexe....</option>
+                                      <option value="" selected>Choisir le sexe....</option>
                                       <option value="1">Feminin</option>
                                       <option value="2">Masculin</option>
                                     </select>
@@ -71,7 +71,7 @@
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label>Classe <code>*</code></label>
                                     <select type="text" class="form-control" formControlName="classeId">
-                                      <option value="" selected>Choisir classe...</option>
+                                      <option value="" selected>Choisir une classe...</option>
                                       <option *ngFor="let c of classes" [value]="c.id">{{c.libelle}}</option>
                                     </select>
                                   </div>
@@ -145,7 +145,7 @@
 
 
                                 <div class="row mb-4">
-                                  <label class="col-sm-3 col-form-label">Télèphone <code>*</code></label>
+                                  <label class="col-sm-3 col-form-label">Téléphone <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
                                     <input type="text" class="form-control" formControlName="telephoneParent" (ngModelChange)="testTelephone($event)">
                                     <span class="text-danger" *ngIf="trouveTel" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce  numéro existe déjà</span>

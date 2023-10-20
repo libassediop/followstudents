@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <app-page-title title="Effectue un paiement"></app-page-title>
+  <app-page-title title="Effectuer un paiement"></app-page-title>
 
   <div class="row">
     <div class="col-xl-4">
@@ -9,7 +9,7 @@
         <div class="card-body">
           <div class="d-flex">
             <div class="me-2">
-              <h5 class="card-title mb-4 " style="color: #ce8e24;">Classe</h5>
+              <h5 class="card-title mb-4  text-primary" >Classe</h5>
             </div>
 
           </div>
@@ -20,7 +20,7 @@
                 <option value="" selected>Liste des classes</option>
                 <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
               </select>
-              <label for="floatingSelectGrid">veuillez choisir une classe</label>
+              <label for="floatingSelectGrid">Veuillez choisir une classe</label>
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="card-body">
           <div class="d-flex">
             <div class="me-2">
-              <h5 class="card-title mb-4">Liste des eleves</h5>
+              <h5 class="card-title mb-4">Liste des élèves</h5>
             </div>
 
           </div>
@@ -50,7 +50,7 @@
                     <div class="col-sm-4">
                       <div class="search-box me-2 mb-2 d-inline-block">
                         <div class="position-relative">
-                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                          <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term">
                           <i class="bx bx-search-alt search-icon"></i>
                         </div>
                       </div>

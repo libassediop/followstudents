@@ -9,7 +9,7 @@
         <div class="card-body">
           <div class="d-flex">
             <div class="me-2">
-              <h5 class="card-title mb-4 " style="color: #ce8e24;">Classe</h5>
+              <h5 class="card-title mb-4 text-primary">Choisir une classe</h5>
             </div>
 
           </div>
@@ -40,7 +40,7 @@
         <div class="card-body">
           <div class="d-flex">
             <div class="me-2">
-              <h5 class="card-title mb-4">Liste des eleves</h5>
+              <h5 class="card-title mb-4">Liste des élèves</h5>
             </div>
 
           </div>
@@ -52,7 +52,7 @@
                     <div class="col-sm-4">
                       <div class="search-box me-2 mb-2 d-inline-block">
                         <div class="position-relative">
-                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                          <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term">
                           <i class="bx bx-search-alt search-icon"></i>
                         </div>
                       </div>
@@ -71,9 +71,9 @@
                           id
                         </th>
                         <th style="text-align: center;">Nom complet</th>
-                        <th style="text-align: center;">Date Naissance</th>
-                        <th style="text-align: center;">Mois</th>
-                        <th style="text-align: center;">Status</th>
+                        <th style="text-align: center;">Date de Naissance</th>
+                        <th style="text-align: center;">Matricule</th>
+<!--                        <th style="text-align: center;">Status</th>-->
                         <th style="text-align: center;">Montant reçu</th>
                         <th style="text-align: center;">Montant restant</th>
                         <th style="text-align: center;">Action</th>
@@ -84,15 +84,15 @@
                         <td>
                           <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
                         </td>
-                        <td style="text-align: center;">{{data.nom}}</td>
-                        <td style="text-align: center;">{{data.prenom}}</td>
+                        <td style="text-align: center;">{{data.nom +" "+ data.prenom}}</td>
                         <td style="text-align: center;">{{data.dateNaissance}}</td>
-                        <td>
-          <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-danger': data.sexe === '1',
-                        'badge-soft-warning':data.status === 'Refund' }">Invalide</span>
-                        </td>
-                        <td style="text-align: center;">{{data.sexe}}</td>
-                        <td style="text-align: center;">{{data.parent_telephone}}</td>
+                        <td style="text-align: center;">{{data.matricule}}</td>
+<!--                        <td>-->
+<!--          <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-danger': data.sexe === '1',-->
+<!--                        'badge-soft-warning':data.status === 'Refund' }">Invalide</span>-->
+<!--                        </td>-->
+                        <td style="text-align: center;">{{data.montant}}</td>
+                        <td style="text-align: center;">{{data.restant}}</td>
                         <td style="text-align: center;">
                           <button type="button" class="btn btn-warning no-print"><i class="fas fa-edit"></i></button>&nbsp;
                         </td>

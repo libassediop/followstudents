@@ -196,6 +196,16 @@ export class SuiviPaiementComponent implements OnInit {
     console.log(this.mensualite);
     this.seviceInscription.addMensualite(this.mensualite).subscribe(res => {
       console.log(res);
+      if (res['success']) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Paiement effectué avec succès',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+      this.formMensualite.reset();
       this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve[0].id).subscribe(resp => {
         this.donneesPaiement = resp['response'];
       });

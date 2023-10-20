@@ -41,7 +41,7 @@
                 <option value="" selected>Liste des classes</option>
                 <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
               </select>
-              <label for="floatingSelectGrid">veuillez choisir une classe</label>
+              <label for="floatingSelectGrid">Veuillez choisir une classe</label>
             </div>
           </div>
           <div class="text-center mt-4" *ngIf="matieres">
@@ -51,7 +51,7 @@
                 <option *ngFor="let matiere of matieres" [value]="matiere.id">{{matiere.libelle}}</option>
 
               </select>
-              <label for="floatingSelectGrid">veuillez choisir une matiere</label>
+              <label for="floatingSelectGrid">Veuillez choisir une matière</label>
             </div>
           </div>
 
@@ -70,7 +70,7 @@
         <div class="card-body">
           <div class="d-flex">
             <div class="me-2">
-              <h5 class="card-title mb-4">Liste des eleves</h5>
+              <h5 class="card-title mb-4">Liste des élèves</h5>
             </div>
 
           </div>
@@ -82,7 +82,7 @@
                     <div class="col-sm-4">
                       <div class="search-box me-2 mb-2 d-inline-block">
                         <div class="position-relative">
-                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                          <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term">
                           <i class="bx bx-search-alt search-icon"></i>
                         </div>
                       </div>
@@ -101,10 +101,10 @@
                             id
                           </th>
                           <th style="text-align: center;">Nom</th>
-                          <th style="text-align: center;">Prenom</th>
+                          <th style="text-align: center;">Prénom</th>
                           <th style="text-align: center;">Date Naissance</th>
                           <th style="text-align: center;">Sexe</th>
-                          <th style="text-align: center;">Telephone</th>
+                          <th style="text-align: center;">Téléphone</th>
                           <th style="text-align: center;">Note</th>
                         </tr>
                       </thead>

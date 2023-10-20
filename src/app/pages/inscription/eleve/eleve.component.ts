@@ -117,10 +117,11 @@ navItem1: HTMLElement;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'inscription ajoutée avec succèss',
+            title: 'inscription ajoutée avec succès',
             showConfirmButton: false,
             timer: 1500
           });
+
           this.formInscription.reset();
           this.route.navigate(['/pages/inscription/listInscription']);
         }
