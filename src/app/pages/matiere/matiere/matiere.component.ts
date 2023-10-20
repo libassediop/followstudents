@@ -17,10 +17,10 @@ update: any;
 idMatiere;
   modif: string;
   searchTerm: any;
-  
 
 
-   
+
+
   constructor(private serviceMatiere : ClasseService, public fb: FormBuilder, private modalService : NgbModal) {
     this.formM = this.fb.group({
       libelle: ['', Validators.required],
@@ -41,23 +41,24 @@ idMatiere;
       }
     );
   }
-  
+
 
   Addmatiere() {
-    console.log(this.matiere);
+    //console.log(this.matiere);
     this.matiere.libelle = this.formM.value.libelle;
     this.serviceMatiere.addMatiere(this.matiere).subscribe(
       result => {
-        console.log(result);
+        //console.log(result);
         this.modalService.dismissAll();
         if (result['sucsess']) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'matiere ajouté avec success',
+            title: 'Matière ajoutée avec success',
             showConfirmButton: false,
             timer: 1500
           });
+
           this.serviceMatiere.getAllMatiere().subscribe(
             (result) => {
               this.matieres = result;
@@ -67,6 +68,16 @@ idMatiere;
             }
           );
 
+        }
+        else{
+          //console.log("existe")
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'La matière que vous souhaitez ajouter existe déjà',
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
         this.matiere = {
           libelle: '',
@@ -92,13 +103,13 @@ idMatiere;
     }
 
   Modifiermatiere (){
-    console.log(this.idMatiere , this.matiere)
+    //console.log(this.idMatiere , this.matiere)
     this.matiere.libelle = this.formM.value.libelle;
     this.serviceMatiere.modifierMatiere(this.idMatiere, this.matiere).subscribe(
       result => {
         this.matiere = {
           libelle: '',
-          
+
         };
         if (result['success']) {
           this.modalService.dismissAll();
@@ -113,11 +124,12 @@ idMatiere;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'matiere modifié avec success',
+            title: 'Matiere modifiée avec success',
             showConfirmButton: false,
             timer: 1500
           });
           this.formM.reset();
+          this.update=false;
         }
 
       else {
@@ -128,11 +140,11 @@ idMatiere;
           });
         }
       },
-    
+
     );
   }
- 
- 
+
+
 
    annuler() {
     this.update=false;
@@ -141,7 +153,7 @@ idMatiere;
       libelle:'',
       }
   }
-  
+
   searchFilter(e) {
     const searchStr = e.target.value;
     if (searchStr.length === 0) {
@@ -161,10 +173,13 @@ idMatiere;
     }
   }
 
+
+
   print() {
+
     window.print();
   }
-  
+
   currentPage = 1;
   pageSize = 6;
 
@@ -175,8 +190,9 @@ idMatiere;
   get endIndex() {
     return Math.min(this.startIndex + this.pageSize, this.matieres.length);
   }
-  
+
   DeleteMatiere(id: string) {
+    //console.log('sup')
     Swal.fire({
       title: 'Êtes-vous sûr?',
       text: 'Vous ne pourrez pas revenir en arrière !',
@@ -207,5 +223,14 @@ idMatiere;
         );
       }
     });
+    //actualiser la liste des matière après suppression
+    this.serviceMatiere.getAllMatiere().subscribe(
+      (result)=>{
+        this.matieres=result
+      },
+      err =>{
+        console.log(err)
+      }
+    );
   }
 }
