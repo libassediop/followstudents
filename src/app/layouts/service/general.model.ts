@@ -103,6 +103,12 @@ export class Contenue {
     idEleve: string;
     noteEleve: string;
 }
+
+export class ContenuePaiement {
+  idClasse: string;
+  idMois: string;
+
+}
 export class Particulier {
     telephone: string;
     nom: string;

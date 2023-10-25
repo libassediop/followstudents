@@ -9,35 +9,35 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="me-2">
-                            <h5 class="card-title mb-4 " style="color: #ce8e24;">Classe</h5>
+                            <h5 class="card-title mb-4 text-primary" >Suivi de la mensualité</h5>
                         </div>
 
                     </div>
                     <div class="text-center mt-4">
                         <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse" (ngModelChange)="recuperation($event)">
+                            <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse" >
                 <option value="" selected>Liste des classes</option>
                 <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
               </select>
-                            <label for="floatingSelectGrid">veuillez choisir une classe</label>
+                            <label for="floatingSelectGrid">Veuillez choisir une classe</label>
                         </div>
                     </div>
-                    <div class="text-center mt-4" *ngIf="matieres">
+                    <div class="text-center mt-4" *ngIf="classes">
                         <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="Floating label select example" [(ngModel)]="contenue.idMatiere">
+                            <select class="form-select" aria-label="Floating label select example" [(ngModel)]="contenue.idMois" (ngModelChange)="recuperation($event)">
                 <option value="" selected>Mois</option>
                 <option *ngFor="let mois of tabMois" [value]="mois.id">{{mois.mois}}</option>
 
               </select>
-                            <label for="floatingSelectGrid">veuillez choisir un mois</label>
+                            <label for="floatingSelectGrid">Veuillez choisir un mois</label>
                         </div>
                     </div>
-                    <div class="text-center mt-4" *ngIf="matieres">
-                        <div class="form-floating mb-3">
-                            <input type="text" disabled class="form-control" id="floatingnameInput" placeholder="Enter Name" value="50.000">
-                            <label for="floatingnameInput">Montant à payer</label>
-                        </div>
-                    </div>
+<!--                    <div class="text-center mt-4" *ngIf="matieres">-->
+<!--                        <div class="form-floating mb-3">-->
+<!--                            <input type="text" disabled class="form-control" id="floatingnameInput" placeholder="Enter Name" value="50.000">-->
+<!--                            <label for="floatingnameInput">Montant à payer</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                 </div>
             </div>
@@ -66,7 +66,7 @@
                                         <div class="col-sm-4">
                                             <div class="search-box me-2 mb-2 d-inline-block">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term">
+                                                    <input type="text" class="form-control" placeholder="recherche..." [(ngModel)]="term">
                                                     <i class="bx bx-search-alt search-icon"></i>
                                                 </div>
                                             </div>
@@ -77,8 +77,8 @@
 
                                     <!-- Table data -->
                                     <!--          <app-transaction [transactions]="transactions |  filter:term"></app-transaction>-->
-                                    <div class="table-responsive mb-0" *ngIf="contenue.idMatiere">
-                                        <table class="table table-centered table-nowrap" (ngSubmit)="addNote()">
+                                    <div class="table-responsive mb-0" *ngIf="contenue.idClasse">
+                                        <table class="table table-centered table-nowrap" >
                                             <thead class="bg-primary bg-soft p-4">
                                                 <tr>
                                                     <th style="text-align: center;">
@@ -86,7 +86,8 @@
                                                     </th>
                                                     <th style="text-align: center;">Nom complet</th>
                                                     <th style="text-align: center;">Date Naissance</th>
-                                                    <th style="text-align: center;">Mois</th>
+                                                    <th style="text-align: center;">Matricule</th>
+
                                                     <th style="text-align: center;">Status</th>
                                                     <th style="text-align: center;">Montant reçu</th>
                                                     <th style="text-align: center;">Montant restant</th>
@@ -97,26 +98,19 @@
                                                     <td>
                                                         <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
                                                     </td>
-                                                    <td style="text-align: center;">{{data.nom}}</td>
-                                                    <td style="text-align: center;">{{data.prenom}}</td>
+                                                    <td style="text-align: center;">{{data.nom +' '+ data.prenom}}</td>
                                                     <td style="text-align: center;">{{data.dateNaissance}}</td>
+                                                    <td style="text-align: center;">{{data.matricule}}</td>
                                                     <td>
-                                                        <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-danger': data.sexe === '1',
-                        'badge-soft-warning':data.status === 'Refund' }">Invalide</span>
+                                                        <span *ngIf="data.status_payement=='1'" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data.status_payement === '1'}">Valide</span>
+                                                        <span *ngIf="data.status_payement=='0'" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data.status_payement == '0'}">InValide</span>
                                                     </td>
-                                                    <td style="text-align: center;">{{data.sexe}}</td>
-                                                    <td style="text-align: center;">{{data.parent_telephone}}</td>
+                                                    <td style="text-align: center;">{{data.montant}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
 
-                                        <td style="text-align: center;">
-                                            <button type="reset" class="btn btn-info no-print"><i class="fas fa-undo" id="annuler"></i>
-                        Annuler</button>&nbsp;
-                                            <button type="button" id="envoyer" class="btn btn-success no-print"><i class="fas fa-save"
-                                                                                             (click)="addNote()"></i> Envoyer</button>&nbsp;
 
-                                        </td>
 
                                     </div>
                                     <!--          -->

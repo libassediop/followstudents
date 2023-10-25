@@ -29,7 +29,7 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
   flagvalue;
   countryName;
   valueset;
-
+  nonComplet='';
   menuItems = [];
 
   listLang = [
@@ -54,6 +54,7 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.nonComplet=localStorage.getItem('prenom') +' '+localStorage.getItem('nom')
     this.element = document.documentElement;
 
     this.initialize();

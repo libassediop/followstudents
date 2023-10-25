@@ -7,7 +7,7 @@
          <div class="col-sm-4">
               <div class="search-box me-2 mb-2 d-inline-block">
                 <div class="position-relative">
-                  <input type="text" class="form-control" placeholder="Search..." (input)="searchFilter($event)" />
+                  <input type="text" class="form-control" placeholder="Recherche..." (input)="searchFilter($event)" />
                   <i class="bx bx-search-alt search-icon"></i>
                 </div>
               </div>
@@ -24,10 +24,10 @@
         <aw-wizard [navBarLayout]="'large-empty-symbols'">
           <aw-wizard-step stepTitle="Ajout Professeur">
             <ng-template awWizardStepSymbol>1</ng-template>
-            
+
             <div class="row">
               <div class="col-md-12">
-                
+
                 <div class="card card-body">
                   <div class="row mt-3">
                     <div class="col-12">
@@ -46,10 +46,10 @@
                           <input class="form-control" type="text" placeholder="Téléphone" formControlName="telephone" (ngModelChange)="testTelephone($event)">
                           <span class="text-danger" *ngIf="trouveTel" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce  numéro existe deja</span>
                         </div>
-                  
+
                       </div>
                       <div class="row mb-3">
-                        
+
                         <div class="col-md-6"[formGroup]="formprofesseur">
                           <input class="form-control" type="email" placeholder="Email" formControlName="email" (ngModelChange)="testEmail($event)">
                           <span class="text-danger" *ngIf="trouveEmail" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;cet email existe deja</span>
@@ -58,7 +58,7 @@
                           <input class="form-control" type="text" placeholder="Login" formControlName="login"(ngModelChange)="testIdentifiant($event)">
                           <span class="text-danger" *ngIf="trouveLogin" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce login existe deja</span>
                         </div>
-                       
+
                       </div>
                     </div>
                   </div>
@@ -74,17 +74,17 @@
                     </ul>
                   </div>
                 </div>
-            
+
               </div>
             </div>
           </aw-wizard-step>
-      
+
           <aw-wizard-step stepTitle="Désignation classe">
             <ng-template awWizardStepSymbol>2</ng-template>
             <div class="row">
               <div class="col-md-12">
                 <div class="card card-body">
-                  
+
                   <div class="row mt-3">
                     <div class="col-md-12">
                       <div class="col-sm-auto" [formGroup]="formprofesseur">
@@ -116,7 +116,7 @@
                       </li>
                     </ul>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
@@ -149,16 +149,16 @@
               </li>
               <li class="list-inline-item">
                 <button type="button" class="btn btn-white"  (click)="ModalUpdateprofesseur(dataPro.login,contentUpdatePersonnel)">
-                  <i class="bx bx-edit text-warning my-custom-icon" ></i> 
+                  <i class="bx bx-edit text-warning my-custom-icon" ></i>
                 </button>
                 <button type="button" class="btn btn-white" (click)="DeleteProfesseur(dataPro.id)">
-                  <i class="bx bx-trash text-danger my-custom-icon" ></i> 
+                  <i class="bx bx-trash text-danger my-custom-icon" ></i>
                 </button>
 
-                
+
               </li>
             </ul>
-            
+
           <br>
           <div class="card-footer bg-transparent border-top" style="text-align: center;">
            <button (click)="gotoClasseEnseigne(dataPro.login)"  dataPro-bs-toggle="modal" class="btn btn-outline-success " ><i class="fa fa-eye"></i>&nbsp; Details</button>
@@ -205,14 +205,14 @@
         <div class="col-md-6">
           <input class="form-control"  type="text" placeholder="Login" formControlName="login">
         </div>
-  
+
   </div>
-    
+
   </div>
   <br>
   <div style="text-align:center;">
       <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
-        <button type="button"  
+        <button type="button"
         class="btn btn-danger" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
         &nbsp;
         <button type="button" class="btn btn-success"  style = "float:center;" [disabled]="formprofesseur.invalid" (click)="updateprofesseur()"><i class="fa fa-save"></i>&nbsp;Enregistrer </button>
@@ -231,8 +231,8 @@
         <div class="text-center my-3">
           <a href="javascript:void(0);" class="text-success"  (click)="loadMore()"><i class="bx bx-hourglass bx-spin mr-2"></i> Voir plus </a>
         </div>
-      </div> 
+      </div>
     </div>
 
- 
+
 

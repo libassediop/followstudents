@@ -107,7 +107,7 @@
                                                                     <div class="col-sm-4">
                                                                         <div class="search-box me-2 mb-2 d-inline-block">
                                                                             <div class="position-relative">
-                                                                                <input type="text" class="form-control" placeholder="Search...">
+                                                                                <input type="text" class="form-control" placeholder="Recherche...">
                                                                                 <i class="bx bx-search-alt search-icon"></i>
                                                                             </div>
                                                                         </div>
@@ -194,7 +194,7 @@
                                                             <div class="col-sm-4">
                                                                 <div class="search-box me-2 mb-2 d-inline-block">
                                                                     <div class="position-relative">
-                                                                        <input type="text" class="form-control" placeholder="Search..." (input)="searchAbsence($event)">
+                                                                        <input type="text" class="form-control" placeholder="Recherche..." (input)="searchAbsence($event)">
                                                                         <i class="bx bx-search-alt search-icon"></i>
                                                                     </div>
                                                                 </div>
@@ -280,7 +280,7 @@
                                                                     <div class="col-sm-4">
                                                                         <div class="search-box me-2 mb-2 d-inline-block">
                                                                             <div class="position-relative">
-                                                                                <input type="text" class="form-control" placeholder="Search...">
+                                                                                <input type="text" class="form-control" placeholder="Recherche...">
                                                                                 <i class="bx bx-search-alt search-icon"></i>
                                                                             </div>
                                                                         </div>
@@ -295,12 +295,14 @@
                                                                 <div class="table-responsive mb-0">
                                                                     <table class="table table-centered table-nowrap">
                                                                         <thead class="table-info">
-                                                                            <tr>
-                                                                                <th class="">Note </th>
-                                                                                <th class="">Matiere</th>
-                                                                                <th class="">Date d'evaluation</th>
-                                                                                <th class="">Marqué Par</th>
-                                                                            </tr>
+                                                                        <tr>
+                                                                          <th class="">#</th>
+                                                                          <th class="">Mois payé</th>
+                                                                          <th class="">Montant à payer</th>
+                                                                          <th class="">Montant reçu</th>
+                                                                          <th class="">Date</th>
+                                                                          <!--                <th class="" style="text-align: center;">Actions</th>-->
+                                                                        </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr *ngFor="let dataNE of eleves">
