@@ -11,14 +11,15 @@ import { ProfesseurModule } from './professeur/professeur.module';
 import { LayoutComponent } from '../layouts/layout.component';
 import { ClasseEnseignerComponent } from './professeur/classe-enseigner/classe-enseigner.component';
 import { AccueilModule } from './accueil/accueil.module';
+import { AdministratifModule } from './administratif/administratif.module';
 
 
 
 const route: Routes = [
-    
+
   { path: '', redirectTo: 'dashboard' },
- 
- 
+
+  {path: 'administratif',loadChildren:() => AdministratifModule },
   { path: 'dashboard', component: DefaultComponent },
   { path: 'accueil', loadChildren: () => AccueilModule },
   { path: 'alerte', loadChildren: () => AlerteModule },
@@ -27,7 +28,7 @@ const route: Routes = [
   { path: 'matiere', loadChildren: () => MatiereModule },
   { path: 'personnel', loadChildren: () => PersonnelModule },
   { path: 'professeur', loadChildren: () => ProfesseurModule },
-  
+
 ];
 const routes: Routes = [{
     path: '',
@@ -36,7 +37,7 @@ const routes: Routes = [{
   // tslint:disable-next-line:no-trailing-whitespace
 
       { path: 'accueil',loadChildren: () =>  AccueilModule },
-
+      {path: 'administratif',loadChildren:() => AdministratifModule},
       { path: 'alerte', loadChildren: () => AlerteModule },
       { path: 'classe', loadChildren: () => ClasseModule },
       { path: 'inscription', loadChildren: () => InscriptionModule},

@@ -100,6 +100,31 @@ export const MENU: MenuItem[] = [
         icon: 'bx bxs-edit',
         link:'matiere/matiere'
     },
+    {
+      id: 15,
+      label: 'Administratif',
+      icon: 'bx bx-bell',
+      subItems:[
+        {
+          id: 16,
+          label: 'Générer certificat d\'inscription',
+          icon: 'bx bx-bell',
+          link:'administratif/certificat-inscription'
+        },
+        {
+          id: 17,
+          label: 'Générer billet d\'absence',
+          icon: 'bx bx-alarm',
+          link: 'administratif/certificat-absence'
+        },
+         {
+           id: 18,
+           label: 'Générer certificat de fréquentation',
+           icon: 'bx bx-mail-send',
+           link:'administratif/certificat-frequentation'
+         },
+      ]
+     }
     // {
     //     id: 2,
     //     label: 'Parametre',
