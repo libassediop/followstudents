@@ -49,8 +49,8 @@ classes : any = [];
 formInscription: FormGroup;
 val: string = '0';
 navItem1: HTMLElement;
-  navItem2: HTMLElement;
-  btnSuivant: HTMLElement;
+navItem2: HTMLElement;
+btnSuivant: HTMLElement;
 
 
   constructor(private route:Router,private professeurService : ProfesseurService,   private fb : FormBuilder, private classeService: ClasseService, private serviceInscription: InscriptionreinscriptionService) {

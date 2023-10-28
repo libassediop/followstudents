@@ -18,6 +18,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ProfilComponent } from './profil/profil/profil.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -28,7 +29,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 ]);
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  
+  ],
   imports: [
     CommonModule,
     FormsModule,

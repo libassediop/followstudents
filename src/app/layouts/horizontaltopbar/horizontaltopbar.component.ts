@@ -39,7 +39,6 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
     { text: 'Italian', flag: 'assets/images/flags/italy.jpg', lang: 'it' },
     { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },
   ];
-
   // tslint:disable-next-line: max-line-length
   constructor(@Inject(DOCUMENT) private document: any, private router: Router, private eventService: EventService, private authService: AuthenticationService,
     private authFackservice: AuthfakeauthenticationService,
@@ -54,6 +53,7 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    
     this.nonComplet=localStorage.getItem('prenom') +' '+localStorage.getItem('nom')
     this.element = document.documentElement;
 
@@ -269,4 +269,11 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
 
+  parametre (){
+    this.router.navigate(['/pages/parametre/parametre']);
+  }
+
+  profil (){
+    this.router.navigate(['/pages/profil/profil']);
+  }
 }

@@ -5,7 +5,10 @@ import { MatiereRoutingModule } from './matiere-routing.module';
 import { MatiereComponent } from './matiere/matiere.component';
 import { UIModule } from "../../shared/ui/ui.module";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbNavModule, NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ArchwizardModule } from 'angular-archwizard';
+import { SimplebarAngularModule } from 'simplebar-angular';
 
 
 
@@ -17,9 +20,17 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
         CommonModule,
         MatiereRoutingModule,
         UIModule,
+        NgbDropdownModule,
+        NgApexchartsModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbPaginationModule
+        NgbPaginationModule,
+        NgbTypeaheadModule,
+        NgbNavModule,
+        NgbModalModule,
+        NgbDatepickerModule,
+        ArchwizardModule,
+        SimplebarAngularModule
        
     ]
 })
