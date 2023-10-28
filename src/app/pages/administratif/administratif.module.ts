@@ -6,6 +6,10 @@ import { CertificatInscriptionComponent } from './certificat-inscription/certifi
 import { CertificatAbsenceComponent } from './certificat-absence/certificat-absence.component';
 import { CertificatFrequentationComponent } from './certificat-frequentation/certificat-frequentation.component';
 import { UIModule } from "../../shared/ui/ui.module";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -15,9 +19,14 @@ import { UIModule } from "../../shared/ui/ui.module";
         CertificatFrequentationComponent
     ],
     imports: [
-        CommonModule,
         AdministratifRoutingModule,
-        UIModule
+        CommonModule,
+        UIModule,
+        FormsModule,
+        CKEditorModule,
+        NgSelectModule,
+        ReactiveFormsModule,
+        NgbPaginationModule
     ]
 })
 export class AdministratifModule { }

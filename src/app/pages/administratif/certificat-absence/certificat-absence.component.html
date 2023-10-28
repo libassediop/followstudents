@@ -1,6 +1,5 @@
 <div class="container-fluid">
-
-    <app-page-title title="Effectuer un paiement"></app-page-title>
+    <app-page-title title="Générer un certificat d'absence"></app-page-title>
 
     <div class="row">
         <div class="col-xl-4">
@@ -11,35 +10,26 @@
                         <div class="me-2">
                             <h5 class="card-title mb-4  text-primary">Classe</h5>
                         </div>
-
                     </div>
                     <div class="text-center mt-4">
                         <div class="form-floating mb-3">
                             <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse" (ngModelChange)="recuperation($event)">
-                <option value="" selected>Liste des classes</option>
-                <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
-              </select>
+                              <option value="" selected>Liste des classes</option>
+                              <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
+                          </select>
                             <label for="floatingSelectGrid">Veuillez choisir une classe</label>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-            <!-- end card -->
         </div>
-
         <div class="col-xl-8">
-
-
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="me-2">
                             <h5 class="card-title mb-4">Liste des élèves</h5>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -54,41 +44,40 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <!-- end col-->
                                     </div>
-
                                     <!-- Table data -->
-                                    <!--          <app-transaction [transactions]="transactions |  filter:term"></app-transaction>-->
-
-                                    <!--          -->
-                                    <ul class="pagination pagination-rounded justify-content-end mb-2">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                                <i class="mdi mdi-chevron-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link " href="javascript: void(0);">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript: void(0);">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript: void(0);">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript: void(0);">4</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript: void(0);">5</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                                <i class="mdi mdi-chevron-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <div class="table-responsive mb-0">
+                                        <table class="table table-centered table-nowrap">
+                                            <thead class="bg-primary bg-soft p-4">
+                                                <tr>
+                                                    <th style="text-align: center;">id</th>
+                                                    <th style="text-align: center;">Nom complet</th>
+                                                    <th style="text-align: center;">Date Naissance</th>
+                                                    <th style="text-align: center;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of eleves">
+                                                    <td>
+                                                        <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+                                                    </td>
+                                                    <td style="text-align: center;">{{data.nom+' '+ data.prenom}}</td>
+                                                    <td style="text-align: center;">{{data.dateNaissance}}</td>
+                                                    <td style="text-align: center;">
+                                                        <button type="button" (click)="generateCertificate(data.nom,data.prenom,data.dateNaissance)" class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Générer</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- Section de modèle HTML cachée pour le certificat -->
+                                    <div id="certificateContent" style="display: none;">
+                                        <h1>Certificat d'absence</h1>
+                                        <p>Nom de l'élève : </p>
+                                        <p>Date d'absence :</p>
+                                        <!-- Autres détails du certificat -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -98,4 +87,5 @@
         </div>
     </div>
     <!-- end row -->
+
 </div>

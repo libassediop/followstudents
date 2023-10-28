@@ -70,4 +70,35 @@ recuperation($event: Event) {
 suiviPaiement(matricule) {
   this.route.navigate(['/pages/inscription/suivipaiement', matricule]);
 }
+generateCertificate(nom,prenom,dateNaissance) {
+  // Préparez les données de l'élève et du certificat ici
+  // Par exemple, créez une chaîne HTML avec les détails de l'élève et du certificat
+  const certificateContent = `
+    <html>
+      <head>
+        <style>
+          /* Ajoutez des styles CSS pour formater votre certificat */
+        </style>
+      </head>
+      <body>
+        <h1>Certificat d'absence</h1>
+        <p>Nom de l'élève : ${nom} ${prenom}</p>
+        <p>Date d'absence : ${dateNaissance}</p>
+        <!-- Ajoutez d'autres détails du certificat -->
+      </body>
+    </html>
+  `;
+
+  // Ouvrez une nouvelle fenêtre pour afficher le certificat
+  const newWindow = window.open('', '_blank');
+  newWindow.document.open();
+  newWindow.document.write(certificateContent);
+  newWindow.document.close();
+
+  // Imprimez la fenêtre
+  newWindow.print();
+}
+
+printCertificate(){}
+
 }
