@@ -94,17 +94,26 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
   onMenuClick(event) {
     const nextEl = event.target.nextElementSibling;
     if (nextEl) {
-      const parentEl = event.target.parentNode;
-      if (parentEl) {
-        parentEl.classList.remove("show");
-      }
-      nextEl.classList.toggle("show");
+      // Vérifiez si le menu est actuellement ouvert
+      const isOpen = nextEl.classList.contains("show");
+
+      // Fermez tous les sous-menus ouverts
+      const openMenus = document.querySelectorAll(".dropdown-menu.show");
+      openMenus.forEach((menu) => {
+        menu.classList.remove("show");
+      });
+
+      // Basculez la classe "show" pour ouvrir ou fermer le menu
+      nextEl.classList.toggle("show", !isOpen);
     }
     return false;
   }
 
+
+
+
   ngAfterViewInit() {
-    this.activateMenu();
+    //this.activateMenu();
   }
 
   /**

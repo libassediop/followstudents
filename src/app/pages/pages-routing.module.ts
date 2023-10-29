@@ -11,14 +11,15 @@ import { LayoutComponent } from '../layouts/layout.component';
 import { AccueilModule } from './accueil/accueil.module';
 import { ParametreModule } from './parametre/parametre.module';
 import { ProfilModule } from './profil/profil.module';
+import { AdministratifModule } from './administratif/administratif.module';
 
 
 
 const route: Routes = [
-    
+
   { path: '', redirectTo: 'dashboard' },
- 
- 
+
+  {path: 'administratif',loadChildren:() => AdministratifModule},
   { path: 'dashboard', component: DefaultComponent },
   { path: 'accueil', loadChildren: () => AccueilModule },
   { path: 'alerte', loadChildren: () => AlerteModule },
@@ -38,6 +39,7 @@ const routes: Routes = [{
   // tslint:disable-next-line:no-trailing-whitespace
 
       { path: 'accueil',loadChildren: () =>  AccueilModule },
+      {path: 'administratif',loadChildren:() => AdministratifModule},
       { path: 'alerte', loadChildren: () => AlerteModule },
       { path: 'classe', loadChildren: () => ClasseModule },
       { path: 'inscription', loadChildren: () => InscriptionModule},
