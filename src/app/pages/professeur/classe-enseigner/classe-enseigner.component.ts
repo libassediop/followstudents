@@ -62,8 +62,8 @@ form: FormGroup;
 
   ];
 
-  constructor(private modalService: NgbModal, private fb : FormBuilder,  private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private eleveService: EleveService) { 
-   
+  constructor(private modalService: NgbModal, private fb : FormBuilder,  private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private eleveService: EleveService) {
+
   }
 
   ngOnInit() {
@@ -77,8 +77,11 @@ form: FormGroup;
             this.nbClasses = this.classes.length;
             this.statData[0].value = this.nbClasses;
         }, error1 => console.log(error1));
-  
-      
+        this.serviceProfesseur.getAllEleveByProf(this.data['0'].id).subscribe(value => {
+          this.nbEleves=value['total_eleves'];
+          this.statData[1].value = this.nbEleves;
+        }, error2 => console.log(error2));
+
     }, error1 => console.log(error1))
     this.serviceClasse.getAllClasse().subscribe(resp => {
         this.classe = resp;
@@ -117,7 +120,7 @@ form: FormGroup;
               timer: 1500
             });
             this.professeurService.getlisteClasseByProfesseur(this.val.idProf).subscribe(result => {
-              this.classes = result, 
+              this.classes = result,
               this.val.idClasse= '',
               this.val.idmatiere= ''
           },
@@ -159,10 +162,10 @@ form: FormGroup;
     get startIndex() {
       return (this.currentPage - 1) * this.pageSize;
     }
-  
+
     get endIndex() {
       return Math.min(this.startIndex + this.pageSize, this.classes.length);
     }
-   
+
 
 }
