@@ -1,1 +1,140 @@
-<p>certificat-inscription works!</p>
+<div class="container-fluid">
+    <app-page-title title="Générer un certificat d'absence"></app-page-title>
+
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- end card -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="me-2">
+                            <h5 class="card-title mb-4  text-primary">Classe / Année scolaire</h5>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" aria-label="choisir Année Scolaire">
+                        <option value="" selected>Liste des années scolaires</option>
+                        <option *ngFor="let annee of anneesScolaires">{{ annee }}</option>
+                    </select>
+                            <label for="floatingSelectGrid">Veuillez choisir l'année scolaire</label>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse" (ngModelChange)="recuperation($event)">
+                            <option value="" selected>Liste des classes</option>
+                            <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
+                        </select>
+                            <label for="floatingSelectGrid">Veuillez choisir une classe</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- end card -->
+
+
+        </div>
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="me-2">
+                            <h5 class="card-title mb-4">Liste des élèves</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-4">
+                                            <div class="search-box me-2 mb-2 d-inline-block">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term">
+                                                    <i class="bx bx-search-alt search-icon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end col-->
+                                    </div>
+                                    <!-- Table data -->
+                                    <div class="table-responsive mb-0">
+                                        <table class="table table-centered table-nowrap">
+                                            <thead class="bg-primary bg-soft p-4">
+                                                <tr>
+                                                    <th style="text-align: center;">id</th>
+                                                    <th style="text-align: center;">Nom complet</th>
+                                                    <th style="text-align: center;">Date Naissance</th>
+                                                    <th style="text-align: center;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of eleves">
+                                                    <td>
+                                                        <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+                                                    </td>
+                                                    <td style="text-align: center;">{{data.nom+' '+ data.prenom}}</td>
+                                                    <td style="text-align: center;">{{data.dateNaissance}}</td>
+                                                    <td style="text-align: center;">
+                                                        <button type="button" (click)="centerModal(centerDataModal,data)" class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Générer</button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+
+</div>
+
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Center modal</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <div id="certificateContent">
+            <div class="container">
+                <div class="header">
+                    <p>
+                        MINISTERE DE L'EDUCATION NATIONALE<br> I.A. DAKAR - IDEN THIAROYE<br> GROUPE SCOLAIRE TAÏBA<br> Aut. 02040 du 17 - 03 - 98, Thiaroye Azur, Cté ISRA<br> Tél : 33 834 59 59 / B.P : 20 661
+                    </p>
+                </div>
+                <div class="certificate-title" style="text-align: center;">
+                    CERTIFICAT DE SCOLARITE
+                </div>
+                <div class="student-info">
+                    <p style=" text-align: center; ">Le Directeur du Groupe Scolaire TAIBA, certifie :</p>
+                    <p>
+                        L'élève : {{eleveImprimercertificat.nom}} {{eleveImprimercertificat.prenom}}<br> Né (e) le : {{eleveImprimercertificat.dateNaissance}} à {{eleveImprimercertificat.lieu}} N Mle:
+                        <br> Fils / Fille de M {{eleveImprimercertificat.parent_nom}} {{eleveImprimercertificat.parent_prenom}} est inscrit (e) en classe de {{eleveImprimercertificat.libelleClasse}}
+
+                        <br> N° Mle : {{eleveImprimercertificat.matricule}}
+                        <br> et de nomDuParent pour l'année scolaire anneeScolaire <br>
+                    </p>
+                </div>
+                <div class="director-info ">
+                    <p>
+                        Fait à Dakar, le date<br> Le Directeur
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <button type="button " class="btn btn-secondary ">Imprimer</button>
+    </div>
+</ng-template>

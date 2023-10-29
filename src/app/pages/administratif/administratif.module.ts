@@ -11,12 +11,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
-
 @NgModule({
     declarations: [
         CertificatInscriptionComponent,
         CertificatAbsenceComponent,
-        CertificatFrequentationComponent
+        CertificatFrequentationComponent,
+
     ],
     imports: [
         AdministratifRoutingModule,

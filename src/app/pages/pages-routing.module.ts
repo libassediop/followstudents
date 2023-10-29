@@ -19,7 +19,7 @@ const route: Routes = [
 
   { path: '', redirectTo: 'dashboard' },
 
-  {path: 'administratif',loadChildren:() => AdministratifModule },
+  {path: 'administratif',loadChildren:() => AdministratifModule},
   { path: 'dashboard', component: DefaultComponent },
   { path: 'accueil', loadChildren: () => AccueilModule },
   { path: 'alerte', loadChildren: () => AlerteModule },
