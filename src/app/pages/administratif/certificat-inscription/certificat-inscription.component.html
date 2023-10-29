@@ -200,3 +200,104 @@
         </div>
     </div>
 </ng-template>
+
+<!--Modal reçu de paiement inscription -->
+
+<ng-template #recuDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Reçu modal</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <div id="certificateContent">
+            <div class="container">
+                <div class="header">
+                    <p>
+                        MINISTERE DE L'EDUCATION NATIONALE
+                        <br> I.A. DAKAR - IDEN THIAROYE
+                        <br> GROUPE SCOLAIRE TAÏBA
+                        <br> Tél : 33 834 59 59 - 77 51970 75
+                        <br> Thiaroye Azur
+                        <br> Reconnu par décret N002-954 du 04/10/2002
+                        <br> Email : cptaiba@orange.sn
+                    </p>
+                </div>
+                <div class="certificate-title" style="text-align: center;">
+                    Justificatif de paiement
+                </div>
+                <div class="student-info">
+                    <p>
+                        Délivré à l'élève : {{eleveImprimercertificat.nom}} {{eleveImprimercertificat.prenom}}
+                        <br> De la classe de : {{eleveImprimercertificat.libelleClasse}}
+                        <br> Date de naissance : {{eleveImprimercertificat.dateNaissance}}, Lieu de naissance : {{eleveImprimercertificat.lieu}}
+                        <br> Montant payé : 5 000FCFA
+                        <br> Avance : 3 000 FCFA, Acompte : 2 000 FCFA, Reliquat : 5 000 FCFA
+                        <br> La comptabilité
+                    </p>
+                </div>
+                <div class="director-info">
+                    <p>
+                        Fait à Dakar, le 10/10/2023
+                    </p>
+                </div>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button type="button" class="btn btn-secondary">Imprimer</button>
+    </div>
+</ng-template>
+<!-- end Modal reçu de paiement -->
+
+<!--Modal reçu de paiement Mensualité -->
+<ng-template #recuDataModalMensualite let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Reçu modal</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <div id="certificateContent">
+            <div class="container">
+                <div class="header">
+                    <p>
+                        MINISTERE DE L'EDUCATION NATIONALE
+                        <br> I.A. DAKAR - IDEN THIAROYE
+                        <br> GROUPE SCOLAIRE TAÏBA
+                        <br> Tél : 33 834 59 59 - 77 51970 75
+                        <br> Thiaroye Azur
+                        <br> Reconnu par décret N002-954 du 04/10/2002
+                        <br> Email : cptaiba@orange.sn
+                    </p>
+                </div>
+                <div class="certificate-title" style="text-align: center;">
+                    Facture du mois de : mettre le mois ici
+                </div>
+                <div class="student-info">
+                    <p>
+                        Prénom(s) et Nom: {{eleveImprimercertificat.nom}} {{eleveImprimercertificat.prenom}}
+                        <br> De la classe de : {{eleveImprimercertificat.libelleClasse}}.... Mensualité :Mois
+                        <br> Acompte : {{eleveImprimercertificat.dateNaissance}}, Etude surveillées : {{eleveImprimercertificat.lieu}}
+                        <br> Montant reliquat : 5 000FCFA
+                        <br> Net à payer : 3 000 FCFA
+                        <br>N.B: Ce présent Buletin doit être obligatoirement présenté lors du paiement
+                        <br>Date limite le 5 de chaque mois
+                        <br>Le Comptable </p>
+                </div>
+                <div class="director-info">
+                    <p>
+                        Fait à Dakar, le 10/10/2023
+                    </p>
+                </div>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button type="button" class="btn btn-secondary">Imprimer</button>
+    </div>
+</ng-template>
