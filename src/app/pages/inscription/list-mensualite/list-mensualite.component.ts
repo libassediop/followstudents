@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Contenue, ContenuePaiement, Note} from "../../../layouts/service/general.model";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClasseService} from "../../../layouts/service/classe.service";
 import {EleveService} from "../../../layouts/service/eleve.service";
 import {NoteService} from "../../../layouts/service/note.service";
 import { MensualiteList } from './list-mensualite.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-mensualite',
@@ -26,6 +28,8 @@ export class ListMensualiteComponent implements OnInit {
   matieres;
   rateControl: any;
 
+  formInscriptionAvance: FormGroup;
+  
   currentPage: number = 1;
   pageSize: number = 10;
   filteredMensualite: any[] = [];
@@ -33,6 +37,12 @@ export class ListMensualiteComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'asc';
   selectedMensualite : string = '';
   selectedStatus: string = "Tous";
+
+  restantModal : any;
+  nomModal :any;
+  prenomModal : any;
+  valueAvanceModal : any;
+  idMensualite : any;
 
   contenue: ContenuePaiement = {
     idClasse: '',
@@ -53,7 +63,7 @@ export class ListMensualiteComponent implements OnInit {
     { id: 11, mois: 'Novembre' },
     { id: 12, mois: 'Décembre' }
   ];
-  constructor(private fb : FormBuilder ,private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviveNote: NoteService) {
+  constructor(private fb : FormBuilder ,private modalService : NgbModal,private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviveNote: NoteService) {
 
 
   }
@@ -66,6 +76,12 @@ export class ListMensualiteComponent implements OnInit {
       this.classes = resp;
     }, error1 => {
     });
+
+    this.formInscriptionAvance = this.fb.group({
+      // Ajoutez ici les contrôles de vot
+      avance: [{ value: '', disabled: false }, Validators.required],
+
+    })
 
 
     this.serviceClasse.getAllMatiere().subscribe(resp => {
@@ -86,6 +102,18 @@ export class ListMensualiteComponent implements OnInit {
     return '';
   }
 }
+
+convertToNumber(value: string | number): number {
+  return typeof value === 'string' ? parseFloat(value) : value as number;
+}
+
+ModalAvance(id,restant,nom,prenom, centerModal?: any) {
+  this.restantModal = restant;
+  this.nomModal = nom;
+  this.prenomModal = prenom;
+  this.idMensualite = id;
+  this.modalService.open(centerModal, {centered: true});
+  }
 
   recuperation($event: Event) {
     this.test = this.contenue.idClasse;
@@ -183,5 +211,60 @@ filterByStatus(status: string) {
     this.filterMensualite();
   this.currentPage = 1;
 }
+updateAvance(){
+  this.valueAvanceModal = this.formInscriptionAvance.value.avance;
+  this.serviceEleve.detteMensuelle(this.idMensualite,this.valueAvanceModal).subscribe(
+    result => {
+      if (result['success']) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Réglement de dette : montant reçu avec succès',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        this.formInscriptionAvance.reset();
+        this.modalService.dismissAll();
+        this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: MensualiteList[]) => {
+          this.filteredMensualite= this.eleves =  result; // Initialize both arrays
+          console.log(this.eleves)
+          this.filterMensualite();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+      }
+      else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Erreur lors du réglement de dette :'+ result['message'],
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    },
+    error => {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Erreur lors du réglement de dette :'+ error,
+        showConfirmButton: false,
+        timer: 1500
+      });
+      console.log(error)
+    }
+  )
+}
+
+annuler() {
+  
+  //this.formPersonnel.reset();
+  this.modalService.dismissAll();
+
+}
+
 
 }

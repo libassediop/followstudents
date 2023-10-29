@@ -1,6 +1,8 @@
 export class Classe {
     libelle:string;
     niveau:string;
+    montant_inscription:string;
+    montant_mensuel:string;
     }
     export class Matiere {
         libelle:string;

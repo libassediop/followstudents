@@ -115,6 +115,7 @@
                                 <th style="text-align: center;">Statut</th>
                                 <th style="text-align: center;">Reçu</th>
                                 <th style="text-align: center;">Restant</th>
+                                <th style="text-align: center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,6 +132,9 @@
                                 </td>
                                 <td style="text-align: center;">{{formatMontant(data?.avance)}}</td>
                                 <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
+                                <td style="text-align: center;">
+                                    <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
+                                  </td>
                             </tr>
                         </tbody>
                     </table>
@@ -192,3 +196,56 @@
         </tbody>
     </table>
 </div>
+
+
+
+<ng-template #contentUpdateAvance role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Réglement de dette mensuelle </h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="modal-body">
+          <form (ngSubmit)="updateAvance()" [formGroup]="formInscriptionAvance">
+            <div class="row mt-3">
+              <div class="col-12">
+                <div class="row mb-3">
+                  <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
+                  <div class="col-sm-6 test">
+                    <label>Nom </label>
+                    <input class="form-control" type="text" placeholder="{{nomModal}}" disabled>
+  
+                  </div>
+                  <div class="col-md-6">
+                    <label>Prénom </label>
+                    <input class="form-control" type="text" placeholder="{{prenomModal}}" disabled>
+                  </div>
+                  </div>
+                  <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label>Montant restant </label>
+                    <input class="form-control" type="text" placeholder="{{formatMontant(restantModal) }}" disabled>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Montant reçu </label>
+                    <input class="form-control" formControlName="avance"  type="number" placeholder="Veuillez saisir le montant" maxlength="7" required>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div style="text-align:center;">
+                <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+                  <button type="button"  
+                    class="btn btn-primary" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
+                    &nbsp;
+                  <button type="button" class="btn btn-success" style="float:center;" (click)="updateAvance()" ><i
+                      class="fa fa-save"></i>&nbsp;Modifier</button>
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>

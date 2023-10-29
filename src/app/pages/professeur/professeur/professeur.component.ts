@@ -31,6 +31,8 @@ export class ProfesseurComponent implements OnInit {
   classe: Classe = {
     libelle: '',
     niveau: '',
+    montant_inscription:'',
+    montant_mensuel:''
   };
 
   public matieres: any = [];

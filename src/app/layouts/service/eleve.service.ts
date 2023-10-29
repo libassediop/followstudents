@@ -52,7 +52,9 @@ export class EleveService {
     return this.http.get(this.host+'/eleve/getMaxIdInsByMatricule/'+matricule+'&token='+localStorage.getItem('token'));
   }
 
-
+  detteMensuelle(id,avance){
+    return this.http.post(this.host+'/mensualite/reglerRestantMensualite/'+id+'?token='+localStorage.getItem('token')+"&montant_recu="+avance,{observe :'response'});
+  }
 
   updatdeEleve(inscri : Inscription){
     return this.http.put(this.host+'/eleve/updateEleveById/'+inscri.id+'?nom='+inscri.nom+'&prenom='+inscri.prenom+'&adresse='+inscri.adresse+'&sexe='+inscri.sexe+'&nationalite='+inscri.nationalite+'&dateNaissance='+inscri.dateNaissance+'&lieuDeNaissance='+inscri.lieuDeNaissance+'&nomParent='+inscri.nomParent+'&prenomParent='+inscri.prenomParent+'&telephoneParent='+inscri.telephoneParent+'&fonctionParent='+inscri.fonctionParent+'&sexeParent='+inscri.sexeParent+'&classe_id='+inscri.classeId+'&token='+localStorage.getItem('token'),{observe :'response'})

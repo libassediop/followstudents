@@ -18,7 +18,18 @@
                   formControlName="libelle">
               </div>
             </div>
-
+            <div class="text-center mt-4">
+              <div class="input-group bg-light rounded" [formGroup]="formClasse">
+                <input type="number" class="form-control bg-transparent border-0" placeholder="Entrer le montant de l'inscription" maxlength="7"
+                  formControlName="montantinscription">
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <div class="input-group bg-light rounded" [formGroup]="formClasse">
+                <input type="number" class="form-control bg-transparent border-0" placeholder="Entrer le montant de la mensualité" maxlength="7"
+                  formControlName="montantmensuel">
+              </div>
+            </div>
             <div class="text-center mt-4">
               <div class="input-group bg-light rounded" [formGroup]="formClasse">
                 <select type="text" class="form-control bg-transparent border-0" formControlName="niveau" >
@@ -100,6 +111,14 @@
                             Niveau
                             <span *ngIf="activeSortColumnNiveau === 'niveau'" class="no-print">{{ isAscendingNiveau ? '↓↓' : '↑↑' }}</span>
                           </th>
+
+                          <th style="text-align: center; cursor: pointer;" >
+                            Inscription
+                           
+                          </th>
+                          <th style="text-align: center; cursor: pointer;" >
+                            Mensualité
+                          </th>
                           <th style="text-align: center;" class="no-print">Action</th>
                           <th style="text-align: center;" class="no-print">Action</th>
                         </tr>
@@ -110,12 +129,17 @@
                             <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
                           </td>
                           <td style="text-align: center;">{{dataClasse.libelle}} </td>
-                          <td style="text-align: center;">{{dataClasse.niveau}} cycle</td>
+                          <td style="text-align: center;">
+                            {{dataClasse.niveau == 1 ? 'Préscolaire' : (dataClasse.niveau == 2 ? 'Élémentaire' : (dataClasse.niveau == 3 ? 'Collège' : (dataClasse.niveau == 4 ? 'Lycée' : 'Autre'))) }}
+                          </td>
+                          
+                          <td style="text-align: center;">{{formatMontant(dataClasse.montant_inscription)}} FCFA</td>
+                          <td style="text-align: center;">{{formatMontant(dataClasse.montant_mensuel)}} FCFA</td>
                           <td style="text-align: center;" class="no-print">
-                            <button type="button" class="btn btn-warning no-print"><i class="fas fa-edit"
-                                (click)="UpdateClasse(dataClasse.id)"></i></button>&nbsp;
-                                <button type="button" class="btn btn-danger no-print"><i class="fas fa-trash"
-                                  (click)="supprimerClasse(dataClasse.id)"></i></button>
+                            <button type="button" class="btn btn-warning no-print" (click)="UpdateClasse(dataClasse.id)"><i class="fas fa-edit"
+                                ></i></button>&nbsp;
+                                <button type="button" class="btn btn-danger no-print"  (click)="supprimerClasse(dataClasse.id)"><i class="fas fa-trash"
+                                 ></i></button>
                           </td>
                           <td style="text-align: center;" class="no-print">
                             <button type="button" (click)="golisteClasse(dataClasse.id)"

@@ -29,13 +29,17 @@ idClasse;
   constructor(private route: Router,private serviceClasse : ClasseService, public fb: FormBuilder, private modalService : NgbModal) {
     this.formClasse = this.fb.group({
       libelle: ['', Validators.required],
-      niveau: ['', Validators.required]
+      niveau: ['', Validators.required],
+      montantinscription: ['', Validators.required],
+      montantmensuel: ['', Validators.required]
     });
    }
    public classes:any = [] ;
   classe : Classe = {
     libelle:'',
-    niveau:''
+    niveau:'',
+    montant_inscription:'',
+    montant_mensuel:''
     };
 
   ngOnInit(): void {
@@ -45,17 +49,31 @@ idClasse;
         this.filteredClasses = result;
         this.filterClasses();  // Appliquer le filtre initial
         this.sortClasses();    // Trier les classes initiales
+        console.log(this.classes)
       },
       err =>{
         console.log(err)
       }
     );
   }
+
+  formatMontant(montant: number): string {
+    // Vérifiez d'abord si montant est défini et n'est pas null
+    if (montant !== null && montant !== undefined) {
+      // Utilisez la méthode toLocaleString avec l'option 'fr-FR' pour formater le montant avec un espace comme séparateur des milliers.
+      return montant.toLocaleString('fr-FR');
+    } else {
+      // Gérez le cas où montant est null ou non défini, par exemple, en renvoyant une chaîne vide.
+      return '';
+    }
+  }
   
 
   Addclasse() {
     this.classe.libelle = this.formClasse.value.libelle;
     this.classe.niveau = this.formClasse.value.niveau;
+    this.classe.montant_inscription = this.formClasse.value.montantinscription;
+    this.classe.montant_mensuel = this.formClasse.value.montantmensuel;
     this.serviceClasse.addClasse(this.classe).subscribe(
       result => {
        
@@ -88,7 +106,9 @@ idClasse;
         }
         this.classe = {
           libelle: '',
-          niveau : ''
+          niveau : null,
+          montant_inscription:'',
+          montant_mensuel:''
         };
       },
       error => {
@@ -100,9 +120,12 @@ idClasse;
  UpdateClasse(idM ){
     this.update=true;
     this.serviceClasse.getClasseById(idM).subscribe(value => {
+     console.log(value)
     this.formClasse.setValue({
      libelle: value[0].libelle,
      niveau: value[0].niveau,
+     montantinscription: value[0].montant_inscription,
+     montantmensuel: value[0].montant_mensuel,
      });
     this.idClasse=idM;
     },error1 => {
@@ -110,17 +133,22 @@ idClasse;
     })
     this.classe.libelle ='';
     this.classe.niveau ='';
+    this.classe.montant_inscription ='';
+    this.classe.montant_mensuel ='';
     }
 
   ModifierClasse (){
     this.classe.libelle = this.formClasse.value.libelle;
     this.classe.niveau = this.formClasse.value.niveau;
+    this.classe.montant_inscription =this.formClasse.value.montantinscription;
+    this.classe.montant_mensuel =this.formClasse.value.montantmensuel;
     this.serviceClasse.modifierClasse(this.idClasse, this.classe).subscribe(
       result => {
         this.classe = {
           libelle: '',
-          niveau:''
-          
+          niveau:null,
+          montant_inscription:'',
+          montant_mensuel:''
         };
         if (result['success']) {
           this.modalService.dismissAll();
@@ -196,13 +224,15 @@ idClasse;
     this.formClasse.reset();
     this.classe={
       libelle:'',
-      niveau:''
+      niveau:'',
+      montant_inscription:'',
+      montant_mensuel:''
       }
   }
 
 
   currentPage = 1;
-  pageSize = 15;
+  pageSize = 10;
 
   get startIndex() {
     return (this.currentPage - 1) * this.pageSize;
