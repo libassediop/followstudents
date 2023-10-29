@@ -51,16 +51,22 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row mb-2">
-                                        <div class="col-sm-4">
-                                            <div class="search-box me-2 mb-2 d-inline-block">
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term">
-                                                    <i class="bx bx-search-alt search-icon"></i>
+                                        <div class="d-flex">
+                                            <div class="col-sm-4">
+                                                <div class="search-box me-2 mb-2 d-inline-block">
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control" placeholder="Recherche..." />
+                                                        <i class="bx bx-search-alt search-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <button class="btn btn-success btn-rounded ms-auto mb-2" (click)="extraLarge(content)">
+                                          <i class="mdi mdi-plus me-1"></i>Créer certificat </button>
                                         </div>
+
                                         <!-- end col-->
                                     </div>
+
                                     <!-- Table data -->
                                     <div class="table-responsive mb-0">
                                         <table class="table table-centered table-nowrap">
@@ -102,7 +108,7 @@
 <ng-template #centerDataModal let-modal>
     <div class="modal-header">
         <h5 class="modal-title mt-0">Center modal</h5>
-        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+        <button type="button" class="btn-close" (click)="modal.dismiss( 'Cross click')" aria-hidden="true"></button>
     </div>
     <div class="modal-body">
         <div id="certificateContent">
@@ -116,7 +122,7 @@
                     CERTIFICAT DE SCOLARITE
                 </div>
                 <div class="student-info">
-                    <p style=" text-align: center; ">Le Directeur du Groupe Scolaire TAIBA, certifie :</p>
+                    <p style=" text-align: center;">Le Directeur du Groupe Scolaire TAIBA, certifie :</p>
                     <p>
                         L'élève : {{eleveImprimercertificat.nom}} {{eleveImprimercertificat.prenom}}<br> Né (e) le : {{eleveImprimercertificat.dateNaissance}} à {{eleveImprimercertificat.lieu}} N Mle:
                         <br> Fils / Fille de M {{eleveImprimercertificat.parent_nom}} {{eleveImprimercertificat.parent_prenom}} est inscrit (e) en classe de {{eleveImprimercertificat.libelleClasse}}
@@ -125,7 +131,7 @@
                         <br> et de nomDuParent pour l'année scolaire anneeScolaire <br>
                     </p>
                 </div>
-                <div class="director-info ">
+                <div class="director-info">
                     <p>
                         Fait à Dakar, le date<br> Le Directeur
                     </p>
@@ -135,6 +141,62 @@
         </div>
     </div>
     <div>
-        <button type="button " class="btn btn-secondary ">Imprimer</button>
+        <button type="button" class="btn btn-secondary">Imprimer</button>
+    </div>
+</ng-template>
+
+
+<!--modal pour l'ajout personnel-->
+<ng-template #content role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Générer un certificat de scolarité</h5>
+        <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss( 'Cross click')"></button>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body">
+                <form (ngSubmit)="genererCertificat()" [formGroup]="formEleve">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="text" placeholder="Nom" formControlName="nom">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="Prénom" formControlName="prenom">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="text" placeholder="Date de naissance" formControlName="dateNaissance">
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="text" placeholder="Lieu de naissance" formControlName="lieuNaissance">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <select class="form-select" formControlName="classe">
+                                      <option value="" selected>Choisir une classe</option>
+
+                                      <option *ngFor="let classe of classes" >{{classe.libelle}}</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" formControlName="anneeScolaire">
+                    <option value="" selected>Choisir une année scolaire</option>
+                    <option *ngFor="let annee of anneesScolaires">{{ annee }}</option>
+                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" (click)="centerModalAsaisir(centerDataModal)">Générer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </ng-template>
