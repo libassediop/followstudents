@@ -7,14 +7,14 @@
   <br>
 
   <div class="row">
-    <div class="col-xl-4">
+    <div class="col-xl-5">
       <div class="card overflow-hidden">
         <div class="bg-soft bg-primary">
           <div class="row">
             <div class="col-7">
               <div class="text-black p-3">
-                <h5 class="text-black-50">Bienvenue!</h5>
-                <p>Espace Élève</p>
+                <p class="text-muted mb-0">Matricule</p>
+                    <h2 class="font-size-12">{{this.donneesEleve?.matricule }}</h2>
               </div>
             </div>
             <div class="col-5 align-self-end">
@@ -28,8 +28,7 @@
               <div class="avatar-md profile-user-wid mb-4">
                 <img src="assets/images/users/avatar-2.jpg" alt="" class="img-thumbnail rounded-circle">
               </div>
-              <h5 class="font-size-15 text-truncate">{{ this.donneesEleve[0].prenom +' '+ this.donneesEleve[0].nom}}</h5>
-              <p class="text-muted mb-0 text-truncate">{{this.donneesEleve[0].telephone }}</p>
+              <h2 class="font-size-12 text-truncate">{{ this.donneesEleve?.prenom +' '+ this.donneesEleve?.nom}}</h2>
             </div>
 
             <div class="col-sm-8">
@@ -38,11 +37,11 @@
                   <div class="col-6">
 
                     <p class="text-muted mb-0">Classe</p>
-                    <h5 class="font-size-15">{{this.donneesEleve[0].classe }}</h5>
+                    <h2 class="font-size-12">{{this.donneesEleve?.classe }}</h2>
                   </div>
                   <div class="col-6">
-                    <p class="text-muted mb-0">Matricule</p>
-                    <h5 class="font-size-15">{{this.donneesEleve[0].matricule }}</h5>
+                    <p class="text-muted mb-0">Contact parent</p>
+                    <h2 class="font-size-12">{{this.donneesEleve?.telephone_parent }}</h2>
 
                   </div>
                 </div>
@@ -65,10 +64,10 @@
               <tbody>
               <tr>
                 <th scope="row">Nom Complet:</th>
-                <td>{{this.donneesEleve[0].prenom +' '+ this.donneesEleve[0].nom}}</td>
+                <td>{{this.donneesEleve?.prenom +' '+ this.donneesEleve?.nom}}</td>
               </tr>
               <tr [formGroup]="formMensualite">
-                <th scope="row">Mois a payé :</th>
+                <th scope="row">Mois à payer :</th>
                 <td> <select id="formrow-inputState" class="form-control"  formControlName="mois">
                   <option selected>Choose...</option>
                   <option value="1">Janvier</option>
@@ -96,141 +95,57 @@
               </tr>
               </tbody>
 
-              <button class="btn btn-success" id="suivant"
+              <button class="btn btn-success mx-auto" id="suivant"
                       style=" color: white; "  (click)="Valider()"><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;
 
             </table>
           </div>
         </div>
       </div>
-      <!-- end card -->
-
-      <!-- end card -->
     </div>
 
-    <div class="col-xl-8">
+    <div class="col-xl-7">
 
       <div class="row">
         <div *ngFor="let stat of statData" class="col-md-6 text-info">
           <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
         </div>
       </div>
-      <!-- <div class="card">
-          <div class="card-body">
-            <h4 class="card-title mb-4">Revenue</h4>
-            <apx-chart dir="ltr" class="apex-charts" [series]="revenueBarChart.series" [chart]="revenueBarChart.chart"
-              [xaxis]="revenueBarChart.xaxis" [colors]="revenueBarChart.colors" [yaxis]="revenueBarChart.yaxis"
-              [dataLabels]="revenueBarChart.dataLabels" [stroke]="revenueBarChart.stroke"
-              [plotOptions]="revenueBarChart.plotOptions" [fill]="revenueBarChart.fill">
-            </apx-chart>
-          </div>
-        </div> -->
-
       <div class="card">
         <div class="card-body">
           <div class="row mb-2">
-            <div class="col-sm-4">
-              <div class="search-box me-2 mb-2 d-inline-block">
-                <div class="position-relative">
-                  <input type="text" class="form-control" placeholder="Recherche..." [(ngModel)]="term">
-                  <i class="bx bx-search-alt search-icon"></i>
-                </div>
+            <div class="col-sm-6">
+              <div class="me-2">
+                <h5 class="card-title mb-4">Liste des paiements</h5>
               </div>
             </div>
-            <div class="col-sm-8">
-              <div class="text-sm-end">
-                <h5 class="text-black-50">Details paiement!</h5>
-              </div>
-            </div><!-- end col-->
           </div>
-
-          <!-- Table data -->
           <div class="table-responsive mb-0">
             <table class="table table-centered table-nowrap">
               <thead class="table-light">
               <tr>
-                <th class="">#</th>
-                <th class="">Mois payé</th>
-                <th class="">Montant à payer</th>
-                <th class="">Montant reçu</th>
-                <th class="">Date</th>
-<!--                <th class="" style="text-align: center;">Actions</th>-->
+                <th  style="text-align: center;">#</th>
+                <th  style="text-align: center;">Mois payé</th>
+                <th  style="text-align: center;">Montant à payer</th>
+                <th  style="text-align: center;">Montant reçu</th>
+                <th  style="text-align: center;">Date</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let data of donneesPaiement">
-                <td></td>
-                <td> {{getLibelleMoisById(data.moisId)}}</td>
-                <td> {{data.montant}} </td>
-                <td> {{data.montant}} </td>
-                <td> {{ data.date}}</td>
-<!--                <td style="text-align: center;">-->
-<!--                  <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>&nbsp;-->
-<!--                  <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>&nbsp;-->
-<!--                </td>-->
+              <tr *ngFor="let data of donneesPaiement; let i = index">
+                <td>
+                  <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1)}}</a>
+                </td>
+                <td style="text-align: center;"> {{getLibelleMoisById(data.moisId)}}</td>
+                <td style="text-align: center;">{{formatMontant(data?.avance)}}</td>
+                <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
+                <td style="text-align: center;"> {{ data.date | date: 'dd/MM/yyyy'}}</td>
               </tr>
 
               </tbody>
             </table>
 
-            <ng-template #content role="document" let-modal>
-              <div class="modal-body">
-                <div class="modal-header">
-                  <h5 class="modal-title mt-0">Affecter classe</h5>
-                  <button type="button" class="btn-close" aria-hidden="true"
-                          (click)="modal.dismiss('Cross click')"></button>
-                </div>
-                <form #form="ngForm" (ngSubmit)="affecterProfesseur(form)">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="mb-3">
-                        <label class="control-label" style="font-weight: bold;">Classe</label>
-                        <select class="form-control" placeholder="" type="text" name="idClasse"
-                                [(ngModel)]="val.idClasse">
-                          <option value="">choisissez une classe...</option>
-                          <option *ngFor="let c of classe" [value]="c.id">{{c.libelle}}</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label class="control-label" style="font-weight: bold;">Designation</label>
-                        <select class="form-control" placeholder="" type="text" name="idmatiere"
-                                [(ngModel)]="val.idmatiere">
-                          <option value="">choisissez une matiére...</option>
-                          <option *ngFor="let m of matieres" [value]="m.id">{{m.libelle}}</option>
-                        </select>
-                      </div>
-                      <div style="text-align: center;">
-                        <button type="submit" class="btn btn-success" [disabled]="!form.valid"
-                                (click)="affecterProfesseur(form)"><i class="fa fa-save"></i>&nbsp;Enregistrer
-                        </button>
-                      </div>
-
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!-- <div class="modal-footer">
-                  <button class="btn btn-secondary">Close</button>
-                </div> -->
-            </ng-template>
           </div>
-          <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2" [(page)]="currentPage"
-                          [pageSize]="pageSize" [collectionSize]="classes.length">
-            <ul class="pagination pagination-rounded justify-content-end mb-2">
-              <li class="page-item disabled">
-                <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                  <i class="mdi mdi-chevron-left"></i>
-                </a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="javascript: void(0);">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript: void(0);">2</a>
-              </li>
-
-            </ul>
-          </ngb-pagination>
         </div>
       </div>
     </div>

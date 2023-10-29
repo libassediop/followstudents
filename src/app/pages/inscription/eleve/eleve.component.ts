@@ -52,28 +52,36 @@ navItem1: HTMLElement;
 navItem2: HTMLElement;
 btnSuivant: HTMLElement;
 
-
   constructor(private route:Router,private professeurService : ProfesseurService,   private fb : FormBuilder, private classeService: ClasseService, private serviceInscription: InscriptionreinscriptionService) {
 
    }
 
+   validateNumber(control) {
+    const numberPattern = /^[0-9]*$/;
+    if (control.value && !numberPattern.test(control.value)) {
+      return { invalidNumber: true };
+    }
+    return null;
+  }
   ngOnInit(): void {
     this.formInscription = this.fb.group({
       // Ajoutez ici les contrôles de vot
-      nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      sexe: ['', Validators.required],
-      dateNaissance: ['', Validators.required],
-      adresse: ['', Validators.required],
-      classeId: ['', Validators.required],
-      nomParent: ['', Validators.required],
-      prenomParent: ['', Validators.required],
-      telephoneParent: ['', Validators.required],
-      montant: ['', Validators.required],
-      avance: ['', Validators.required],
-      emailParent: ['', Validators.required],
-      mensualite: ['', Validators.required],
-
+      nom: [{ value: '', disabled: false }, Validators.required],
+      prenom: [{ value: '', disabled: false }, Validators.required],
+      sexe: [{ value: '', disabled: false }, Validators.required],
+      dateNaissance: [{ value: '', disabled: false }],
+      adresse: [{ value: '', disabled: false }],
+      telephone: [{ value: '', disabled: false }],
+      classeId: [{ value: '', disabled: false }, Validators.required],
+      nomParent: [{ value: '', disabled: false }, Validators.required],
+      prenomParent: [{ value: '', disabled: false }, Validators.required],
+      telephoneParent: [{ value: '', disabled: false }],
+      montant: [{ value: '', disabled: true }, this.validateNumber],
+      avance: ['', [Validators.required, this.validateNumber]],
+      emailParent: [{ value: '', disabled: false }],
+      mensualite: [{ value: '', disabled: true }, Validators.required],
+      lieu: [{ value: '', disabled: false }],
+      nationalite: [{ value: '', disabled: false }],
     })
     this.classeService.getAllClasse().subscribe(
       resp => {
@@ -84,6 +92,13 @@ btnSuivant: HTMLElement;
 
 
   }
+
+  maxDate(): string {
+  const today = new Date();
+  // Formater la date au format ISO
+  return today.toISOString().split('T')[0];
+}
+
 
   onNavChange(event: any) {
     this.active = 2;
@@ -102,6 +117,9 @@ btnSuivant: HTMLElement;
     this.inscription.sexe = this.formInscription.value.sexe;
     this.inscription.dateNaissance = this.formInscription.value.dateNaissance;
     this.inscription.adresse = this.formInscription.value.adresse;
+    this.inscription.nationalite = this.formInscription.value.nationalite;
+    this.inscription.lieuDeNaissance = this.formInscription.value.lieu;
+    this.inscription.telephone = this.formInscription.value.telephone;
     this.inscription.classeId = this.formInscription.value.classeId;
     this.inscription.nomParent = this.formInscription.value.nomParent;
     this.inscription.prenomParent = this.formInscription.value.prenomParent;
@@ -117,7 +135,7 @@ btnSuivant: HTMLElement;
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'inscription ajoutée avec succès',
+            title: 'Inscription ajoutée avec succès',
             showConfirmButton: false,
             timer: 1500
           });
@@ -125,29 +143,16 @@ btnSuivant: HTMLElement;
           this.formInscription.reset();
           this.route.navigate(['/pages/inscription/listInscription']);
         }
-        this.inscription = {
-          id:'',
-          nom: '',
-          prenom: '',
-          classeId: '',
-          email: '',
-          adresse: '',
-          avance: 0,
-          dateNaissance: '',
-          emailParent: '',
-          fonctionParent: '',
-          lieuDeNaissance: '',
-          montant: 0,
-          mensualite: 0,
-          nationalite: '',
-          nomParent: '',
-          prenomParent: '',
-          sexe: '',
-          sexeParent: '',
-          telephone: '',
-          telephoneParent: '',
-          typeDePayement: 1,
-        };
+        else{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Inscription échouée :'+ result['message'] + ' au montant de l\'inscription',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+        }
 
 
       },
@@ -184,4 +189,46 @@ btnSuivant: HTMLElement;
     else
       return false;
   }
+
+
+
+  recuperation($event: Event) {
+
+    this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
+      const montantInscription = value[0].montant_inscription;
+      const montantMensualite = value[0].montant_mensuel;
+     this.formInscription.get('montant').setValue(montantInscription);
+      this.formInscription.get('mensualite').setValue(montantMensualite);
+    }, error1 => {
+      console.log(error1);
+    });
+
+}
+
+isSuivantDisabled = false; // Par défaut, le bouton n'est pas désactivé
+
+checkMontantRecu($event: Event) {
+  const avance = parseFloat(this.formInscription.value.avance);
+  const montantString = this.formInscription.value.montant;
+
+  console.log(avance);
+  console.log(montantString);
+  // Vérifie si montantString est une chaîne numérique
+  if (!isNaN(parseFloat(montantString))) {
+    const montant = parseFloat(montantString);
+
+    console.log(avance);
+    console.log(montant);
+
+    if (avance > montant) {
+      this.isSuivantDisabled = true;
+    } else {
+      this.isSuivantDisabled = false;
+    }
+  } else {
+    // La valeur montantString n'est pas numérique, vous pouvez gérer cette situation ici.
+  }
+}
+
+
 }

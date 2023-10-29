@@ -6,6 +6,7 @@ import {EleveService} from "../../../layouts/service/eleve.service";
 import {NoteService} from "../../../layouts/service/note.service";
 import Swal from "sweetalert2";
 import {ActivatedRoute, Router} from "@angular/router";
+import { Mensualite } from './mensualite.model';
 
 @Component({
   selector: 'app-mensualite',
@@ -21,11 +22,18 @@ export class MensualiteComponent implements OnInit {
 
   note: Note[] = [];
   trouve: boolean = false;
-  eleves: any = [];
+  eleves: Mensualite[] = [];
   classes;
   test: string = '0';
-  matieres;
+
   rateControl: any;
+
+  currentPage: number = 1;
+  pageSize: number = 10;
+  filteredMensualite: any[] = [];
+  pagedMensualite: Mensualite[] = []; // Ajoutez cette propriété
+  sortDirection: 'asc' | 'desc' = 'asc';
+  selectedMensualite : string = '';
 
   contenue: Contenue = {
     idClasse: '',
@@ -48,68 +56,95 @@ export class MensualiteComponent implements OnInit {
       this.classes = resp;
     }, error1 => {
     });
-    this.serviceClasse.getAllMatiere().subscribe(resp => {
-      this.matieres = resp;
-    }, error1 => {
-    });
-
 
   }
 
   recuperation($event: Event) {
     this.test = this.contenue.idClasse;
-    this.serviceEleve.getAllEleveByClasse(this.test).subscribe(resp => {
-      this.eleves = resp;
-      for (let i = 0; i < this.eleves.length; i++) {
-        this.note.push({idEleve: this.eleves[i].id, noteEleve: '0'})
+    this.serviceEleve.getAllEleveByClasse(this.test).subscribe(
+      (result: Mensualite[]) => {
+        this.filteredMensualite = this.eleves =  result; // Initialize both arrays
+        this.filterMensualite();
+      },
+      (err) => {
+        console.log(err);
       }
-    }, error1 => {
-    });
+    );
 
   }
 
-  MiseAjourNoteEleve($event, id: any) {
-    for (let i = 0; i < this.note.length; i++) {
-      if (this.note[i].idEleve == id && $event.target.value != '') {
-        this.note[i].noteEleve = $event.target.value;
-      } else if (this.note[i].idEleve == id && $event.target.value == '') {
-        this.note[i].noteEleve = '0';
-      }
-    }
-  }
-
-  addNote() {
-    let trouve: number = 0;
-    for (let i = 0; i < this.note.length; i++) {
-      this.contenue.idEleve = this.note[i].idEleve,
-        this.contenue.noteEleve = this.note[i].noteEleve
-      this.serviveNote.AddNote(this.contenue).subscribe(result => {
-        console.log (result)
-        if (result['success'] == true) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'matiere ajouté avec succèss',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          trouve = 1;
-          this.matieres='';
-        } else {
-          trouve = 0;
-        }
-
-      }, error1 => {
-        trouve = 0;
-        console.log(error1);
-
-      });
-
-    }
-
-  }
 
   suiviPaiement(matricule) {
     this.route.navigate(['/pages/inscription/suivipaiement', matricule]);
   }
+
+
+  filterMensualite() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+  
+    this.pagedMensualite = this.filteredMensualite
+      .slice(startIndex, endIndex)
+      .sort((a, b) => {
+        if (this.sortDirection === 'asc') {
+          return a.nom.localeCompare(b.nom);
+        } else {
+          return b.nom.localeCompare(a.nom);
+        }
+      });
+  }
+  
+
+  changeItemsPerPage() {
+    this.filterMensualite();
+  }
+
+  changePageSize(size: number) {
+    this.pageSize = size;
+    this.currentPage = 1; // Réinitialiser la page courante à 1
+    this.filterMensualite();
+  }
+
+  SearchFilter(e) {
+    const searchStr = e.target.value.trim().toLowerCase();
+    if (searchStr.length === 0) {
+      this.filteredMensualite = this.eleves;
+    } else {
+      this.filteredMensualite = this.eleves.filter((eleve) => {
+        const fullName = `${eleve.nom} ${eleve.prenom}`.toLowerCase();
+        return fullName.includes(searchStr);
+      });
+    }
+    this.filterMensualite();
+  }
+  
+
+
+  pageChanged(page: number) {
+    this.currentPage = page;
+    this.filterMensualite();
+  }
+
+  toggleSortDirection() {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.filterMensualite();
+  }
+
+  imprimerMensualite() {
+    const printContents = document.getElementById('table-container').innerHTML; // Obtenez le contenu HTML de la table
+    const originalContents = document.body.innerHTML; // Obtenez le contenu HTML de la page
+
+    // Créez une balise title pour définir le titre de la page d'impression
+    const pageTitle = "<title>Liste de toutes les élèves</title>";
+
+    // Remplacez le contenu actuel de la page par le contenu de la table avec la balise title
+    document.body.innerHTML = pageTitle + printContents;
+
+    // Appelez la fonction window.print() pour imprimer la table
+    window.print();
+
+    // Restaurez le contenu original de la page
+    document.body.innerHTML = originalContents;
+}
+  
 }

@@ -73,7 +73,7 @@ export class MatiereComponent implements OnInit {
           Swal.fire({
             position: 'top-end',
             icon: 'error',
-            title: 'La matière que vous souhaitez ajouter existe déjà',
+            title: 'Erreur lors de l\'ajout de la matière : '+result['messagge'],
             showConfirmButton: false,
             timer: 2000,
           });
@@ -125,7 +125,7 @@ export class MatiereComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'Une erreur est survenue lors de la modification de la matière.',
+              text: 'Une erreur est survenue lors de la modification de la matière : '+result['message'],
             });
           }
         }

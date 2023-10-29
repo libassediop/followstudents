@@ -178,7 +178,7 @@ updateprofesseur() {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'La modification a échoué!'
+            text: 'Erreur lors de la modification : '+result['message']
           });
 
         }
@@ -257,7 +257,7 @@ AddProfesseur() {
         Swal.fire({
           position: 'top-end',
           icon: 'error',
-          title: 'Erreur lors de l\'ajout du professeur',
+          title: 'Erreur lors de l\'ajout du professeur : '+ result['message'],
           showConfirmButton: false,
           timer: 1500
         });

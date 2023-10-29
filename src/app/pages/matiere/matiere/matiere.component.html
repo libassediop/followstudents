@@ -143,14 +143,6 @@
                     <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1) + (currentPage - 1) * pageSize }}</a>
                 </td>
                 <td style="text-align: center;">{{ matiere.libelle }}</td>
-                <td style="text-align: center">
-                    <button type="button" class="btn btn-warning no-print" (click)="UpdateMatiere(matiere.id)">
-                        <i class="fas fa-edit"></i>
-                    </button>&nbsp;
-                    <button type="button" class="btn btn-danger no-print" (click)="DeleteMatiere(matiere.id)">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
             </tr>
         </tbody>
     </table>

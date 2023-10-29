@@ -248,7 +248,7 @@ ModalUpdatePersonnel(login, centerModal?: any) {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'La modification a échoué!'
+            text: 'Erreur lors de la modification : '+result['message']
           });
           
         }

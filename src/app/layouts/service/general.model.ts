@@ -45,9 +45,9 @@ export class Inscription {
     nationalite:string;
     lieuDeNaissance:string;
     adresse:string;
+    telephone:string;
     email:string;
     classeId:string;
-    telephone:string;
     sexe:string;
     nomParent:string;
     prenomParent:string;

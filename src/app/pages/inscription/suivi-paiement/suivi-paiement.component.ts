@@ -64,7 +64,7 @@ export class SuiviPaiementComponent implements OnInit {
     },
     {
       icon: 'bx bxs-user',
-      title: 'Nombre de mois payer',
+      title: 'Nombre de mois payé',
       value: '3'
     }
 
@@ -85,31 +85,17 @@ export class SuiviPaiementComponent implements OnInit {
       avance: ['', Validators.required],
     })
 
+    
     this.matricule = this.route.snapshot.params.matricule;
-    console.log(this.matricule);
-
     this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
-      console.log(resp)
-      this.donneesEleve = resp;
-      this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve[0].id).subscribe(resp => {
+      this.donneesEleve = resp[0];
+      this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve.id).subscribe(resp => {
         this.donneesPaiement = resp['response'];
+        console.log(this.donneesPaiement)
       });
     }, error1 => {
     });
 
-
-
-
-    this.serviceClasse.getAllClasse().subscribe(resp => {
-      this.classe = resp;
-    }, error1 => {
-      console.log(error1)
-    });
-    this.serviceClasse.getAllMatiere().subscribe(
-      resp => {
-        this.matieres= resp;
-      }, error1 => {
-      });
   }
 
 
@@ -130,52 +116,6 @@ export class SuiviPaiementComponent implements OnInit {
    * Open modal
    * @param content modal content
    */
-  openModalAffecterClasse(content) {
-    this.modalService.open(content, {centered: true });
-  }
-
-  affecterProfesseur(form: NgForm) {
-    // console.log(this.professeur)
-    this.professeurService.affecterClasse(this.val.idClasse, this.val.idProf, this.val.idmatiere).subscribe(
-      result => {
-        console.log(result);
-        this.modalService.dismissAll();
-        if (result['success']) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'affectation reussie',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          this.professeurService.getlisteClasseByProfesseur(this.val.idProf).subscribe(result => {
-              this.classes = result,
-                this.val.idClasse= '',
-                this.val.idmatiere= ''
-            },
-            error => {
-              console.log(error);
-            }
-          );
-          // let login: string;
-          // login = this.route.snapshot.params.id;
-          // this.professeurService.getProfessurByLogin(login).subscribe(
-          //   (result) => {
-          //     this.classes = result;
-          //     this.matieres = result;
-          //   },
-          //   error => {
-          //     console.log(error);
-          //   }
-          // );
-        }
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }
-
 
   currentPage = 1;
   pageSize =  6 ;
@@ -190,7 +130,7 @@ export class SuiviPaiementComponent implements OnInit {
 
 
   Valider() {
-    this.mensualite.eleveId=this.donneesEleve[0].id;
+    this.mensualite.eleveId=this.donneesEleve.id;
     this.mensualite.montant = this.formMensualite.value.avance;
     this.mensualite.moisId = this.formMensualite.value.mois;
     console.log(this.mensualite);
@@ -204,13 +144,39 @@ export class SuiviPaiementComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-      }
-      this.formMensualite.reset();
-      this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve[0].id).subscribe(resp => {
+
+        this.formMensualite.reset();
+      this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve.id).subscribe(resp => {
         this.donneesPaiement = resp['response'];
       });
+      }
+      else{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Erreur lors du paiement : '+res['message'],
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+      }
+      
       }
     );
 
   }
+
+
+  
+  formatMontant(montant: number): string {
+  // Vérifiez d'abord si montant est défini et n'est pas null
+  if (montant !== null && montant !== undefined) {
+    // Utilisez la méthode toLocaleString avec l'option 'fr-FR' pour formater le montant avec un espace comme séparateur des milliers.
+    return montant.toLocaleString('fr-FR');
+  } else {
+    // Gérez le cas où montant est null ou non défini, par exemple, en renvoyant une chaîne vide.
+    return '';
+  }
+}
+
 }

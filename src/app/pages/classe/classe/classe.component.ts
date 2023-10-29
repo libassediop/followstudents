@@ -83,7 +83,7 @@ idClasse;
           Swal.fire({
             icon: 'error',
             title: 'Oops... L\'ajout de la classe a échoué',
-            text: 'Pouvez-vous vérifier si la classe n\'existe pas déjà!'
+            text: 'Erreur : '+result['message']
           });
         }
         this.classe = {
@@ -148,7 +148,7 @@ idClasse;
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Une erreur est survenue lors de la modification de la classe .',
+            text: 'Une erreur est survenue lors de la modification de la classe : '+ result['message'],
           });
         }
       },

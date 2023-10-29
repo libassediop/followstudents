@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {Contenue, Note} from "../../../layouts/service/general.model";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClasseService} from "../../../layouts/service/classe.service";
 import {EleveService} from "../../../layouts/service/eleve.service";
 import {NoteService} from "../../../layouts/service/note.service";
 import Swal from "sweetalert2";
+import { InscriptionList } from './list-inscription.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { InscriptionreinscriptionService } from 'src/app/layouts/service/inscriptionreinscription.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-inscription',
@@ -25,6 +29,21 @@ export class ListInscriptionComponent implements OnInit {
   test: string = '0';
   matieres;
   rateControl: any;
+  idInscription : any;
+
+  currentPage: number = 1;
+  pageSize: number = 10;
+  filteredInscription: any[] = [];
+  pagedInscription: InscriptionList[] = []; // Ajoutez cette propriété
+  sortDirection: 'asc' | 'desc' = 'asc';
+  selectedInscription: string = '';
+  selectedStatus: string = "Tous";
+  restantModal : any;
+  nomModal :any;
+  prenomModal : any;
+  valueAvanceModal : any;
+
+  formInscriptionAvance: FormGroup;
 
   contenue: Contenue = {
     idClasse: '',
@@ -32,7 +51,7 @@ export class ListInscriptionComponent implements OnInit {
     idMatiere: '',
     noteEleve: '',
   };
-  constructor(private fb : FormBuilder ,private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviveNote: NoteService) {
+  constructor(private fb : FormBuilder ,private modalService : NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
 
 
   }
@@ -40,6 +59,11 @@ export class ListInscriptionComponent implements OnInit {
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Dashboards' }, { label: 'Saas', active: true }];
 
+    this.formInscriptionAvance = this.fb.group({
+      // Ajoutez ici les contrôles de vot
+      avance: [{ value: '', disabled: false }, Validators.required],
+
+    })
 
     this.serviceClasse.getAllClasseAvecInscris().subscribe(resp => {
       this.classes = resp;
@@ -50,58 +74,178 @@ export class ListInscriptionComponent implements OnInit {
     }, error1 => {
     });
 
-
   }
 
+  formatMontant(montant: number): string {
+    // Vérifiez d'abord si montant est défini et n'est pas null
+    if (montant !== null && montant !== undefined) {
+      // Utilisez la méthode toLocaleString avec l'option 'fr-FR' pour formater le montant avec un espace comme séparateur des milliers.
+      return montant.toLocaleString('fr-FR');
+    } else {
+      // Gérez le cas où montant est null ou non défini, par exemple, en renvoyant une chaîne vide.
+      return '';
+    }
+  }
+
+  convertToNumber(value: string | number): number {
+    return typeof value === 'string' ? parseFloat(value) : value as number;
+  }
+  
   recuperation($event: Event) {
     this.test = this.contenue.idClasse;
-    this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(resp => {
-      this.eleves = resp;
-      console.log(this.eleves);
-    }, error1 => {
-    });
-
-  }
-
-  MiseAjourNoteEleve($event, id: any) {
-    for (let i = 0; i < this.note.length; i++) {
-      if (this.note[i].idEleve == id && $event.target.value != '') {
-        this.note[i].noteEleve = $event.target.value;
-      } else if (this.note[i].idEleve == id && $event.target.value == '') {
-        this.note[i].noteEleve = '0';
-      }
+    this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
+      this.filteredInscription= this.eleves =  result; // Initialize both arrays
+      console.log(this.eleves)
+      this.filterInscription();
+    },
+    (err) => {
+      console.log(err);
     }
+  );
+
   }
 
-  addNote() {
-    let trouve: number = 0;
-    for (let i = 0; i < this.note.length; i++) {
-      this.contenue.idEleve = this.note[i].idEleve,
-        this.contenue.noteEleve = this.note[i].noteEleve
-      this.serviveNote.AddNote(this.contenue).subscribe(result => {
-        console.log (result)
-        if (result['success'] == true) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'matiere ajouté avec succèss',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          trouve = 1;
-          this.matieres='';
+  filterInscription() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+  
+    this.pagedInscription = this.filteredInscription
+      .slice(startIndex, endIndex)
+      .sort((a, b) => {
+        if (this.sortDirection === 'asc') {
+          return a.nom.localeCompare(b.nom);
         } else {
-          trouve = 0;
+          return b.nom.localeCompare(a.nom);
         }
-
-      }, error1 => {
-        trouve = 0;
-        console.log(error1);
-
       });
-
-    }
-
   }
+  
+
+  changeItemsPerPage() {
+    this.filterInscription();
+  }
+
+  changePageSize(size: number) {
+    this.pageSize = size;
+    this.currentPage = 1; // Réinitialiser la page courante à 1
+    this.filterInscription();
+  }
+
+  SearchFilter(e) {
+    const searchStr = e.target.value.trim().toLowerCase();
+    if (searchStr.length === 0) {
+      this.filteredInscription = this.eleves;
+    } else {
+      this.filteredInscription = this.eleves.filter((eleve) => {
+        const fullName = `${eleve.nom} ${eleve.prenom}`.toLowerCase();
+        return fullName.includes(searchStr);
+      });
+    }
+    this.filterInscription();
+  }
+  
+
+
+  pageChanged(page: number) {
+    this.currentPage = page;
+    this.filterInscription();
+  }
+
+  toggleSortDirection() {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.filterInscription();
+  }
+
+  imprimerMensualite() {
+    const printContents = document.getElementById('table-container').innerHTML; // Obtenez le contenu HTML de la table
+    const originalContents = document.body.innerHTML; // Obtenez le contenu HTML de la page
+
+    // Créez une balise title pour définir le titre de la page d'impression
+    const pageTitle = "<title>Liste de toutes les élèves</title>";
+
+    // Remplacez le contenu actuel de la page par le contenu de la table avec la balise title
+    document.body.innerHTML = pageTitle + printContents;
+
+    // Appelez la fonction window.print() pour imprimer la table
+    window.print();
+
+    // Restaurez le contenu original de la page
+    document.body.innerHTML = originalContents;
+}
+
+filterByStatus(status: string) {
+  if (status === "Tous") {
+      this.filteredInscription = this.eleves;
+  } else {
+      this.filteredInscription = this.eleves.filter(eleve => eleve.status_payement == status);
+ 
+    }
+    this.filterInscription();
+  this.currentPage = 1;
+}
+
+
+ModalAvance(id,restant,nom,prenom, centerModal?: any) {
+this.restantModal = restant;
+this.nomModal = nom;
+this.prenomModal = prenom;
+this.idInscription = id;
+this.modalService.open(centerModal, {centered: true});
+}
+
+updateAvance(){
+  this.valueAvanceModal = this.formInscriptionAvance.value.avance;
+  this.serviceInscription.detteInscription(this.idInscription,this.valueAvanceModal).subscribe(
+    result => {
+      if (result['success']) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Réglement de dette : montant reçu avec succès',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        this.formInscriptionAvance.reset();
+        this.modalService.dismissAll();
+        this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
+          this.filteredInscription= this.eleves =  result; // Initialize both arrays
+          console.log(this.eleves)
+          this.filterInscription();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+      }
+      else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Erreur lors du réglement de dette :'+ result['message'],
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    },
+    error => {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Erreur lors du réglement de dette :'+ error,
+        showConfirmButton: false,
+        timer: 1500
+      });
+      console.log(error)
+    }
+  )
+}
+
+annuler() {
+  
+  //this.formPersonnel.reset();
+  this.modalService.dismissAll();
+
+}
 
 }

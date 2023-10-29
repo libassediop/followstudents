@@ -57,7 +57,7 @@ export const MENU: MenuItem[] = [
   {
         id: 9,
         label: 'Mensualité',
-        icon: 'bx bx-money',
+        icon: 'bx bx-wallet', 
         link:'inscription/mensualite',
         subItems: [
           {
@@ -96,7 +96,7 @@ export const MENU: MenuItem[] = [
     },
     {
         id: 8,
-        label: 'Matiere',
+        label: 'Matière',
         icon: 'bx bxs-edit',
         link:'matiere/matiere'
     },
