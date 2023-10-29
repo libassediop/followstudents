@@ -282,6 +282,11 @@ export class HorizontaltopbarComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/pages/parametre/parametre']);
   }
 
+  caisse (){
+    this.router.navigate(['/pages/caisse/caisseJornalier']);
+  }
+
+  
   profil (){
     this.router.navigate(['/pages/profil/profil']);
   }

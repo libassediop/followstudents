@@ -9,7 +9,7 @@ export const MENU: MenuItem[] = [
         link:'accueil/accueil'
 
     },
-   {
+  /*  {
     id: 2,
     label: 'Alerte',
     icon: 'bx bx-bell',
@@ -33,7 +33,7 @@ export const MENU: MenuItem[] = [
         link:'alerte/alertemessage'
       },
     ]
-   },
+   }, */
 
     {
         id: 5,
@@ -125,7 +125,7 @@ export const MENU: MenuItem[] = [
          },
       ]
     },
-    {
+  /*   {
         id: 20,
         label: 'Caisse',
         icon: 'bx-tone',
@@ -140,7 +140,7 @@ export const MENU: MenuItem[] = [
 
 
         ]
-    }
+    } */
 
 ];
 
