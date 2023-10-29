@@ -1,0 +1,385 @@
+<div class="container-fluid">
+  <app-page-title title="CAISSE" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="checkout-tabs">
+    <div class="row">
+      <div class="col-xl-2 col-sm-3">
+        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills flex-column">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>
+              <i class="bx bx-money d-block check-nav-icon mt-4 mb-2"></i>
+              <p class="fw-bold mb-4">Caisse Journaliere</p>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
+                         aria-labelledby="v-pills-shipping-tab">
+                      <div>
+                        <h4 class="card-title">Caisse Journalière</h4>
+                        <div class="table-responsive mb-0">
+                          <table class="table table-centered table-nowrap">
+                            <thead class="bg-info bg-soft p-4">
+                            <tr>
+                              <th style="text-align: center;">
+                                #
+                              </th>
+                              <th style="text-align: center;">Type de paiement</th>
+                              <th style="text-align: center;">Montant à Payer</th>
+                              <th style="text-align: center;">Montant reçu</th>
+                              <th style="text-align: center;">Montant restant</th>
+                              <th style="text-align: center;">Effectué(e) par</th>
+                              <th style="text-align: center;" class="no-print">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let dataM of this.journalier let i = index">
+                              <td style="text-align: center;">
+                                <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
+                              </td>
+                              <td style="text-align: center;" *ngIf="dataM.moisId"> Mensualité {{getMonthNameById(dataM.moisId)}} </td>
+                              <td style="text-align: center;" *ngIf="!dataM.moisId"> Inscription {{dataM.libelle}} </td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.montant) }} FCFA </td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.avance) }} FCFA</td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.restant) }} FCFA</td>
+                              <td style="text-align: center;">{{dataM.prenomUser +' '+dataM.nomUser}}</td>
+                              <td style="text-align: center;">
+                                <button type="button" class="btn btn-primary btn-rounded mb-2 me-2"  (click)="VoirDetail(recuDataModal,recuDataModalMensualite,dataM)"><i class="fa fa-file-archive"></i>&nbsp;
+                                  Détails</button> &nbsp;
+                              </td>
+                            </tr>
+
+
+                            </tbody>
+                          </table>
+
+
+
+<!--                          <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2" [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="matieres.length">-->
+<!--                            <ul class="pagination pagination-rounded justify-content-end mb-2">-->
+<!--                              <li class="page-item disabled">-->
+<!--                                <a class="page-link" href="javascript: void(0);" aria-label="Previous">-->
+<!--                                  <i class="mdi mdi-chevron-left"></i>-->
+<!--                                </a>-->
+<!--                              </li>-->
+<!--                              <li class="page-item active">-->
+<!--                                <a class="page-link " href="javascript: void(0);">1</a>-->
+<!--                              </li>-->
+<!--                              <li class="page-item">-->
+<!--                                <a class="page-link" href="javascript: void(0);">2</a>-->
+<!--                              </li>-->
+<!--                              <li class="page-item">-->
+<!--                                <a class="page-link" href="javascript: void(0);">3</a>-->
+<!--                              </li>-->
+<!--                              <li class="page-item">-->
+<!--                                <a class="page-link" href="javascript: void(0);">4</a>-->
+<!--                              </li>-->
+<!--                              <li class="page-item">-->
+<!--                                <a class="page-link" href="javascript: void(0);">5</a>-->
+<!--                              </li>-->
+<!--                              <li class="page-item">-->
+<!--                                <a class="page-link" href="javascript: void(0);" aria-label="Next">-->
+<!--                                  <i class="mdi mdi-chevron-right"></i>-->
+<!--                                </a>-->
+<!--                              </li>-->
+<!--                            </ul>-->
+<!--                          </ngb-pagination>-->
+                        </div>
+                        <h2 class="mb-4 text-primary ">Total encaissé :    <b>{{ formatMontant(this.totalJournalier) }} FCFA</b></h2>
+<!--                        <h4 class="card-title">Total encaissé: {{ this.totalJournalier}}</h4>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>
+              <i class="bx bx-money d-block check-nav-icon mt-4 mb-2"></i>
+              <p class="fw-bold mb-4">Caisse Mensuelle</p>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
+                         aria-labelledby="v-pills-shipping-tab">
+                      <div>
+                        <h4 class="card-title">Caisse Mensuelle</h4>
+                        <div class="table-responsive mb-0">
+                          <table class="table table-centered table-nowrap">
+                            <thead class="bg-info bg-soft p-4">
+                            <tr>
+                              <th style="text-align: center;">
+                                #
+                              </th>
+                              <th style="text-align: center;">Type de paiement</th>
+                              <th style="text-align: center;">Montant à Payer</th>
+                              <th style="text-align: center;">Montant reçu</th>
+                              <th style="text-align: center;">Montant restant</th>
+                              <th style="text-align: center;">Effectué(e) par</th>
+                              <th style="text-align: center;" class="no-print">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let dataM of this.mensualite let i = index">
+                              <td style="text-align: center;">
+                                <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
+                              </td>
+                              <td style="text-align: center;" *ngIf="dataM.moisId"> Mensualité {{getMonthNameById(dataM.moisId)}} </td>
+                              <td style="text-align: center;" *ngIf="!dataM.moisId"> Inscription {{dataM.libelle}} </td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.montant) }} FCFA </td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.avance) }} FCFA</td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.restant) }} FCFA</td>
+                              <td style="text-align: center;">{{dataM.prenomUser +' '+dataM.nomUser}}</td>
+                              <td style="text-align: center;">
+                                <button type="button" class="btn btn-primary btn-rounded mb-2 me-2"  (click)="VoirDetail(recuDataModal,recuDataModalMensualite,dataM)"><i class="fa fa-file-archive"></i>&nbsp;
+                                  Détails</button> &nbsp;
+                              </td>
+                            </tr>
+
+
+                            </tbody>
+                          </table>
+
+
+
+                          <!--                          <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2" [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="matieres.length">-->
+                          <!--                            <ul class="pagination pagination-rounded justify-content-end mb-2">-->
+                          <!--                              <li class="page-item disabled">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);" aria-label="Previous">-->
+                          <!--                                  <i class="mdi mdi-chevron-left"></i>-->
+                          <!--                                </a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item active">-->
+                          <!--                                <a class="page-link " href="javascript: void(0);">1</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">2</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">3</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">4</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">5</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);" aria-label="Next">-->
+                          <!--                                  <i class="mdi mdi-chevron-right"></i>-->
+                          <!--                                </a>-->
+                          <!--                              </li>-->
+                          <!--                            </ul>-->
+                          <!--                          </ngb-pagination>-->
+                        </div>
+                        <h2 class="mb-4 text-primary ">Total encaissé :    <b>{{ formatMontant(this.totalMensualite) }} FCFA</b></h2>
+<!--                        <h4 class="card-title">Total encaissé: {{ this.totalMensualite}}</h4>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3">
+            <a ngbNavLink>
+              <i class="bx bx-money d-block check-nav-icon mt-4 mb-2"></i>
+              <p class="fw-bold mb-4">Caisse Annuelle</p>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel"
+                         aria-labelledby="v-pills-shipping-tab">
+                      <div>
+                        <h4 class="card-title">Caisse Annuelle</h4>
+                        <div class="table-responsive mb-0">
+                          <table class="table table-centered table-nowrap">
+                            <thead class="bg-info bg-soft p-4">
+                            <tr>
+                              <th style="text-align: center;">
+                                #
+                              </th>
+                              <th style="text-align: center;">Type de paiement</th>
+                              <th style="text-align: center;">Montant à Payer</th>
+                              <th style="text-align: center;">Montant reçu</th>
+                              <th style="text-align: center;">Montant restant</th>
+                              <th style="text-align: center;">Effectué(e) par</th>
+                              <th style="text-align: center;" class="no-print">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let dataM of this.annuelle let i = index">
+                              <td style="text-align: center;">
+                                <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
+                              </td>
+                              <td style="text-align: center;" *ngIf="dataM.moisId"> Mensualité {{getMonthNameById(dataM.moisId)}} </td>
+                              <td style="text-align: center;" *ngIf="!dataM.moisId"> Inscription {{dataM.libelle}} </td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.montant) }} FCFA </td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.avance) }} FCFA</td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.restant) }} FCFA</td>
+                              <td style="text-align: center;">{{dataM.prenomUser +' '+dataM.nomUser}}</td>
+                              <td style="text-align: center;">
+                                <button type="button" class="btn btn-primary btn-rounded mb-2 me-2"  (click)="VoirDetail(recuDataModal,recuDataModalMensualite,dataM)"><i class="fa fa-file-archive"></i>&nbsp;
+                                  Détails</button> &nbsp;
+                              </td>
+                            </tr>
+
+
+                            </tbody>
+                          </table>
+
+
+
+                          <!--                          <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2" [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="matieres.length">-->
+                          <!--                            <ul class="pagination pagination-rounded justify-content-end mb-2">-->
+                          <!--                              <li class="page-item disabled">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);" aria-label="Previous">-->
+                          <!--                                  <i class="mdi mdi-chevron-left"></i>-->
+                          <!--                                </a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item active">-->
+                          <!--                                <a class="page-link " href="javascript: void(0);">1</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">2</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">3</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">4</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);">5</a>-->
+                          <!--                              </li>-->
+                          <!--                              <li class="page-item">-->
+                          <!--                                <a class="page-link" href="javascript: void(0);" aria-label="Next">-->
+                          <!--                                  <i class="mdi mdi-chevron-right"></i>-->
+                          <!--                                </a>-->
+                          <!--                              </li>-->
+                          <!--                            </ul>-->
+                          <!--                          </ngb-pagination>-->
+                        </div>
+<!--                        <h4 class="card-title">Total encaissé: {{ this.totalAnnelle}}</h4>-->
+                        <h2 class="mb-4 text-primary ">Total encaissé :    <b>{{ formatMontant(this.totalAnnelle) }} FCFA</b></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-10">
+        <div [ngbNavOutlet]="nav"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal reçu de paiement inscription -->
+
+<ng-template #recuDataModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Justificatif d'inscription</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+  </div>
+  <div class="modal-body">
+    <div id="certificateContent">
+      <div class="container">
+        <div class="header">
+          <p>
+            MINISTERE DE L'EDUCATION NATIONALE
+            <br> I.A. DAKAR - IDEN THIAROYE
+            <br> GROUPE SCOLAIRE TAÏBA
+            <br> Tél : 33 834 59 59 - 77 51970 75
+            <br> Thiaroye Azur
+            <br> Reconnu par décret N002-954 du 04/10/2002
+            <br> Email : cptaiba@orange.sn
+          </p>
+        </div>
+        <div class="certificate-title" style="text-align: center;">
+          Justificatif de paiement
+        </div>
+        <div class="student-info">
+          <p>
+            Délivré à l'élève : {{this.detailCaisse.nom}} {{this.detailCaisse.prenom}}
+            <br> De la classe de : {{this.detailCaisse.classe}}
+            <br> Date de naissance : {{this.detailCaisse.dateNaissance}}, Lieu de naissance : {{this.detailCaisse.lieu}}
+            <br> Montant à payer :  {{formatMontant(this.detailCaisse.montant) }}FCFA
+            <br> Montant reçu : {{formatMontant(this.detailCaisse.avance)}} FCFA, Montant restant : {{formatMontant(this.detailCaisse.restant) }} FCFA,
+            <br> La comptabilité
+          </p>
+        </div>
+        <div class="director-info">
+          <p>
+            Fait à Dakar, le {{this.detailCaisse.date}}
+          </p>
+        </div>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div>
+<!--    <button type="button" class="btn btn-secondary">Imprimer</button>-->
+  </div>
+</ng-template>
+
+
+<ng-template #recuDataModalMensualite let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Justificatif de paiement</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+  </div>
+  <div class="modal-body">
+    <div id="certificateContent">
+      <div class="container">
+        <div class="header">
+          <p>
+            MINISTERE DE L'EDUCATION NATIONALE
+            <br> I.A. DAKAR - IDEN THIAROYE
+            <br> GROUPE SCOLAIRE TAÏBA
+            <br> Tél : 33 834 59 59 - 77 51970 75
+            <br> Thiaroye Azur
+            <br> Reconnu par décret N002-954 du 04/10/2002
+            <br> Email : cptaiba@orange.sn
+          </p>
+        </div>
+        <div class="certificate-title" style="text-align: center;">
+          Facture du mois de : {{ getMonthNameById(this.detailCaisse.mois)}}
+        </div>
+        <div class="student-info">
+          <p>
+            Prénom(s) et Nom: {{this.detailCaisse.nom}} {{this.detailCaisse.prenom}}
+            <br> De la classe de : {{this.detailCaisse.classe }}.... Mensualité :  {{ getMonthNameById(this.detailCaisse.mois)}}
+            <br> Acompte : {{this.detailCaisse.dateNaissance}}, Etude surveillées : {{this.detailCaisse.lieu}}
+<!--            <br> Montant reliquat : 5 000FCFA-->
+            <br> Net à payer :  {{formatMontant(this.detailCaisse.montant)}}FCFA
+            <br> Montant reçu : {{formatMontant(this.detailCaisse.avance) }} FCFA, Montant restant : {{formatMontant(this.detailCaisse.restant) }} FCFA,
+            <br>N.B: Ce présent Buletin doit être obligatoirement présenté lors du paiement
+            <br>Date limite le 5 de chaque mois
+            <br>Le Comptable </p>
+        </div>
+        <div class="director-info">
+          <p>
+            Fait à Dakar, le {{this.detailCaisse.date}}
+          </p>
+        </div>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div>
+<!--    <button type="button" class="btn btn-secondary">Imprimer</button>-->
+  </div>
+</ng-template>

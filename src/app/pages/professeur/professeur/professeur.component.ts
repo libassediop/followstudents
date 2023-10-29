@@ -149,8 +149,8 @@ updateprofesseur() {
   this.professeur.nom = this.formprofesseur.value.nom;
   this.professeur.prenom = this.formprofesseur.value.prenom;
   this.professeur.adresse = this.formprofesseur.value.adresse;
-  this.professeur.telephone = this.formprofesseur.value.telephone; 
-  this.professeur.email = this.formprofesseur.value.email; 
+  this.professeur.telephone = this.formprofesseur.value.telephone;
+  this.professeur.email = this.formprofesseur.value.email;
   this.professeur.login = this.formprofesseur.value.login;
     this.professeurService.updateProfesseur(this.idprofesseur, this.professeur).subscribe(
       result => {

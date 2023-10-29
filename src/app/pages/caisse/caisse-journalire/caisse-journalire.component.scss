@@ -1,0 +1,80 @@
+/* CSS pour le contenu du certificat */
+
+#certificateContent {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  padding: 20px;
+  background-color: #fff;
+}
+
+
+/* Style du titre */
+
+.certificate-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+
+/* Style des lignes */
+
+.student-info p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+
+/* Style des pointillés */
+
+.student-info p::after {
+  content: "............................................................................................";
+}
+
+
+/* Style pour le bouton d'impression */
+
+#print-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+/* Style pour le texte du bouton d'impression */
+
+#print-button button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+/* Style au survol du bouton d'impression */
+
+#print-button button:hover {
+  background-color: #0056b3;
+}
+
+
+/* Styles CSS personnalisés pour augmenter la taille du modal */
+
+.custom-modal {
+  max-width: 800px;
+  /* Largeur maximale personnalisée */
+  width: 100%;
+}
+
+
+/* Ajustez la hauteur si nécessaire */
+
+.custom-modal .modal-content {
+  max-height: 600px;
+  /* Hauteur maximale personnalisée */
+}

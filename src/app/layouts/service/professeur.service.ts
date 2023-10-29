@@ -56,7 +56,7 @@ export class ProfesseurService {
   }
   getlisteClasseByProfesseur(id){
     return this.http.get(this.host+'/classe/getClasseByProf/'+id+'?token='+localStorage.getItem('token'));
- 
+
   }
 
   getAllSecretaire(){
@@ -75,12 +75,12 @@ export class ProfesseurService {
 
   updatePersonnel(id,val:Personnel){
     return this.http.put(this.host+'/user/updateSecretaireById/'+id+'?nom='+val.nom+'&telephone='+val.telephone+'&email='+val.email+'&login='+val.login+'&sexe='+val.sexe+'&prenom='+val.prenom+'&dateNaissance='+val.dateNaissance+'&lieuDeNaissance='+val.lieuDeNaissance+'&adresse='+val.adresse+'&password=passer'+'&token='+localStorage.getItem('token'),{observe :'response'});
-       
+
   }
 
   updateProfesseur(id,val:Professeur){
     return this.http.put(this.host+'/user/updateProfById/'+id+'?nom='+val.nom+'&telephone='+val.telephone+'&email='+val.email+'&login='+val.login+'&sexe='+val.sexe+'&prenom='+val.prenom+'&dateNaissance='+val.dateNaissance+'&lieuDeNaissance='+val.lieuDeNaissance+'&adresse='+val.adresse+'&password=passer'+'&token='+localStorage.getItem('token'),{observe :'response'});
-       
+
   }
   addProfesseur(val:Professeur){
     return this.http.post(this.host+'/user/addProf'+'?nom='+val.nom+'&telephone='+val.telephone+'&email='+val.email+'&login='+val.login+'&sexe='+val.sexe+'&prenom='+val.prenom+'&dateNaissance='+val.dateNaissance+'&lieuDeNaissance='+val.lieuDeNaissance+'&adresse='+val.adresse+'&password=passer&classe_id='+val.classeId+'&matiere_id='+val.matiereId+'&token='+localStorage.getItem('token'),{observe :'response'});
@@ -88,5 +88,8 @@ export class ProfesseurService {
  affecterClasse(idclasse,idprof,idmatiere){
      return this.http.post(this.host+'/user/affecterProf/'+idprof+'?classe_id='+idclasse+'&matiere_id='+idmatiere+'&token='+localStorage.getItem('token'),{observe :'response'});
  }
-  
+  getAllEleveByProf(id){
+    return this.http.get(this.host+'/getAllEleveByProf/?prof_id=='+id+'&token='+localStorage.getItem('token')
+    );
+  }
 }

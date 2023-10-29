@@ -12,6 +12,7 @@ import { AccueilModule } from './accueil/accueil.module';
 import { ParametreModule } from './parametre/parametre.module';
 import { ProfilModule } from './profil/profil.module';
 import { AdministratifModule } from './administratif/administratif.module';
+import {CaisseModule} from "./caisse/caisse.module";
 
 
 
@@ -20,6 +21,7 @@ const route: Routes = [
   { path: '', redirectTo: 'dashboard' },
 
   {path: 'administratif',loadChildren:() => AdministratifModule},
+
   { path: 'dashboard', component: DefaultComponent },
   { path: 'accueil', loadChildren: () => AccueilModule },
   { path: 'alerte', loadChildren: () => AlerteModule },
@@ -31,6 +33,7 @@ const route: Routes = [
   { path: 'parametre', loadChildren: () => ParametreModule },
   { path: 'profil', loadChildren: () => ProfilModule },
   
+
 ];
 const routes: Routes = [{
     path: '',
@@ -48,6 +51,7 @@ const routes: Routes = [{
       { path: 'professeur', loadChildren: () => ProfesseurModule },
       { path: 'parametre', loadChildren: () => ParametreModule },
       { path: 'profil', loadChildren: () => ProfilModule },
+      { path: 'caisse', loadChildren: () => CaisseModule },
       { path: '', redirectTo: 'dashboards', pathMatch: 'full' },
       { path: '**', redirectTo: 'dashboards' },
 
