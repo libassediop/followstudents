@@ -26,12 +26,6 @@
             </div>
             <div class="text-center mt-4">
               <div class="input-group bg-light rounded" [formGroup]="formClasse">
-                <input type="number" class="form-control bg-transparent border-0" placeholder="Entrer le montant de la mensualité" maxlength="7"
-                  formControlName="montantmensuel">
-              </div>
-            </div>
-            <div class="text-center mt-4">
-              <div class="input-group bg-light rounded" [formGroup]="formClasse">
                 <select type="text" class="form-control bg-transparent border-0" formControlName="niveau" >
                   <option value="" selected disabled>Choisir le niveau</option>
                   <option value="1">Préscolaire</option>
@@ -46,7 +40,7 @@
               <div class="text-center">
                 <button *ngIf="!update" type="button" class="btn btn-success btn-rounded mb-2 me-2" (click)="Addclasse()"
                   [disabled]="formClasse.invalid"><i class="fa fa-save"></i>&nbsp;
-                  Ajouter</button>
+                  Enregistrer</button>
                 <button *ngIf="update" type="button" class="btn btn-warning btn-rounded mb-2 me-2"
                   (click)="ModifierClasse()"><i class="fa fa-edit"></i>&nbsp;
                   Modifier</button> &nbsp;

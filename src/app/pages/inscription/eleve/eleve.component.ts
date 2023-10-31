@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbNav } from '@ng-bootstrap/ng-bootstrap';
 import { ClasseService } from 'src/app/layouts/service/classe.service';
@@ -18,6 +18,7 @@ import {Router} from "@angular/router";
 export class EleveComponent implements OnInit {
   @ViewChild('nav') nav: NgbNav;
   active = 1;
+  montant: number;
  // typesubmit: boolean;
   breadCrumbItems: Array<{}>;
   trouveTel = false;
@@ -52,7 +53,7 @@ navItem1: HTMLElement;
 navItem2: HTMLElement;
 btnSuivant: HTMLElement;
 
-  constructor(private route:Router,private professeurService : ProfesseurService,   private fb : FormBuilder, private classeService: ClasseService, private serviceInscription: InscriptionreinscriptionService) {
+  constructor(private zone: NgZone,private changeDetectorRef: ChangeDetectorRef,private route:Router,private professeurService : ProfesseurService,   private fb : FormBuilder, private classeService: ClasseService, private serviceInscription: InscriptionreinscriptionService) {
 
    }
 
@@ -91,6 +92,14 @@ btnSuivant: HTMLElement;
       });
 
 
+  }
+
+  limitNumberLength(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const maxLength = 10; // Changer à la longueur maximale souhaitée
+    if (input.value.length > maxLength) {
+      input.value = input.value.slice(0, maxLength);
+    }
   }
 
   maxDate(): string {
@@ -195,14 +204,29 @@ btnSuivant: HTMLElement;
   recuperation($event: Event) {
 
     this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
-      const montantInscription = value[0].montant_inscription;
-      const montantMensualite = value[0].montant_mensuel;
+   
+      console.log(value[0])
+      const montantInscription = parseFloat(value[0].montant_inscription);
+      const montantMensualite = parseFloat(value[0].montant_mensuel);
+    //  this.montant = parseFloat(value[0].montant_inscription);
      this.formInscription.get('montant').setValue(montantInscription);
-      this.formInscription.get('mensualite').setValue(montantMensualite);
-    }, error1 => {
-      console.log(error1);
-    });
+     this.formInscription.get('mensualite').setValue(montantMensualite);
+  
+  }, error1 => {
+    console.log(error1);
+  });
 
+}
+
+formatMontant(montant: number): string {
+  // Vérifiez d'abord si montant est défini et n'est pas null
+  if (montant !== null && montant !== undefined) {
+    // Utilisez la méthode toLocaleString avec l'option 'fr-FR' pour formater le montant avec un espace comme séparateur des milliers.
+    return montant.toLocaleString('fr-FR');
+  } else {
+    // Gérez le cas où montant est null ou non défini, par exemple, en renvoyant une chaîne vide.
+    return '';
+  }
 }
 
 isSuivantDisabled = false; // Par défaut, le bouton n'est pas désactivé

@@ -31,7 +31,6 @@ idClasse;
       libelle: ['', Validators.required],
       niveau: ['', Validators.required],
       montantinscription: ['', Validators.required],
-      montantmensuel: ['', Validators.required]
     });
    }
    public classes:any = [] ;
@@ -39,7 +38,7 @@ idClasse;
     libelle:'',
     niveau:'',
     montant_inscription:'',
-    montant_mensuel:''
+    montant_mensuel:'0'
     };
 
   ngOnInit(): void {
@@ -49,7 +48,6 @@ idClasse;
         this.filteredClasses = result;
         this.filterClasses();  // Appliquer le filtre initial
         this.sortClasses();    // Trier les classes initiales
-        console.log(this.classes)
       },
       err =>{
         console.log(err)
@@ -73,7 +71,6 @@ idClasse;
     this.classe.libelle = this.formClasse.value.libelle;
     this.classe.niveau = this.formClasse.value.niveau;
     this.classe.montant_inscription = this.formClasse.value.montantinscription;
-    this.classe.montant_mensuel = this.formClasse.value.montantmensuel;
     this.serviceClasse.addClasse(this.classe).subscribe(
       result => {
        
@@ -89,7 +86,10 @@ idClasse;
           this.formClasse.reset()
           this.serviceClasse.getAllClasse().subscribe(
             (result) => {
+              this.classes=result
               this.filteredClasses = result;
+              this.filterClasses();  // Appliquer le filtre initial
+              this.sortClasses();    // Trier les classes initiales
             },
             error => {
               console.log(error);
@@ -108,7 +108,7 @@ idClasse;
           libelle: '',
           niveau : null,
           montant_inscription:'',
-          montant_mensuel:''
+          montant_mensuel:'0'
         };
       },
       error => {
@@ -141,21 +141,23 @@ idClasse;
     this.classe.libelle = this.formClasse.value.libelle;
     this.classe.niveau = this.formClasse.value.niveau;
     this.classe.montant_inscription =this.formClasse.value.montantinscription;
-    this.classe.montant_mensuel =this.formClasse.value.montantmensuel;
     this.serviceClasse.modifierClasse(this.idClasse, this.classe).subscribe(
       result => {
         this.classe = {
           libelle: '',
           niveau:null,
           montant_inscription:'',
-          montant_mensuel:''
+          montant_mensuel:'0'
         };
         if (result['success']) {
           this.modalService.dismissAll();
           this.formClasse.reset();
           this.serviceClasse.getAllClasse().subscribe(
             (result) => {
+              this.classes=result
               this.filteredClasses = result;
+              this.filterClasses();  // Appliquer le filtre initial
+              this.sortClasses(); 
               this.update=false;
             },
             error => {
@@ -226,7 +228,7 @@ idClasse;
       libelle:'',
       niveau:'',
       montant_inscription:'',
-      montant_mensuel:''
+      montant_mensuel:'0'
       }
   }
 
