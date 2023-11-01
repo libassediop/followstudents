@@ -90,7 +90,7 @@ export class ListInscriptionComponent implements OnInit {
   convertToNumber(value: string | number): number {
     return typeof value === 'string' ? parseFloat(value) : value as number;
   }
-  
+
   recuperation($event: Event) {
     this.test = this.contenue.idClasse;
     this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
@@ -107,7 +107,7 @@ export class ListInscriptionComponent implements OnInit {
   filterInscription() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-  
+
     this.pagedInscription = this.filteredInscription
       .slice(startIndex, endIndex)
       .sort((a, b) => {
@@ -118,7 +118,7 @@ export class ListInscriptionComponent implements OnInit {
         }
       });
   }
-  
+
 
   changeItemsPerPage() {
     this.filterInscription();
@@ -142,7 +142,7 @@ export class ListInscriptionComponent implements OnInit {
     }
     this.filterInscription();
   }
-  
+
 
 
   pageChanged(page: number) {
@@ -177,7 +177,7 @@ filterByStatus(status: string) {
       this.filteredInscription = this.eleves;
   } else {
       this.filteredInscription = this.eleves.filter(eleve => eleve.status_payement == status);
- 
+
     }
     this.filterInscription();
   this.currentPage = 1;
@@ -240,7 +240,7 @@ updateAvance(){
 }
 
 annuler() {
-  
+
   //this.formPersonnel.reset();
   this.modalService.dismissAll();
 
