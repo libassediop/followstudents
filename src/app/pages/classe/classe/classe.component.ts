@@ -125,7 +125,6 @@ idClasse;
      libelle: value[0].libelle,
      niveau: value[0].niveau,
      montantinscription: value[0].montant_inscription,
-     montantmensuel: value[0].montant_mensuel,
      });
     this.idClasse=idM;
     },error1 => {

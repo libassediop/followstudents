@@ -69,19 +69,16 @@
               <tr [formGroup]="formMensualite">
                 <th scope="row">Mois à payer :</th>
                 <td> <select id="formrow-inputState" class="form-control"  formControlName="mois">
-                  <option selected>Choose...</option>
-                  <option value="1">Janvier</option>
-                  <option value="2">Fevrier</option>
-                  <option value="3">Mars</option>
-                  <option value="4">Avril</option>
-                  <option value="5">Mai</option>
-                  <option value="6">Juin</option>
-                  <option value="7">Juilet</option>
-                  <option value="8">Aout</option>
-                  <option value="9">Septembre</option>
-                  <option value="10">Octobre</option>
-                  <option value="11">Novembre</option>
-                  <option value="12">Decembre</option>
+                  <option selected>Veuillez choisir le mois...</option>
+                  <option value="1">Octobre</option>
+                  <option value="2">Novembre</option>
+                  <option value="3">Decembre</option>
+                  <option value="4">Janvier</option>
+                  <option value="5">Fevrier</option>
+                  <option value="6">Mars</option>
+                  <option value="7">Avril</option>
+                  <option value="8">Mai</option>
+                  <option value="9">Juin</option>
                 </select></td>
 <!--                <td><ng-select [items]="selectValue" formControlName="mois" [multiple]="true"></ng-select></td>-->
               </tr>
@@ -128,7 +125,10 @@
                 <th  style="text-align: center;">Mois payé</th>
                 <th  style="text-align: center;">Montant à payer</th>
                 <th  style="text-align: center;">Montant reçu</th>
+                <th  style="text-align: center;">Montant restant</th>
                 <th  style="text-align: center;">Date</th>
+                <th  style="text-align: center;">Statut</th>
+                <th  style="text-align: center;">Action</th>
               </tr>
               </thead>
               <tbody>
@@ -137,9 +137,17 @@
                   <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1)}}</a>
                 </td>
                 <td style="text-align: center;"> {{getLibelleMoisById(data.moisId)}}</td>
-                <td style="text-align: center;">{{formatMontant(data?.avance)}}</td>
+                <td style="text-align: center;">{{formatMontant(data?.montant)}}</td>
+                <td style="text-align: center;">{{formatMontant(data?.avance) }}</td>
                 <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
                 <td style="text-align: center;"> {{ data.date | date: 'dd/MM/yyyy'}}</td>
+                <td style="text-align: center;">
+                  <span *ngIf="data?.status_payement=='1'" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.status_payement === '1'}">Payé</span>
+                  <span *ngIf="data?.status_payement=='0'" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.status_payement == '0'}">Impayé</span>
+              </td>
+              <td style="text-align: center;">
+                <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,this.donneesEleve?.nom,this.donneesEleve?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
+              </td>
               </tr>
 
               </tbody>
@@ -153,3 +161,53 @@
   <!-- end row -->
 </div>
 
+<ng-template #contentUpdateAvance role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Réglement de dette mensuelle </h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="modal-body">
+        <form (ngSubmit)="updateAvance()" [formGroup]="formInscriptionAvance">
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="row mb-3">
+                <!-- <label class="col-md-3 col-form-label">Contact Person</label -->
+                <div class="col-sm-6 test">
+                  <label>Nom </label>
+                  <input class="form-control" type="text" placeholder="{{nomModal}}" disabled>
+
+                </div>
+                <div class="col-md-6">
+                  <label>Prénom </label>
+                  <input class="form-control" type="text" placeholder="{{prenomModal}}" disabled>
+                </div>
+                </div>
+                <div class="row mb-3">
+                <div class="col-md-6">
+                  <label>Montant restant </label>
+                  <input class="form-control" type="text" placeholder="{{formatMontant(restantModal) }}" disabled>
+                </div>
+                <div class="col-md-6">
+                  <label>Montant reçu </label>
+                  <input class="form-control" formControlName="avance"  type="number" placeholder="Veuillez saisir le montant" maxlength="7" required>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div style="text-align:center;">
+              <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
+                <button type="button"  
+                  class="btn btn-primary" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
+                  &nbsp;
+                <button type="button" class="btn btn-success" style="float:center;" (click)="updateAvance()" ><i
+                    class="fa fa-save"></i>&nbsp;Enregistrer</button>
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

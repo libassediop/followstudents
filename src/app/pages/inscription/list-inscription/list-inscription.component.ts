@@ -95,7 +95,6 @@ export class ListInscriptionComponent implements OnInit {
     this.test = this.contenue.idClasse;
     this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
       this.filteredInscription= this.eleves =  result; // Initialize both arrays
-      console.log(this.eleves)
       this.filterInscription();
     },
     (err) => {
@@ -210,7 +209,6 @@ updateAvance(){
         this.modalService.dismissAll();
         this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
           this.filteredInscription= this.eleves =  result; // Initialize both arrays
-          console.log(this.eleves)
           this.filterInscription();
         },
         (err) => {

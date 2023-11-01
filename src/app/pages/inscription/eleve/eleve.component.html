@@ -23,7 +23,7 @@
                             <div class="card-body">
 
                               <h4 class="card-title mb-4" style="text-align: center;"> Informations de l'élève</h4>
-                              <form [formGroup]="formInscription">
+                              <form >
 
                               <div class="row">
                                 <div class="col-md-6">
@@ -98,28 +98,46 @@
                                     </select>
                                   </div>
                                 </div>
-                              
-                                <div class="col-lg-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Montant Reçu <code>*</code></label>
-                                    <input type="number" class="form-control" formControlName="avance" (input)="limitNumberLength($event)" (ngModelChange)="checkMontantRecu($event)" >
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row">
                                 <div class="col-lg-6">
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label>Montant Inscription </label>
                                     <input type="number"   class="form-control"  formControlName="montant">
                                   </div>
                                 </div>
-                                <div class="col-lg-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
+                              </div>
+
+                              <div class="row align-items-center">
+                                
+                                <div class="col-lg-2">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="payerPremierMois" name="payerPremierMois" checked>
+                                    <label class="form-check-label" for="inlineFormCheck">
+                                    Payer le premier mois ?
+                                    </label>
+                                </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                  <div class="mb-3" [formGroup]="formInscription" *ngIf="payerPremierMois">
                                     <label>Mensualité </label>
-                                    <input type="text"   class="form-control"  formControlName="mensualite">
+                                    <input  type="text"   class="form-control"  formControlName="mensualite">
                                   </div>
                                 </div>
+
+                                <div class="col-lg-2">
+                                  <div class="mb-3" [formGroup]="formInscription" *ngIf="payerPremierMois">
+                                    <label>Montant total à payer </label>
+                                    <input  type="text"   class="form-control"  formControlName="totalapayer">
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                  <div class="mb-3" [formGroup]="formInscription">
+                                    <label>Montant Reçu <code>*</code></label>
+                                    <input type="number" class="form-control" formControlName="avance" (input)="limitNumberLength($event)" (ngModelChange)="checkMontantRecu($event)" >
+                                  </div>
+                                </div>
+                                
                               </div>
                               <br>
                               <div style="text-align:center;">
@@ -182,11 +200,15 @@
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Téléphone <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
-                                    <input type="number" class="form-control" formControlName="telephoneParent" (ngModelChange)="testTelephone($event)" (input)="limitNumberLength($event)">
-                                    <span class="text-danger" *ngIf="trouveTel" ><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;ce  numéro existe déjà</span>
+                                    <input type="number" class="form-control" formControlName="telephoneParent"  (input)="limitNumberLength($event)">
                                   </div>
                                 </div>
-
+                                <div class="row mb-4">
+                                  <label class="col-sm-3 col-form-label">Fonction </label>
+                                  <div class="col-sm-9" [formGroup]="formInscription">
+                                    <input type="text" class="form-control" formControlName="fonctionParent" maxlength="50">
+                                  </div>
+                                </div>
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Email</label>
                                   <div class="col-sm-9" [formGroup]="formInscription">

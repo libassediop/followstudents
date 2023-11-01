@@ -7,6 +7,7 @@ import {NoteService} from "../../../layouts/service/note.service";
 import { MensualiteList } from './list-mensualite.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-mensualite',
@@ -50,20 +51,18 @@ export class ListMensualiteComponent implements OnInit {
   };
 
   tabMois: { id: number, mois: string }[] = [
-    { id: 1, mois: 'Janvier' },
-    { id: 2, mois: 'Février' },
-    { id: 3, mois: 'Mars' },
-    { id: 4, mois: 'Avril' },
-    { id: 5, mois: 'Mai' },
-    { id: 6, mois: 'Juin' },
-    { id: 7, mois: 'Juillet' },
-    { id: 8, mois: 'Août' },
-    { id: 9, mois: 'Septembre' },
-    { id: 10, mois: 'Octobre' },
-    { id: 11, mois: 'Novembre' },
-    { id: 12, mois: 'Décembre' }
+    { id: 1, mois: 'Octobre' },
+    { id: 2, mois: 'Novembre' },
+    { id: 3, mois: 'Décembre' },
+    { id: 4, mois: 'Janvier' },
+    { id: 5, mois: 'Février' },
+    { id: 6, mois: 'Mars' },
+    { id: 7, mois: 'Avril' },
+    { id: 8, mois: 'Mai' },
+    { id: 9, mois: 'Juin' },
+
   ];
-  constructor(private fb : FormBuilder ,private modalService : NgbModal,private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviveNote: NoteService) {
+  constructor(private fb : FormBuilder ,private modalService : NgbModal,private route:Router,private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviveNote: NoteService) {
 
 
   }
@@ -91,6 +90,11 @@ export class ListMensualiteComponent implements OnInit {
 
 
   }
+
+  goToSuiviPaiement(matricule) {
+    this.route.navigate(['/pages/inscription/suivipaiement', matricule]);
+  }
+
 
   formatMontant(montant: number): string {
   // Vérifiez d'abord si montant est défini et n'est pas null

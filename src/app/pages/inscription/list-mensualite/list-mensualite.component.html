@@ -132,8 +132,13 @@
                                 </td>
                                 <td style="text-align: center;">{{formatMontant(data?.avance)}}</td>
                                 <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
-                                <td style="text-align: center;">
+                               <!--  <td style="text-align: center;">
                                     <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
+                                  </td> -->
+                                  <td style="text-align: center;">
+                                    <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="goToSuiviPaiement(data.matricule)"><i class="fas fa-money-bill"></i></button>
+
+                                    <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) == 0 && convertToNumber(data?.restant) ==0" (click)="goToSuiviPaiement(data.matricule)"><i class="fas fa-money-bill"></i></button>
                                   </td>
                             </tr>
                         </tbody>

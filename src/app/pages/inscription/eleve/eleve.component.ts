@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, NgZone, OnInit, ViewChild } from '@angula
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbNav } from '@ng-bootstrap/ng-bootstrap';
 import { ClasseService } from 'src/app/layouts/service/classe.service';
-import { Inscription } from 'src/app/layouts/service/general.model';
+import { Inscription, Mensualite } from 'src/app/layouts/service/general.model';
 import { InscriptionreinscriptionService } from 'src/app/layouts/service/inscriptionreinscription.service';
 import { ProfesseurService } from 'src/app/layouts/service/professeur.service';
 import Swal from 'sweetalert2';
@@ -52,6 +52,17 @@ val: string = '0';
 navItem1: HTMLElement;
 navItem2: HTMLElement;
 btnSuivant: HTMLElement;
+payerPremierMois: boolean = true;
+montantPremierMois : number=0;
+montantNext : any;
+
+
+mensualite: Mensualite = {
+  moisId: '',
+   montant:'',
+   eleveId:'',
+   userId:localStorage.getItem('id')
+ };
 
   constructor(private zone: NgZone,private changeDetectorRef: ChangeDetectorRef,private route:Router,private professeurService : ProfesseurService,   private fb : FormBuilder, private classeService: ClasseService, private serviceInscription: InscriptionreinscriptionService) {
 
@@ -77,10 +88,12 @@ btnSuivant: HTMLElement;
       nomParent: [{ value: '', disabled: false }, Validators.required],
       prenomParent: [{ value: '', disabled: false }, Validators.required],
       telephoneParent: [{ value: '', disabled: false }],
+      fonctionParent: [{ value: '', disabled: false }],
       montant: [{ value: '', disabled: true }, this.validateNumber],
       avance: ['', [Validators.required, this.validateNumber]],
       emailParent: [{ value: '', disabled: false }],
       mensualite: [{ value: '', disabled: true }, Validators.required],
+      totalapayer: [{ value: '', disabled: true }, Validators.required],
       lieu: [{ value: '', disabled: false }],
       nationalite: [{ value: '', disabled: false }],
     })
@@ -110,7 +123,76 @@ btnSuivant: HTMLElement;
 
 
   onNavChange(event: any) {
-    this.active = 2;
+     // console.log(this.matiere);
+     this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
+   
+      const montantInscription = parseFloat(value[0].montant_inscription);
+      const montantMensualite = parseFloat(value[0].montant_mensuel);
+      const total = parseFloat(value[0].montant_inscription) + parseFloat(value[0].montant_mensuel);
+    //  this.montant = parseFloat(value[0].montant_inscription);
+     this.formInscription.get('montant').setValue(montantInscription);
+     this.formInscription.get('mensualite').setValue(montantMensualite);
+     this.formInscription.get('totalapayer').setValue(total);
+     this.montantNext = montantInscription;
+
+    if(this.payerPremierMois){
+   
+    
+       if(parseFloat(this.formInscription.value.avance)<=montantInscription ){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Inscription échouée : Le montant reçu être doit être supérieur au montant de l\'insription ou décocher le payement du premier mois',
+          showConfirmButton: false,
+          timer: 4500
+        });
+       }
+       else if(parseFloat(this.formInscription.value.avance)>total){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Inscription échouée : Le montant reçu ne doit pas être supérieur au montant total',
+          showConfirmButton: false,
+          timer: 4500
+        });
+       }
+
+       else {
+       this.montantPremierMois = parseFloat(this.formInscription.value.avance) - montantInscription
+       this.active = 2;
+      }
+
+      }
+      
+      else {
+        if(parseFloat(this.formInscription.value.avance)>montantInscription){
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Inscription échouée : Le montant reçu doit être inférieur au moment de l\'insription ou cocher le payement du premier mois',
+            showConfirmButton: false,
+            timer: 4500
+          });
+         }
+         else if(parseFloat(this.formInscription.value.avance)<=0){
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Inscription échouée : Le montant reçu ne doit pas être inférieur ou égal à 0',
+            showConfirmButton: false,
+            timer: 4500
+          });
+         }
+         else {
+
+           this.active = 2;
+          
+       
+         }
+      }
+    }, error1 => {
+      console.log(error1);
+    });
   }
 
   onNavChangePre(event: any) {
@@ -120,7 +202,7 @@ btnSuivant: HTMLElement;
 
 
   addInscription() {
-    // console.log(this.matiere);
+   
     this.inscription.nom = this.formInscription.value.nom;
     this.inscription.prenom = this.formInscription.value.prenom;
     this.inscription.sexe = this.formInscription.value.sexe;
@@ -134,21 +216,68 @@ btnSuivant: HTMLElement;
     this.inscription.prenomParent = this.formInscription.value.prenomParent;
     this.inscription.emailParent = this.formInscription.value.emailParent;
     this.inscription.telephoneParent = this.formInscription.value.telephoneParent;
+    this.inscription.fonctionParent = this.formInscription.value.fonctionParent;
     this.inscription.montant = this.formInscription.value.montant;
-    this.inscription.avance = this.formInscription.value.avance;
     this.inscription.mensualite = this.formInscription.value.mensualite;
+
+
+    if(this.montantPremierMois>0)
+    this.inscription.avance =this.montantNext;
+    else 
+    this.inscription.avance = this.formInscription.value.avance;
+
     this.serviceInscription.addInscription(this.inscription).subscribe(
       result => {
         console.log(result);
         if (result['success']) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Inscription ajoutée avec succès',
-            showConfirmButton: false,
-            timer: 1500
-          });
 
+          const lims = result;
+          
+        //  console.log(result['success'].eleve.id);
+         // console.log(result['success']['eleve'].id);
+          console.log(result['eleve'].id);
+          if(this.montantPremierMois>0){
+            this.mensualite.moisId='1',
+            this.mensualite.eleveId=result['eleve'].id;
+            this.mensualite.montant=this.montantPremierMois.toString();
+            console.log(this.mensualite)
+            this.serviceInscription.addMensualite(this.mensualite).subscribe(res => {
+              console.log(res);
+              if (res['success']) {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Inscription et mensualité payées avec succès',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+        
+                this.formInscription.reset();
+                this.route.navigate(['/pages/inscription/listInscription']);
+              }
+              else{
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'error',
+                  title: 'Erreur lors du paiement de la mensualité: '+res['message'],
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+        
+              }
+              
+              }
+            );
+          }
+          else {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Inscription payée avec succès',
+              showConfirmButton: false,
+              timer: 4500
+            });
+          }
           this.formInscription.reset();
           this.route.navigate(['/pages/inscription/listInscription']);
         }
@@ -158,7 +287,7 @@ btnSuivant: HTMLElement;
             icon: 'error',
             title: 'Inscription échouée :'+ result['message'] + ' au montant de l\'inscription',
             showConfirmButton: false,
-            timer: 1500
+            timer: 4500
           });
 
         }
@@ -169,11 +298,13 @@ btnSuivant: HTMLElement;
         console.log(error)
       }
     )
+    
   }
 
-  testTelephone($event: any) {
+/*   testTelephone($event: any) {
     // console.log(this.personnel.telephone)
     this.professeurService.verifieTel(this.formInscription.value.telephone).subscribe(value => {
+      console.log(value)
         if (value['succes'] == true) {
             this.trouveTel = true;
         } else {
@@ -182,15 +313,16 @@ btnSuivant: HTMLElement;
     }, error1 => {
       console.log(error1)
     })
-  }
+  } */
 
 
   onvalideEleve() {
-    if (this.formInscription.value.nom =="" || this.formInscription.value.prenom =="" || this.formInscription.value.sexe =="" || this.formInscription.value.dateNaissance=='' || this.formInscription.value.classeId=="" ||this.formInscription.value.montant==''|| this.formInscription.value.avance =='' ||this.formInscription.value.mensualite=='')
+    if (this.formInscription.value.nom =="" || this.formInscription.value.prenom =="" || this.formInscription.value.sexe ==""  || this.formInscription.value.classeId=="" ||this.formInscription.value.montant==''|| this.formInscription.value.avance =='' ||this.formInscription.value.mensualite=='')
       return true
     else
       return false;
   }
+ 
 
   onvalidateInscription() {
     if (this.formInscription.value.nomParent =="" || this.formInscription.value.prenomParent =="" || this.formInscription.value.telephoneParent =="" )
@@ -205,12 +337,13 @@ btnSuivant: HTMLElement;
 
     this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
    
-      console.log(value[0])
       const montantInscription = parseFloat(value[0].montant_inscription);
-      const montantMensualite = parseFloat(value[0].montant_mensuel);
-    //  this.montant = parseFloat(value[0].montant_inscription);
-     this.formInscription.get('montant').setValue(montantInscription);
-     this.formInscription.get('mensualite').setValue(montantMensualite);
+        const montantMensualite = parseFloat(value[0].montant_mensuel);
+        const total = parseFloat(value[0].montant_inscription) + parseFloat(value[0].montant_mensuel);
+      //  this.montant = parseFloat(value[0].montant_inscription);
+       this.formInscription.get('montant').setValue(montantInscription);
+       this.formInscription.get('mensualite').setValue(montantMensualite);
+       this.formInscription.get('totalapayer').setValue(total);
   
   }, error1 => {
     console.log(error1);
@@ -235,14 +368,10 @@ checkMontantRecu($event: Event) {
   const avance = parseFloat(this.formInscription.value.avance);
   const montantString = this.formInscription.value.montant;
 
-  console.log(avance);
-  console.log(montantString);
   // Vérifie si montantString est une chaîne numérique
   if (!isNaN(parseFloat(montantString))) {
     const montant = parseFloat(montantString);
 
-    console.log(avance);
-    console.log(montant);
 
     if (avance > montant) {
       this.isSuivantDisabled = true;

@@ -36,6 +36,10 @@ export class SuiviPaiementComponent implements OnInit {
   donneesEleve;
   donneesPaiement;
   formMensualite: FormGroup;
+  nombreMoisPaye : '0';
+  nombreMoisNonPaye : any;
+
+  idMensualite : any;
 
   val: affecterProf = {
     idClasse: '',
@@ -52,6 +56,13 @@ export class SuiviPaiementComponent implements OnInit {
 
   };
 
+  restantModal : any;
+  nomModal :any;
+  prenomModal : any;
+  valueAvanceModal : any;
+  formInscriptionAvance: FormGroup;
+
+
   form: FormGroup;
   transactions;
   revenueBarChart: ChartType ;
@@ -59,22 +70,23 @@ export class SuiviPaiementComponent implements OnInit {
     {
       icon: 'bx bxs-school',
       title: 'Nombre de mois à payer',
-      value: '9',
+      value: '',
 
     },
     {
       icon: 'bx bxs-user',
       title: 'Nombre de mois payé',
-      value: '3'
+      value: ''
     }
 
   ];
 
-  constructor(private modalService: NgbModal, private fb : FormBuilder,  private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private seviceInscription:InscriptionreinscriptionService,private eleveService: EleveService) {
+  constructor(private modalService: NgbModal, private fb : FormBuilder,  private serviceInscription: InscriptionreinscriptionService, private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private seviceInscription:InscriptionreinscriptionService,private eleveService: EleveService) {
 
   }
   selectValue: string[];
   ngOnInit() {
+  
     this.selectValue = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Novembre', 'Decembre'];
 
     this.breadCrumbItems = [{ label: 'Contacts' }, { label: 'Profile', active: true }];
@@ -85,13 +97,20 @@ export class SuiviPaiementComponent implements OnInit {
       avance: ['', Validators.required],
     })
 
+    this.formInscriptionAvance = this.fb.group({
+      // Ajoutez ici les contrôles de vot
+      avance: [{ value: '', disabled: false }, Validators.required],
+
+    })
+
     
     this.matricule = this.route.snapshot.params.matricule;
     this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
       this.donneesEleve = resp[0];
       this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve.id).subscribe(resp => {
         this.donneesPaiement = resp['response'];
-        console.log(this.donneesPaiement)
+        this.statData[1].value = resp['nombre de mois payer'];
+        this.statData[0].value = (9 - Number(resp['nombre de mois payer'])).toString()
       });
     }, error1 => {
     });
@@ -102,8 +121,8 @@ export class SuiviPaiementComponent implements OnInit {
 
   getLibelleMoisById(moisId: number): string {
     const mois = [
-      'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-      'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+      'Octobre', 'Novembre', 'Décembre','Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+      'Juillet', 'Août', 'Septembre'
     ];
 
     if (moisId >= 1 && moisId <= 12) {
@@ -128,12 +147,14 @@ export class SuiviPaiementComponent implements OnInit {
     return Math.min(this.startIndex + this.pageSize, this.classes.length);
   }
 
+  convertToNumber(value: string | number): number {
+    return typeof value === 'string' ? parseFloat(value) : value as number;
+  }
 
   Valider() {
     this.mensualite.eleveId=this.donneesEleve.id;
     this.mensualite.montant = this.formMensualite.value.avance;
     this.mensualite.moisId = this.formMensualite.value.mois;
-    console.log(this.mensualite);
     this.seviceInscription.addMensualite(this.mensualite).subscribe(res => {
       console.log(res);
       if (res['success']) {
@@ -142,7 +163,7 @@ export class SuiviPaiementComponent implements OnInit {
           icon: 'success',
           title: 'Paiement effectué avec succès',
           showConfirmButton: false,
-          timer: 1500
+          timer: 4500
         });
 
         this.formMensualite.reset();
@@ -156,7 +177,7 @@ export class SuiviPaiementComponent implements OnInit {
           icon: 'error',
           title: 'Erreur lors du paiement : '+res['message'],
           showConfirmButton: false,
-          timer: 1500
+          timer: 4500
         });
 
       }
@@ -179,4 +200,67 @@ export class SuiviPaiementComponent implements OnInit {
   }
 }
 
+
+ModalAvance(id,restant,nom,prenom, centerModal?: any) {
+  this.restantModal = restant;
+  this.nomModal = nom;
+  this.prenomModal = prenom;
+  this.idMensualite = id;
+  this.modalService.open(centerModal, {centered: true});
+  }
+
+  updateAvance(){
+    this.valueAvanceModal = this.formInscriptionAvance.value.avance;
+    this.serviceInscription.detteMensuelle(this.idMensualite,this.valueAvanceModal).subscribe(
+      result => {
+        if (result['success']) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Réglement de dette : montant reçu avec succès',
+            showConfirmButton: false,
+            timer: 4500
+          });
+  
+          this.formInscriptionAvance.reset();
+          this.modalService.dismissAll();
+          this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
+            this.donneesEleve = resp[0];
+            this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve.id).subscribe(resp => {
+              this.donneesPaiement = resp['response'];
+              this.statData[1].value = resp['nombre de mois payer'];
+              this.statData[0].value = (9 - Number(resp['nombre de mois payer'])).toString()
+            });
+          }, error1 => {
+          });
+        }
+        else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Erreur lors du réglement de dette :'+ result['message'],
+            showConfirmButton: false,
+            timer: 4500
+          });
+        }
+      },
+      error => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Erreur lors du réglement de dette :'+ error,
+          showConfirmButton: false,
+          timer: 4500
+        });
+        console.log(error)
+      }
+    )
+  }
+  
+  annuler() {
+    
+    //this.formPersonnel.reset();
+    this.modalService.dismissAll();
+  
+  }
 }

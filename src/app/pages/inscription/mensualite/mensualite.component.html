@@ -103,7 +103,7 @@
                         <td style="text-align: center;">{{data.prenom}}</td>
                         <td style="text-align: center;">{{data.matricule}}</td>
                         <td style="text-align: center;">
-                          {{ data.sexe === '1' ? 'M' : data.sexe === '2' ? 'F' : '' }}
+                          {{ data.sexe === '2' ? 'M' : data.sexe === '1' ? 'F' : '' }}
                         </td>
                         <td style="text-align: center;">{{data.dateNaissance | date: 'dd/MM/yyyy'}}</td>
                         <td style="text-align: center;">
@@ -150,7 +150,7 @@
       <td style="text-align: center;">{{data.prenom}}</td>
       <td style="text-align: center;">{{data.matricule}}</td>
       <td style="text-align: center;">
-        {{ data.sexe === '1' ? 'Masculin' : data.sexe === '2' ? 'Féminin' : '' }}
+        {{ data.sexe === '2' ? 'Masculin' : data.sexe === '1' ? 'Féminin' : '' }}
       </td>
       <td style="text-align: center;">{{data.dateNaissance | date: 'dd/MM/yyyy'}}</td>
     </tr>
