@@ -22,10 +22,11 @@ idClasse;
   public filteredClasses: any = [];
 
   activeSortColumn: string = 'libelle';  // Colonne de tri par défaut
-  activeSortColumnNiveau: string = 'niveau'; 
+  activeSortColumnNiveau: string = 'niveau';
   isAscending: boolean = false;
-  isAscendingNiveau: boolean = false;      
-   
+  isAscendingNiveau: boolean = false;
+
+
   constructor(private route: Router,private serviceClasse : ClasseService, public fb: FormBuilder, private modalService : NgbModal) {
     this.formClasse = this.fb.group({
       libelle: ['', Validators.required],
@@ -67,7 +68,7 @@ idClasse;
       return '';
     }
   }
-  
+
 
   Addclasse() {
     this.classe.libelle = this.formClasse.value.libelle;
@@ -76,7 +77,7 @@ idClasse;
     this.classe.montant_mensuel = this.formClasse.value.montantmensuel;
     this.serviceClasse.addClasse(this.classe).subscribe(
       result => {
-       
+
         this.modalService.dismissAll();
         if (result['sucsess']) {
           Swal.fire({
@@ -113,7 +114,7 @@ idClasse;
       },
       error => {
         console.log(error)
-        
+
       }
     )
   }
@@ -180,12 +181,12 @@ idClasse;
           });
         }
       },
-    
+
     );
   }
- 
+
   supprimerClasse (id : any){
-   
+
       Swal.fire({
         title: 'Êtes-vous sûr?',
         text: 'Vous ne pourrez pas revenir en arrière !',
@@ -217,7 +218,7 @@ idClasse;
         }
       });
     }
-  
+
 
   annuler() {
     this.update=false;
@@ -242,7 +243,7 @@ idClasse;
     return Math.min(this.startIndex + this.pageSize, this.classes.length);
   }
 
-  
+
 golisteClasse(id: any) {
 
   this.route.navigate(['/pages/classe/listeEleveParClasse', id]);
@@ -286,7 +287,7 @@ sortClasses(column: string = 'libelle') {
 
   // Mettez à jour la colonne de tri active
   this.activeSortColumn = column;
-  
+
 
   // Inverse l'ordre de tri pour la prochaine fois
   this.isAscending = !this.isAscending;
