@@ -22,12 +22,18 @@
         </a>
       </div>
 
+
       <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item" (click)="toggleMenubar()">
         <i class="fa fa-fw fa-bars"></i>
       </button>
     </div>
 
     <div class="d-flex">
+      <div class="dropdown d-none d-lg-inline-block me-1">
+        <button type="button" class="btn header-item noti-icon" data-toggle="fullscreen" (click)="fullscreen()">
+          <i class="bx bx-fullscreen"></i>
+        </button>
+      </div>
       <div class="dropdown d-inline-block d-lg-none me-2" ngbDropdown>
         <button type="button" class="btn header-item noti-icon" id="page-header-search-dropdown" ngbDropdownToggle>
           <i class="mdi mdi-magnify"></i>
@@ -55,8 +61,8 @@
 
             <a class="dropdown-item"  href="javascript: void(0);" (click)="profil()">
               <i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profil</span></a>
-          
-       
+
+
 <!--               <a class="dropdown-item"  href="javascript: void(0);" (click)="parametre()">
                 <i class="bx bx-cog font-size-16 align-middle me-1"></i> <span key="t-parametre">Paramètre</span></a> -->
             <div class="dropdown-divider"></div>
@@ -71,10 +77,14 @@
         <button type="button" class="btn header-item noti-icon right-bar-toggle" (click)="caisse()">
           <i class='bx bxs-archive-in'></i>
         <span class="d-none d-xl-inline-block ms-2" style="color: white;">Caisse</span>
-
         </button>
       </div>
-
+<!--      <div class="dropdown d-inline-block">-->
+<!--        <button type="button" class="btn header-item noti-icon right-bar-toggle">-->
+<!--          <i class="bx bx-cog bx-spin"></i>-->
+<!--          <span class="d-none d-xl-inline-block ms-2" style="color: white;">Paramètrage</span>-->
+<!--        </button>-->
+<!--      </div>-->
     </div>
   </div>
 </header>

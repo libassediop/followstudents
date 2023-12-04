@@ -5,34 +5,34 @@
   <div class="row">
     <div class="col-xl-4">
       <!-- end card -->
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="me-2">
-              <h5 class="card-title mb-4 text-primary">Suivi des inscriptions</h5>
-            </div>
+<!--      <div class="card">-->
+<!--        <div class="card-body">-->
+<!--          <div class="d-flex">-->
+<!--            <div class="me-2">-->
+<!--              <h5 class="card-title mb-4 text-primary">Suivi des inscriptions</h5>-->
+<!--            </div>-->
 
-          </div>
-          <div class="text-center mt-4">
-            <div class="form-floating mb-3">
-              <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse"
-                      (ngModelChange)="recuperation($event)">
-                <option value="" selected>Liste des classes</option>
-                <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
-              </select>
-              <label for="floatingSelectGrid">Veuillez choisir une classe</label>
-            </div>
-          </div>
+<!--          </div>-->
+<!--          <div class="text-center mt-4">-->
+<!--            <div class="form-floating mb-3">-->
+<!--              <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse"-->
+<!--                      (ngModelChange)="recuperation($event)">-->
+<!--                <option value="" selected>Liste des classes</option>-->
+<!--                <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>-->
+<!--              </select>-->
+<!--              <label for="floatingSelectGrid">Veuillez choisir une classe</label>-->
+<!--            </div>-->
+<!--          </div>-->
 
 
-        </div>
-      </div>
+<!--        </div>-->
+<!--      </div>-->
 
 
 
       <!-- end card -->
     </div>
-    <div class="col-xl-8">
+    <div class="col-xl-12">
       <!-- List of matieres -->
       <div class="card">
           <div class="card-body">
@@ -43,19 +43,29 @@
                       <h5 class="card-title mb-4">Liste des inscrits</h5>
                     </div>
                   </div>
-                
+
                   <!-- Bouton "Imprimer" -->
                   <div class="col-sm-6 text-end">
                       <button type="button" class="btn btn-sm btn-rounded" style="background-color: #1e88e5; color: white;"  (click)="imprimerMensualite()">
                           <i class="fa fa-print"></i>&nbsp;Imprimer
                         </button>
-                        
+
                   </div>
                 </div>
-              
+
               <div class="row mb-2">
                   <!-- Items per page selection -->
-                  <div class="col-sm-4">
+                <div class="col-sm-3">
+                  <div class="form-floating mb-3">
+                    <select class="form-select" aria-label="choisir Classe" [(ngModel)]="contenue.idClasse"
+                            (ngModelChange)="recuperation($event)">
+                      <option value="" selected>Liste des classes</option>
+                      <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
+                    </select>
+                    <label for="floatingSelectGrid">Veuillez choisir une classe</label>
+                  </div>
+                </div>
+                  <div class="col-sm-3">
                       <div class="dataTables_length" id="tickets-table_length">
                           <label class="d-inline-flex align-items-center">
                               Afficher
@@ -74,7 +84,7 @@
                   <div class="col-sm-3">
                       <div class="filter-box me-2 mb-2 d-inline-block" *ngIf="contenue.idClasse">
                           <label class="d-inline-flex align-items-center">
-                              Statut 
+                              Statut
                           <select class="form-select form-select-sm mx-2" [(ngModel)]="selectedStatus" (change)="filterByStatus(selectedStatus)">
                               <option value="Tous">Tous</option>
                               <option value="1">Valide</option>
@@ -84,7 +94,7 @@
                       </div>
                   </div>
                   <!-- Search input -->
-                  <div class="col-sm-5 text-end">
+                  <div class="col-sm-3 text-end">
                       <div class="search-box me-2 mb-2 d-inline-block">
                           <div class="position-relative">
                               <input type="text" class="form-control no-print" placeholder="Rechercher par élève..."
@@ -102,45 +112,66 @@
                       <thead class="bg-primary bg-soft p-4">
                       <tr>
                         <th style="text-align: center;">#</th>
-                        <th style="text-align: center;">Nom</th>
                         <th style="text-align: center;">Prénom</th>
+                        <th style="text-align: center;">Nom</th>
                         <th style="text-align: center;">Sexe</th>
+                        <th style="text-align: center;">Matricule</th>
                         <th style="text-align: center;">Date inscription</th>
                         <th style="text-align: center;">Statut</th>
+                        <th style="text-align: center;">Inscription</th>
+                        <th style="text-align: center;">Mensualité</th>
+                        <th style="text-align: center;">Montant total</th>
                         <th style="text-align: center;">Montant reçu</th>
                         <th style="text-align: center;">Montant restant</th>
+                        <th style="text-align: center;">Réduction inscription</th>
+                        <th style="text-align: center;">Réduction mensualité</th>
+                        <th style="text-align: center;"> Inscription offerte</th>
+                        <th style="text-align: center;">Mensualité offerte</th>
                         <th style="text-align: center;">Action</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr *ngFor="let data of pagedInscription ; let i = index">
+                      <tr *ngFor="let data of pagedInscription ; let i = index" [ngClass]="{'bg-info bg-opacity-10': data.offreInsMois == true, 'bg-warning bg-soft' : data.offreIns == true}">
                         <td style="text-align: center;">
                           <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1) + (currentPage - 1) * pageSize }}</a>
                       </td>
-                        <td style="text-align: center;">{{data?.nom}}</td>
                         <td style="text-align: center;">{{data?.prenom}}</td>
+                        <td style="text-align: center;">{{data?.nom}}</td>
                         <td style="text-align: center;">
                           {{ data?.sexe === '1' ? 'F' : data?.sexe === '2' ? 'M' : '' }}
                         </td>
+                        <td style="text-align: center;">{{data?.matricule}}</td>
                         <td style="text-align: center;">{{data?.dateInscription | date: 'dd/MM/yyyy'}}</td>
                         <td style="text-align: center;">
                           <span *ngIf="data?.status_payement=='1'" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.status_payement === '1'}">Valide</span>
                           <span *ngIf="data?.status_payement=='0'" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.status_payement == '0'}">Invalide</span>
                       </td>
-                      <td style="text-align: center;">{{formatMontant(data?.avance)}}</td>
-                      <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
+                      <td style="text-align: center;">{{formatMontant(data?.montant)}}</td>
+                      <td style="text-align: center;">{{formatMontant(data?.montantPreniermois)}}</td>
+                        <td style="text-align: center;">{{formatMontant(data?.montantTotal)}}</td>
+                        <td style="text-align: center;">{{formatMontant(data?.avance) }}</td>
+                        <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
+                        <td style="text-align: center;">{{formatMontant(data?.reductionIns) }}</td>
+                        <td style="text-align: center;">{{formatMontant(data?.ReductionMens) }}</td>
+                        <td style="text-align: center;">
+                          <span *ngIf="data?.offreIns==true || data?.offreInsMois==true" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.offreIns == true||data?.offreInsMois==true}">Oui</span>
+                          <span *ngIf="data?.offreIns==false && data?.offreInsMois==false " class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.offreIns == false && data?.offreInsMois==false}">Non</span>
+                        </td>
+                        <td style="text-align: center;">
+                          <span *ngIf="data?.offreInsMois==true" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.offreInsMois === true}">Oui</span>
+                          <span *ngIf="data?.offreInsMois==false" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.offreInsMois == false}">Non</span>
+                        </td>
                       <td style="text-align: center;">
                         <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
                       </td>
-                      
                       </tr>
                       </tbody>
                     </table>
 
                     <div class="d-flex justify-content-between align-items-center"> <!-- Utilisez d-flex pour aligner les éléments à gauche et à droite -->
                       <p class="text-muted mb-2">
-                          Affichage de {{ (currentPage - 1) * pageSize + 1 }} à 
-                          {{ (currentPage * pageSize > filteredInscription.length) ? filteredInscription.length : (currentPage * pageSize) }} 
+                          Affichage de {{ (currentPage - 1) * pageSize + 1 }} à
+                          {{ (currentPage * pageSize > filteredInscription.length) ? filteredInscription.length : (currentPage * pageSize) }}
                           sur {{ filteredInscription.length }} éléments
                       </p>
                       <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2"
@@ -148,6 +179,18 @@
                     </ngb-pagination>
                   </div>
               </div>
+
+            <div class=" row ">
+              <div class="col-md-3">
+                <span class="legend-point red"></span>
+                Inscription offerte
+              </div>
+              <div class="col-md-3">
+              <span class="legend-point blue"></span>
+                Inscription et mensualité offertes
+              </div>
+              <!-- Ajoutez d'autres points et légendes selon vos besoins -->
+            </div>
           </div>
       </div>
   </div>
@@ -183,7 +226,7 @@
         {{ data?.sexe === '1' ? 'Féminin' : data?.sexe === '2' ? 'Masculin' : '' }}
       </td>
       <td style="text-align: center;">{{data?.dateInscription | date: 'dd/MM/yyyy'}}</td>
-      
+
       <td style="text-align: center;">{{data?.dateNaissance | date: 'dd/MM/yyyy'}}</td>
       <td style="text-align: center;">
         <span *ngIf="data?.etat=='1'" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.etat === '1'}">Payé</span>
@@ -234,7 +277,7 @@
             <br>
             <div style="text-align:center;">
               <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
-                <button type="button"  
+                <button type="button"
                   class="btn btn-primary" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
                   &nbsp;
                 <button type="button" class="btn btn-success" style="float:center;" (click)="updateAvance()" ><i

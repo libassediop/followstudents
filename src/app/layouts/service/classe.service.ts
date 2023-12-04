@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Classe, Matiere} from './general.model';
+import {id} from "@swimlane/ngx-charts";
 @Injectable({
   providedIn: 'root'
 })
 export class ClasseService {
 
   private host:string ='https://samastock.alwaysdata.net/yole/api';
+  //private host:string ='http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) { }
 
   getAllClasse(){
     return this.http.get(this.host+'/classe'+'?token='+localStorage.getItem('token'));
   }
 
+  getAllMoisInvalideByEleve(id){
+    return this.http.get(this.host+'/getAllMoisInvalideByEleve/'+id+'?token='+localStorage.getItem('token'));
+  }
+
   listClassesWithMontantMois(){
     return this.http.get(this.host+'/listClassesWithMontantMois'+'?token='+localStorage.getItem('token'));
+  }
+  getMontantByClasseByMois(idclasse,idmois){
+    console.log(idclasse,idmois)
+    return this.http.get(this.host+'/getMontantByClasseByMois'+'?classe_id='+idclasse+'&mois_id='+idmois+'&token='+localStorage.getItem('token'));
   }
 
   addMontantMoisbyClasses(moisId,libelleMois,classeId,montant,idAnneeScolaire){

@@ -42,16 +42,16 @@
                       <h5 class="card-title mb-4">Liste des élèves</h5>
                     </div>
                   </div>
-                
+
                   <!-- Bouton "Imprimer" -->
                   <div class="col-sm-6 text-end">
                       <button type="button" class="btn btn-sm btn-rounded" style="background-color: #1e88e5; color: white;"  (click)="imprimerMensualite()">
                           <i class="fa fa-print"></i>&nbsp;Imprimer
                         </button>
-                        
+
                   </div>
                 </div>
-              
+
               <div class="row mb-2">
                   <!-- Items per page selection -->
                   <div class="col-sm-6">
@@ -86,8 +86,8 @@
                         <th style="text-align: center;">
                           #
                         </th>
-                        <th style="text-align: center;">Nom </th>
                         <th style="text-align: center;">Prénom</th>
+                        <th style="text-align: center;">Nom </th>
                         <th style="text-align: center;">Matricule</th>
                         <th style="text-align: center;">Sexe</th>
                         <th style="text-align: center;">Date de naissance</th>
@@ -99,8 +99,8 @@
                         <td>
                           <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1) + (currentPage - 1) * pageSize }}</a>
                         </td>
-                        <td style="text-align: center;">{{data.nom}}</td>
                         <td style="text-align: center;">{{data.prenom}}</td>
+                        <td style="text-align: center;">{{data.nom}}</td>
                         <td style="text-align: center;">{{data.matricule}}</td>
                         <td style="text-align: center;">
                           {{ data.sexe === '2' ? 'M' : data.sexe === '1' ? 'F' : '' }}
@@ -115,8 +115,8 @@
                     </table>
                     <div class="d-flex justify-content-between align-items-center"> <!-- Utilisez d-flex pour aligner les éléments à gauche et à droite -->
                       <p class="text-muted mb-2">
-                          Affichage de {{ (currentPage - 1) * pageSize + 1 }} à 
-                          {{ (currentPage * pageSize > filteredMensualite.length) ? filteredMensualite.length : (currentPage * pageSize) }} 
+                          Affichage de {{ (currentPage - 1) * pageSize + 1 }} à
+                          {{ (currentPage * pageSize > filteredMensualite.length) ? filteredMensualite.length : (currentPage * pageSize) }}
                           sur {{ filteredMensualite.length }} éléments
                       </p>
                       <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2"

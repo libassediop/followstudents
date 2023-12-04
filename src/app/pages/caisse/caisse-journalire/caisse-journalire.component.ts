@@ -67,8 +67,8 @@ export class CaisseJournalireComponent implements OnInit {
 
   getMonthNameById(monthId: number): string {
     const months = [
-      'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-      'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+      'Octobre', 'Novembre', 'Décembre','Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+      'Juillet', 'Août', 'Septembre'
     ];
 
     if (monthId >= 1 && monthId <= 12) {

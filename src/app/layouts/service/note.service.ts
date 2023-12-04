@@ -9,6 +9,7 @@ import { AddAbsence, Contenue } from './general.model';
 export class NoteService {
 
   private host:string ='https://samastock.alwaysdata.net/yole/api';
+  //private host:string ='http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) { }
 
 
@@ -16,7 +17,7 @@ addAbsenceYole(abs: AddAbsence,id){
   return this.http.post(this.host+'/absence/addAbsence?dateDebut='+abs.date_debut+'&dateFin='+abs.date_fin+'&eleveId='+id+'&matiereId='+abs.matiere_id+'&userIdA='+abs.user_ida+'&token='+localStorage.getItem('token'),AddAbsence);
 
 }
- 
+
   public AddNote(contenue:Contenue){
 
     return this.http.post(this.host+'/note/addNote?Note='+contenue.noteEleve+'&eleveId='+contenue.idEleve+'&matiereId='+contenue.idMatiere+'&userIdA='+localStorage.getItem('id')+'&idSemestre=1&devoirExam=devoir'+'&token='+localStorage.getItem('token'),{observe :'response'});

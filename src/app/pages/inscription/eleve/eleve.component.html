@@ -21,21 +21,31 @@
                         <div class="col-lg-12">
                           <div class="card">
                             <div class="card-body">
-
-                              <h4 class="card-title mb-4" style="text-align: center;"> Informations de l'élève</h4>
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                  <h4 class="card-title mb-4" style="text-align: center;"> Informations de l'élève</h4>
+                                  <div class="page-title-right">
+                                    <div class="col-sm-auto">
+                                      <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+                                      <select class="form-select" id="autoSizingSelect" [(ngModel)]="typeInscription" (ngModelChange)="changeInscription($event)">
+                                        <option selected value="1">Inscription normal</option>
+                                        <option value="2">Inscription avec reduction</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
                               <form >
 
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Nom <code>*</code></label>
-                                    <input type="text" class="form-control" formControlName="nom"  maxlength="30">
+                                    <label>Prénom <code>*</code></label>
+                                    <input type="text" class="form-control" formControlName="prenom"  maxlength="50"/>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Prénom <code>*</code></label>
-                                    <input type="text" class="form-control" formControlName="prenom"  maxlength="50"/>
+                                    <label>Nom <code>*</code></label>
+                                    <input type="text" class="form-control" formControlName="nom"  maxlength="30">
                                   </div>
                                 </div>
                               </div>
@@ -88,6 +98,40 @@
                                   </div>
                                 </div>
                               </div>
+                              <div class="row align-items-center" *ngIf="typeInscription==2">
+
+                                  <div class="col-lg-3">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirInscription" name="offrirInscription" (ngModelChange)="offrirIns($event)">
+                                      <label class="form-check-label" for="inlineFormCheck">
+                                        Offrir l'inscription
+                                      </label>
+                                    </div>
+
+                                  </div>
+                                  <div class="col-lg-3">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirInscriptionetmois" name="offrirInscriptionetmois" (ngModelChange)="offrirInsEtmois($event)">
+                                      <label class="form-check-label" for="inlineFormCheck">
+                                        Offrir l'inscription et le premier mois
+                                      </label>
+                                    </div>
+                                  </div>
+                                <div class="col-lg-3">
+                                  <div class="mb-3" [formGroup]="formInscription" >
+                                    <label>Réduction sur l'inscription </label>
+                                    <input  type="text"   class="form-control"  formControlName="reductionInscription" (ngModelChange)="reductionIns($event)">
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="mb-3" [formGroup]="formInscription" >
+                                    <label>Réduction sur les mensualités </label>
+                                    <input  type="text"   class="form-control"  formControlName="reductionMensualite" (ngModelChange)="reductionMens($event)">
+                                  </div>
+                                </div>
+
+
+                              </div>
                               <div class="row">
                                 <div class="col-lg-6">
                                   <div class="mb-3" [formGroup]="formInscription">
@@ -107,10 +151,10 @@
                               </div>
 
                               <div class="row align-items-center">
-                                
+
                                 <div class="col-lg-2">
                                   <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="payerPremierMois" name="payerPremierMois" checked>
+                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="payerPremierMois" name="payerPremierMois" [disabled]="disableCheckbox" checked (ngModelChange)="checkPayerMois($event)" >
                                     <label class="form-check-label" for="inlineFormCheck">
                                     Payer le premier mois ?
                                     </label>
@@ -125,7 +169,7 @@
                                 </div>
 
                                 <div class="col-lg-2">
-                                  <div class="mb-3" [formGroup]="formInscription" *ngIf="payerPremierMois">
+                                  <div class="mb-3" [formGroup]="formInscription" >
                                     <label>Montant total à payer </label>
                                     <input  type="text"   class="form-control"  formControlName="totalapayer">
                                   </div>
@@ -137,7 +181,7 @@
                                     <input type="number" class="form-control" formControlName="avance" (input)="limitNumberLength($event)" (ngModelChange)="checkMontantRecu($event)" >
                                   </div>
                                 </div>
-                                
+
                               </div>
                               <br>
                               <div style="text-align:center;">
@@ -181,22 +225,18 @@
                               <div class="card-body">
                                 <h4 class="card-title mb-4" style="text-align: center;"> Informations du parent  / tuteur
                                 </h4>
-
-
-                               
-                                <div class="row mb-4">
-                                  <label class="col-sm-3 col-form-label">Nom <code>*</code></label>
-                                  <div class="col-sm-9" [formGroup]="formInscription">
-                                    <input type="text" class="form-control" formControlName="nomParent" maxlength="30">
-                                  </div>
-                                </div>
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Prénom <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
                                     <input type="text" class="form-control" formControlName="prenomParent" maxlength="50">
                                   </div>
                                 </div>
-
+                                <div class="row mb-4">
+                                  <label class="col-sm-3 col-form-label">Nom <code>*</code></label>
+                                  <div class="col-sm-9" [formGroup]="formInscription">
+                                    <input type="text" class="form-control" formControlName="nomParent" maxlength="30">
+                                  </div>
+                                </div>
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Téléphone <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">

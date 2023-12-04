@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <app-page-title title="Gestion des paiements mensuels"></app-page-title>
-  
+
     <div class="row">
       <div class="col-xl-4">
         <!-- end card -->
@@ -36,12 +36,12 @@
 
             </div>
         </div>
-  
-  
-  
+
+
+
         <!-- end card -->
       </div>
-  
+
       <div class="col-xl-8">
         <!-- List of matieres -->
         <div class="card">
@@ -53,16 +53,16 @@
                         <h5 class="card-title mb-4">Liste des élèves</h5>
                       </div>
                     </div>
-                  
+
                     <!-- Bouton "Imprimer" -->
                     <div class="col-sm-6 text-end">
                         <button type="button" class="btn btn-sm btn-rounded" style="background-color: #1e88e5; color: white;"  (click)="imprimerMensualite()">
                             <i class="fa fa-print"></i>&nbsp;Imprimer
                           </button>
-                          
+
                     </div>
                   </div>
-                
+
                 <div class="row mb-2">
                     <!-- Items per page selection -->
                     <div class="col-sm-4">
@@ -84,7 +84,7 @@
                     <div class="col-sm-3">
                         <div class="filter-box me-2 mb-2 d-inline-block" *ngIf="contenue.idMois">
                             <label class="d-inline-flex align-items-center">
-                                Statut 
+                                Statut
                             <select class="form-select form-select-sm mx-2" [(ngModel)]="selectedStatus" (change)="filterByStatus(selectedStatus)">
                                 <option value="Tous">Tous</option>
                                 <option value="1">Valide</option>
@@ -109,9 +109,9 @@
                         <thead class="bg-primary bg-soft p-4">
                             <tr>
                                 <th style="text-align: center;">#</th>
+                              <th style="text-align: center;">Prénom</th>
                                 <th style="text-align: center;">Nom</th>
-                                <th style="text-align: center;">Prénom</th>
-                                <th style="text-align: center;">Date de naissance</th>
+                                <th style="text-align: center;">Matricule</th>
                                 <th style="text-align: center;">Statut</th>
                                 <th style="text-align: center;">Reçu</th>
                                 <th style="text-align: center;">Restant</th>
@@ -125,7 +125,8 @@
                                 </td>
                                 <td style="text-align: center;">{{data.nom}}</td>
                                 <td style="text-align: center;">{{data.prenom}}</td>
-                                <td style="text-align: center;">{{data.dateNaissance | date: 'dd/MM/yyyy'}}</td>
+                                <td style="text-align: center;">{{data.matricule}}</td>
+<!--                                <td style="text-align: center;">{{data.dateNaissance | date: 'dd/MM/yyyy'}}</td>-->
                                 <td style="text-align: center;">
                                     <span *ngIf="data.status_payement=='1'" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data.status_payement === '1'}">Valide</span>
                                     <span *ngIf="data.status_payement=='0'" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data.status_payement == '0'}">Invalide</span>
@@ -149,8 +150,8 @@
                 </div>
                       <div class="d-flex justify-content-between align-items-center"> <!-- Utilisez d-flex pour aligner les éléments à gauche et à droite -->
                         <p class="text-muted mb-2">
-                            Affichage de {{ (currentPage - 1) * pageSize + 1 }} à 
-                            {{ (currentPage * pageSize > filteredMensualite.length) ? filteredMensualite.length : (currentPage * pageSize) }} 
+                            Affichage de {{ (currentPage - 1) * pageSize + 1 }} à
+                            {{ (currentPage * pageSize > filteredMensualite.length) ? filteredMensualite.length : (currentPage * pageSize) }}
                             sur {{ filteredMensualite.length }} éléments
                         </p>
                         <ngb-pagination class="pagination pagination-rounded justify-content-end mb-2"
@@ -220,7 +221,7 @@
                   <div class="col-sm-6 test">
                     <label>Nom </label>
                     <input class="form-control" type="text" placeholder="{{nomModal}}" disabled>
-  
+
                   </div>
                   <div class="col-md-6">
                     <label>Prénom </label>
@@ -241,7 +242,7 @@
               <br>
               <div style="text-align:center;">
                 <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
-                  <button type="button"  
+                  <button type="button"
                     class="btn btn-primary" style="float:center;" (click)="annuler()"><i class="fa fa-undo" ></i>&nbsp;Annuler</button>
                     &nbsp;
                   <button type="button" class="btn btn-success" style="float:center;" (click)="updateAvance()" ><i

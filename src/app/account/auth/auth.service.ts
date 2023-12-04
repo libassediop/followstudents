@@ -11,6 +11,7 @@ export class AuthService {
 
   value: Users;
   private host: string = 'https://samastock.alwaysdata.net/yole/api';
+  //private host:string ='http://127.0.0.1:8000/api';
   isLoggedIn = false;
   role: number;
 

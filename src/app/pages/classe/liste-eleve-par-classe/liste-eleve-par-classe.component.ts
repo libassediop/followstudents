@@ -44,6 +44,11 @@ export class ListeEleveParClasseComponent implements OnInit {
       telephone: '',
       telephoneParent: '',
       typeDePayement: 1,
+    montantTotal:0,
+    reductionIns:0,
+    ReductionMens:0,
+    offreIns:false,
+    offreInsMois:false
 
   };
   formInscription : FormGroup

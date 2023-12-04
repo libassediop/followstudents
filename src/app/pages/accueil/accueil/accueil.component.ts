@@ -5,6 +5,7 @@ import { ConfigService } from 'src/app/core/services/config.service';
 import { EventService } from 'src/app/core/services/event.service';
 import { EleveService } from 'src/app/layouts/service/eleve.service';
 import { ClasseService } from 'src/app/layouts/service/classe.service';
+import {InscriptionreinscriptionService} from "../../../layouts/service/inscriptionreinscription.service";
 
 
 @Component({
@@ -21,7 +22,7 @@ emailSentBarChart: ChartType;
 monthlyEarningChart: ChartType;
 transactions: Array<[]>;
 classes;
-
+  nonComplet;
 // donutChart: ChartType;
 
 isActive: string;
@@ -29,7 +30,7 @@ eleves;
 
 @ViewChild('content') content;
 
-  constructor(private eleveByClasseservice : EleveService, private serviceClasse : ClasseService, private modalService: NgbModal, private configService: ConfigService, private eventService: EventService) {
+  constructor(private eleveByClasseservice : EleveService,private serviceIns:InscriptionreinscriptionService, private serviceClasse : ClasseService, private modalService: NgbModal, private configService: ConfigService, private eventService: EventService) {
   }
 
   ngOnInit() {
@@ -38,7 +39,7 @@ eleves;
      * horizontal-vertical layput set
      */
      const attribute = document.body.getAttribute('data-layout');
-
+    this.nonComplet=localStorage.getItem('prenom') +' '+localStorage.getItem('nom')
      this.isVisible = attribute;
      const vertical = document.getElementById('layout-vertical');
      if (vertical != null) {
@@ -50,6 +51,14 @@ eleves;
          horizontal.setAttribute('checked', 'true');
        }
      }
+
+     this.serviceIns.getStatClasseEleveProf().subscribe(
+       (resp) => {
+         this.statData[0].value = resp['nombreClasses'];
+         this.statData[1].value = resp['nombreEleves'];
+         this.statData[2].value = resp['nombreProfesseurs'];
+       }
+     )
 
      this.serviceClasse.getAllClasse().subscribe(
         (result)=>{
@@ -67,7 +76,7 @@ eleves;
         this.nbrEleParCla.labels = nomsClasses;
     this.nbrEleParCla.datasets[0].data = nombreElevesParClasse;
       });
-    
+
   }
 
 
@@ -128,7 +137,7 @@ eleves;
       value: '20'
     }
   ];
-  
+
   repSexeParCla: ChartType = {
     chart: {
         height: 350,
@@ -174,7 +183,7 @@ eleves;
     grid: {
         borderColor: '#f1f1f1'
     },
-    
+
 };
 
   nbrEleParCla: ChartType = {
@@ -318,13 +327,13 @@ nbreElveParAnn: ChartType = {
   },
 };
 
-  
+
   openModal() {
     this.modalService.open(this.content, { centered: true });
   }
 
- 
-  
+
+
 
 
   /**

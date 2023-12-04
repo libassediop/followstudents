@@ -61,14 +61,35 @@ export class Inscription {
     avance:number;
   mensualite:number;
     typeDePayement:number;
+  montantTotal:number;
+  reductionIns:number;
+  ReductionMens:number;
+  offreIns:boolean;
+  offreInsMois:boolean;
 
 }
 
 export class Mensualite{
   eleveId:string;
   moisId:string;
-  montant:string;
+  montant:number;
+  reduction:number;
+  reliquat:number;
   userId:string;
+}
+
+export class Historique{
+  eleveId:string;
+  moisId:string;
+  classeId:string;
+  mensualiteId:string;
+  montant:number;
+  montantTotal:number;
+  reduction:number;
+  recu:number;
+  reliquat:number;
+  restant:number;
+  anneescolaireId:string;
 }
 
 export class Mois{
