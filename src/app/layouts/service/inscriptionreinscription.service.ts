@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Historique, Inscription, Mensualite, Reinscription} from './general.model';
+import {Historique, HistoriqueDetteIns, Inscription, Mensualite, Reinscription} from './general.model';
 // import { ReinscriptionComponent } from '../reinscription/reinscription.component';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class InscriptionreinscriptionService {
 
 
   private host:string ='https://samastock.alwaysdata.net/yole/api';
-  //private host:string ='http://127.0.0.1:8000/api';
+ // private host:string ='http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) { }
 
  reinscri : Reinscription;
@@ -62,8 +62,15 @@ export class InscriptionreinscriptionService {
   addHistorique(historique:Historique) {
     return this.http.post(this.host+'/mensualite/addHistorique?token='+localStorage.getItem('token')+'&eleveId='+historique.eleveId+'&moisId='+historique.moisId+'&classeId='+historique.classeId+'&mensualiteId='+historique.mensualiteId+'&montant='+historique.montant+'&montantTotal='+historique.montantTotal+'&reduction='+historique.reduction+'&recu='+historique.recu+'&reliquat='+historique.reliquat+'&restant='+historique.restant+'&anneescolaireId='+historique.anneescolaireId+'&userId='+localStorage.getItem('id'),{observe :'response'});
   }
+  addHistoriqueDetteins(historique:HistoriqueDetteIns) {
+    return this.http.post(this.host+'/inscription/addHistoriqueDette?token='+localStorage.getItem('token')+'&id_ins='+historique.idIns+'&monantApayer='+historique.montantApayer+'&montantResant='+historique.montantResttant+'&monantRecu='+historique.montantRecu,{observe :'response'});
+  }
   getHistoriqueByEleveByClasse(idEleve,idClasse){
     return this.http.get(this.host+'/mensualite/getHistoriqueByEleveByClasse?token='+localStorage.getItem('token')+'&idClasse='+idClasse+'&eleveId='+idEleve);
+  }
+
+  getHistoriqueDetteByIns(idIns){
+    return this.http.get(this.host+'/inscription/getHistoriqueDetteByIns?token='+localStorage.getItem('token')+'&idIns='+idIns);
   }
 
   getMensualiteImpayerByEleve(id){

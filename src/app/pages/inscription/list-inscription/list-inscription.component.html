@@ -111,11 +111,11 @@
                     <table class="table table-centered table-nowrap" *ngIf="contenue.idClasse">
                       <thead class="bg-primary bg-soft p-4">
                       <tr>
-                        <th style="text-align: center;">#</th>
+<!--                        <th style="text-align: center;">#</th>-->
                         <th style="text-align: center;">Prénom</th>
                         <th style="text-align: center;">Nom</th>
-                        <th style="text-align: center;">Sexe</th>
-                        <th style="text-align: center;">Matricule</th>
+<!--                        <th style="text-align: center;">Sexe</th>-->
+<!--                        <th style="text-align: center;">Matricule</th>-->
                         <th style="text-align: center;">Date inscription</th>
                         <th style="text-align: center;">Statut</th>
                         <th style="text-align: center;">Inscription</th>
@@ -128,19 +128,20 @@
                         <th style="text-align: center;"> Inscription offerte</th>
                         <th style="text-align: center;">Mensualité offerte</th>
                         <th style="text-align: center;">Action</th>
+                        <th style="text-align: center;">Voir historique Dette</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr *ngFor="let data of pagedInscription ; let i = index" [ngClass]="{'bg-info bg-opacity-10': data.offreInsMois == true, 'bg-warning bg-soft' : data.offreIns == true}">
-                        <td style="text-align: center;">
-                          <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1) + (currentPage - 1) * pageSize }}</a>
-                      </td>
+<!--                        <td style="text-align: center;">-->
+<!--                          <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1) + (currentPage - 1) * pageSize }}</a>-->
+<!--                      </td>-->
                         <td style="text-align: center;">{{data?.prenom}}</td>
                         <td style="text-align: center;">{{data?.nom}}</td>
-                        <td style="text-align: center;">
-                          {{ data?.sexe === '1' ? 'F' : data?.sexe === '2' ? 'M' : '' }}
-                        </td>
-                        <td style="text-align: center;">{{data?.matricule}}</td>
+<!--                        <td style="text-align: center;">-->
+<!--                          {{ data?.sexe === '1' ? 'F' : data?.sexe === '2' ? 'M' : '' }}-->
+<!--                        </td>-->
+<!--                        <td style="text-align: center;">{{data?.matricule}}</td>-->
                         <td style="text-align: center;">{{data?.dateInscription | date: 'dd/MM/yyyy'}}</td>
                         <td style="text-align: center;">
                           <span *ngIf="data?.status_payement=='1'" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.status_payement === '1'}">Valide</span>
@@ -164,6 +165,10 @@
                       <td style="text-align: center;">
                         <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
                       </td>
+                        <td style="text-align: center;">
+                          <button type="button" (click)="historiqueInscription(data.id,content)"
+                                  class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Historique paiement</button>
+                        </td>
                       </tr>
                       </tbody>
                     </table>
@@ -290,3 +295,45 @@
     </div>
   </div>
 </ng-template>
+  <ng-template #content role="document" let-modal>
+    <div class="modal-body">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Historique des paiements</h5>
+        <button type="button" class="btn-close" aria-hidden="true"
+                (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="table-responsive mb-0">
+        <table class="table table-centered table-nowrap">
+          <thead class="table-light">
+          <tr>
+            <th  style="text-align: center;">#</th>
+            <th  style="text-align: center;">Date</th>
+            <th  style="text-align: center;">Montant à payer</th>
+            <th  style="text-align: center;">Montant reçu</th>
+            <th  style="text-align: center;">Montant restant</th>
+            <th  style="text-align: center;">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of donneesHistorique let i = index">
+            <td>
+              <a href="javascript: void(0);" class="text-body fw-bold">{{ (i + 1)}}</a>
+            </td>
+            <td style="text-align: center;"> {{ data.date | date: 'dd/MM/yyyy'}}</td>
+            <td style="text-align: center;">{{formatMontant(data?.monantApayer)}}</td>
+            <td style="text-align: center;">{{formatMontant(data?.monantRecu)}}</td>
+            <td style="text-align: center;">{{formatMontant(data?.montantResant)}}</td>
+            <td style="text-align: center;">
+              <button type="button" class="btn btn-success no-print"   ><i class="fas fa-print"></i></button>&nbsp;
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+    <!-- <div class="modal-footer">
+        <button class="btn btn-secondary">Close</button>
+      </div> -->
+  </ng-template>

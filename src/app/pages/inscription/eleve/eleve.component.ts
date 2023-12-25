@@ -289,17 +289,11 @@ mensualite: Mensualite = {
     this.inscription.offreIns = this.offrirInscription;
     this.inscription.offreInsMois = this.offrirInscriptionetmois;
     this.inscription.avance =parseFloat(this.formInscription.get('avance').value);
-  //  console.log(this.inscription);
-
-    // if(this.montantPremierMois>0)
-    // this.inscription.avance =this.montantNext;
-    // else
-    //
-    console.log(this.inscription);
-    // if(this.typeInscription==1){
-    //   this.inscription.montantTotal += this.inscription.mensualite;
-    // }
-
+    console.log(this.inscription)
+    if(!this.payerPremierMois){
+      this.inscription.montantTotal = this.inscription.montant+this.inscription.mensualite;
+    }
+    console.log(this.inscription)
     this.serviceInscription.addInscription(this.inscription).subscribe(
       result => {
         console.log(result);
@@ -316,8 +310,8 @@ mensualite: Mensualite = {
           this.serviceInscription.addMensualite(this.mensualite).subscribe(res => {
               if (res['success']) {
                 this.historique.eleveId= res['mensualite'].eleveId;
-                  this.historique.reduction= res['mensualite'].reduction;
-                  this.historique.reliquat=0;
+                this.historique.reduction= res['mensualite'].reduction;
+                this.historique.reliquat=0;
                 this.historique.moisId= res['mensualite'].moisId;
                 this.historique.montantTotal=res['mensualite'].montant - res['mensualite'].reduction;
                 this.historique.montant= res['mensualite'].montant;
@@ -522,7 +516,7 @@ checkMontantRecu($event: Event) {
     console.log(this.offrirInscription);
     if(this.offrirInscription){
       this.offrirInscriptionetmois=false;
-      this.disableCheckbox=false;
+      this.disableCheckbox=true;
       this.formInscription.get('reductionInscription').setValue('0');
       this.formInscription.get('reductionInscription').disable();
       this.formInscription.get('reductionMensualite').enable();
@@ -542,6 +536,7 @@ checkMontantRecu($event: Event) {
           console.log(error1);
         });
       }
+      this.disableCheckbox=false;
       this.formInscription.get('reductionInscription').enable();
     }
   }

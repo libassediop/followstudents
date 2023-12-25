@@ -78,6 +78,13 @@ export class Mensualite{
   userId:string;
 }
 
+export class HistoriqueDetteIns{
+  idIns:string;
+  montantApayer:number;
+  montantRecu:number;
+  montantResttant:number;
+}
+
 export class Historique{
   eleveId:string;
   moisId:string;

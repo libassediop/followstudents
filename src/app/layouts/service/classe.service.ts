@@ -8,7 +8,7 @@ import {id} from "@swimlane/ngx-charts";
 export class ClasseService {
 
   private host:string ='https://samastock.alwaysdata.net/yole/api';
-  //private host:string ='http://127.0.0.1:8000/api';
+//  private host:string ='http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) { }
 
   getAllClasse(){
