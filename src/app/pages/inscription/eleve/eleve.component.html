@@ -34,7 +34,6 @@
                                   </div>
                                 </div>
                               <form >
-
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="mb-3" [formGroup]="formInscription">
@@ -84,14 +83,20 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                  <div class="mb-3" [formGroup]="formInscription">
+                                    <label> Date inscription</label>
+                                    <input type="date" class="form-control" formControlName="dateInscription" max="{{ maxDate() }}" />
+                                  </div>
+                                </div>
+                                <div class="col-lg-4">
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label> Adresse</label>
                                     <input type="text" class="form-control" formControlName="adresse"  maxlength="50">
                                   </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label> Téléphone</label>
                                     <input type="number" class="form-control" formControlName="telephone" (input)="limitNumberLength($event)">
@@ -203,8 +208,7 @@
                     </div>
                   </div>
                 </div>
-              </div><!-- end card -->
-
+              </div>
             </ng-template>
           </li>
           <li [ngbNavItem]="2">
@@ -276,14 +280,11 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
-
               </div>
             </ng-template>
           </li>
-
         </ul>
       </div>
       <div class="col-lg-10">
@@ -291,6 +292,4 @@
       </div>
     </div>
   </div>
-
-
 </div>

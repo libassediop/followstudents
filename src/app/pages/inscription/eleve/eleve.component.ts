@@ -24,6 +24,7 @@ export class EleveComponent implements OnInit {
   trouveTel = false;
   inscription: Inscription = {
     id:'',
+    dateInscription:'',
     nom: '',
     prenom: '',
     classeId: '',
@@ -72,10 +73,12 @@ navItem2: HTMLElement;
 btnSuivant: HTMLElement;
 payerPremierMois: boolean = true;
 montantPremierMois : number=0;
-  offrirMensualite : boolean=false;
-  offrirInscription : boolean=false;
-  offrirInscriptionetmois : boolean=false;
+offrirMensualite : boolean=false;
+offrirInscription : boolean=false;
+offrirInscriptionetmois : boolean=false;
 montantNext : any;
+montanttotalinscription : any;
+montanttotalmensualite : any;
 
 
 mensualite: Mensualite = {
@@ -101,16 +104,17 @@ mensualite: Mensualite = {
   ngOnInit(): void {
     this.formInscription = this.fb.group({
       // Ajoutez ici les contrôles de vot
-      nom: [{ value: 'diop', disabled: false }, Validators.required],
-      prenom: [{ value: 'limamou', disabled: false }, Validators.required],
-      sexe: [{ value: '2', disabled: false }, Validators.required],
+      nom: [{ value: '', disabled: false }, Validators.required],
+      prenom: [{ value: '', disabled: false }, Validators.required],
+      sexe: [{ value: '', disabled: false }, Validators.required],
       dateNaissance: [{ value: '', disabled: false }],
+      dateInscription: [{ value: '', disabled: false }],
       adresse: [{ value: '', disabled: false }],
       telephone: [{ value: '', disabled: false }],
       classeId: [{ value: '', disabled: false }, Validators.required],
-      nomParent: [{ value: 'diop', disabled: false }, Validators.required],
-      prenomParent: [{ value: 'libasse', disabled: false }, Validators.required],
-      telephoneParent: [{ value: '771922061', disabled: false }],
+      nomParent: [{ value: '', disabled: false }, Validators.required],
+      prenomParent: [{ value: '', disabled: false }, Validators.required],
+      telephoneParent: [{ value: '', disabled: false }],
       fonctionParent: [{ value: '', disabled: false }],
       montant: [{ value: '', disabled: true }, this.validateNumber],
       avance: ['0', [Validators.required, this.validateNumber]],
@@ -157,13 +161,9 @@ mensualite: Mensualite = {
       const montantInscription = parseFloat(value[0].montant_inscription);
       const montantMensualite = parseFloat(value[0].montant_mensuel);
       let total = parseFloat(this.formInscription.get('totalapayer').value)
-
-    //  this.montant = parseFloat(value[0].montant_inscription);
-    //  this.formInscription.get('montant').setValue(montantInscription);
-    //  this.formInscription.get('mensualite').setValue(montantMensualite);
-    //  this.formInscription.get('totalapayer').setValue(total);
      this.montantNext = montantInscription;
-       if(reductionInscription  && reductionInscription == montantInscription){
+       if(reductionInscription  && reductionInscription == montantInscription && this.typeInscription!=1 ){
+        console.log('ttt')
          Swal.fire({
            position: 'top-end',
            icon: 'error',
@@ -266,11 +266,11 @@ mensualite: Mensualite = {
 
 
   addInscription() {
-  console.log(parseFloat(this.formInscription.get('avance').value));
     this.inscription.nom = this.formInscription.value.nom;
     this.inscription.prenom = this.formInscription.value.prenom;
     this.inscription.sexe = this.formInscription.value.sexe;
     this.inscription.dateNaissance = this.formInscription.value.dateNaissance;
+    this.inscription.dateInscription = this.formInscription.value.dateInscription;
     this.inscription.adresse = this.formInscription.value.adresse;
     this.inscription.nationalite = this.formInscription.value.nationalite;
     this.inscription.lieuDeNaissance = this.formInscription.value.lieu;
@@ -281,24 +281,16 @@ mensualite: Mensualite = {
     this.inscription.emailParent = this.formInscription.value.emailParent;
     this.inscription.telephoneParent = this.formInscription.value.telephoneParent;
     this.inscription.fonctionParent = this.formInscription.value.fonctionParent;
-    this.inscription.montant = parseFloat(this.formInscription.get('montant').value)
-    this.inscription.mensualite = parseFloat(this.formInscription.get('mensualite').value)
+   // this.inscription.montant = parseFloat(this.formInscription.get('montant').value)
+   this.inscription.montant = parseFloat(this.montanttotalinscription);
+   // this.inscription.mensualite = parseFloat(this.formInscription.get('mensualite').value)
+    this.inscription.mensualite = parseFloat(this.montanttotalmensualite)
     this.inscription.montantTotal = parseFloat(this.formInscription.get('totalapayer').value)
     this.inscription.reductionIns = parseFloat(this.formInscription.get('reductionInscription').value)
     this.inscription.ReductionMens = parseFloat(this.formInscription.get('reductionMensualite').value)
     this.inscription.offreIns = this.offrirInscription;
     this.inscription.offreInsMois = this.offrirInscriptionetmois;
     this.inscription.avance =parseFloat(this.formInscription.get('avance').value);
-  //  console.log(this.inscription);
-
-    // if(this.montantPremierMois>0)
-    // this.inscription.avance =this.montantNext;
-    // else
-    //
-    console.log(this.inscription);
-    // if(this.typeInscription==1){
-    //   this.inscription.montantTotal += this.inscription.mensualite;
-    // }
 
     this.serviceInscription.addInscription(this.inscription).subscribe(
       result => {
@@ -332,7 +324,7 @@ mensualite: Mensualite = {
                 Swal.fire({
                   position: 'top-end',
                   icon: 'success',
-                  title: 'Inscription et mensualité payées avec succès',
+                  title: 'Inscription effectuée avec succès',
                   showConfirmButton: false,
                   timer: 1500
                 });
@@ -353,52 +345,9 @@ mensualite: Mensualite = {
 
             }
           );
-
-          // console.log(result['eleve'].id);
-          // if(this.montantPremierMois>0){
-          //   this.mensualite.moisId='1',
-          //   this.mensualite.eleveId=result['eleve'].id;
-          //   this.mensualite.montant=this.montantPremierMois;
-          //   console.log(this.mensualite)
-          //   this.serviceInscription.addMensualite(this.mensualite).subscribe(res => {
-          //     console.log(res);
-          //     if (res['success']) {
-          //       Swal.fire({
-          //         position: 'top-end',
-          //         icon: 'success',
-          //         title: 'Inscription et mensualité payées avec succès',
-          //         showConfirmButton: false,
-          //         timer: 1500
-          //       });
-          //
                 this.formInscription.reset();
                 this.route.navigate(['/pages/inscription/listInscription']);
-          //     }
-          //     else{
-          //       Swal.fire({
-          //         position: 'top-end',
-          //         icon: 'error',
-          //         title: 'Erreur lors du paiement de la mensualité: '+res['message'],
-          //         showConfirmButton: false,
-          //         timer: 1500
-          //       });
-          //
-          //     }
-          //
-          //     }
-          //   );
-          // }
-          // else {
-          //   Swal.fire({
-          //     position: 'top-end',
-          //     icon: 'success',
-          //     title: 'Inscription payée avec succès',
-          //     showConfirmButton: false,
-          //     timer: 4500
-          //   });
-          // }
-         // this.formInscription.reset();
-          //this.route.navigate(['/pages/inscription/listInscription']);
+
         }
         else{
           Swal.fire({
@@ -454,7 +403,6 @@ mensualite: Mensualite = {
 
   recuperation($event: Event) {
     let reductionInscription = parseFloat(this.formInscription.value.reductionInscription);
-
     let reductionMensualite = parseFloat(this.formInscription.value.reductionMensualite);
     this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
       const montantInscription = parseFloat(value[0].montant_inscription);
@@ -474,9 +422,21 @@ mensualite: Mensualite = {
           total = total-reductionMensualite;
         }
       //  this.montant = parseFloat(value[0].montant_inscription);
-       this.formInscription.get('montant').setValue(montantInscription);
-       this.formInscription.get('mensualite').setValue(montantMensualite);
+      if(this.offrirInscription || this.offrirInscriptionetmois)
+       this.formInscription.get('montant').setValue(''); 
+      else
+      this.formInscription.get('montant').setValue(montantInscription);
+       this.montanttotalinscription = montantInscription;
+
+       if(this.offrirMensualite || this.offrirInscriptionetmois)
+       this.formInscription.get('mensualite').setValue(''); 
+      else
+      this.formInscription.get('mensualite').setValue(montantMensualite);
+      this.montanttotalmensualite = montantMensualite;
        this.formInscription.get('totalapayer').setValue(total);
+
+       this.formInscription.get('reductionInscription').setValue(montantInscription);
+       this.formInscription.get('reductionMensualite').setValue(montantMensualite);
 
   }, error1 => {
     console.log(error1);
@@ -519,11 +479,10 @@ checkMontantRecu($event: Event) {
 
 
   offrirIns($event: any) {
-    console.log(this.offrirInscription);
     if(this.offrirInscription){
       this.offrirInscriptionetmois=false;
       this.disableCheckbox=false;
-      this.formInscription.get('reductionInscription').setValue('0');
+      this.formInscription.get('reductionInscription').setValue('');
       this.formInscription.get('reductionInscription').disable();
       this.formInscription.get('reductionMensualite').enable();
       this.formInscription.get('avance').enable();
@@ -551,11 +510,11 @@ checkMontantRecu($event: Event) {
       this.offrirInscription=false;
       this.payerPremierMois=true;
       this.disableCheckbox=true;
-      this.formInscription.get('reductionInscription').setValue('0');
-      this.formInscription.get('reductionMensualite').setValue('0');
+      this.formInscription.get('reductionInscription').setValue('');
+      this.formInscription.get('reductionMensualite').setValue('');
       this.formInscription.get('reductionInscription').disable();
       this.formInscription.get('reductionMensualite').disable();
-      this.formInscription.get('avance').setValue('0');
+      this.formInscription.get('avance').setValue('');
       this.formInscription.get('avance').disable();
       if(this.formInscription.value.classeId){
         this.recuperation($event);

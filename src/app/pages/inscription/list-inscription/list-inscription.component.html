@@ -35,6 +35,7 @@
     <div class="col-xl-12">
       <!-- List of matieres -->
       <div class="card">
+        
           <div class="card-body">
               <div class="row mb-2">
                   <!-- Titre de la liste de matières -->
@@ -104,6 +105,18 @@
                       </div>
                   </div>
               </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="legend-point bg-info bg-soft"></span>
+                  Inscription offerte
+                </div>
+                <div class="col-md-4">
+                <span class="legend-point bg-warning bg-soft"></span>
+                  Inscription et mensualité offertes
+                </div>
+                <!-- Ajoutez d'autres points et légendes selon vos besoins -->
+              </div>
+              <br>
 
                   <!-- Table data -->
                   <!--          <app-transaction [transactions]="transactions |  filter:term"></app-transaction>-->
@@ -123,10 +136,10 @@
                         <th style="text-align: center;">Montant total</th>
                         <th style="text-align: center;">Montant reçu</th>
                         <th style="text-align: center;">Montant restant</th>
-                        <th style="text-align: center;">Réduction inscription</th>
+                     <!--    <th style="text-align: center;">Réduction inscription</th>
                         <th style="text-align: center;">Réduction mensualité</th>
                         <th style="text-align: center;"> Inscription offerte</th>
-                        <th style="text-align: center;">Mensualité offerte</th>
+                        <th style="text-align: center;">Mensualité offerte</th> -->
                         <th style="text-align: center;">Action</th>
                       </tr>
                       </thead>
@@ -151,7 +164,7 @@
                         <td style="text-align: center;">{{formatMontant(data?.montantTotal)}}</td>
                         <td style="text-align: center;">{{formatMontant(data?.avance) }}</td>
                         <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
-                        <td style="text-align: center;">{{formatMontant(data?.reductionIns) }}</td>
+                       <!--  <td style="text-align: center;">{{formatMontant(data?.reductionIns) }}</td>
                         <td style="text-align: center;">{{formatMontant(data?.ReductionMens) }}</td>
                         <td style="text-align: center;">
                           <span *ngIf="data?.offreIns==true || data?.offreInsMois==true" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.offreIns == true||data?.offreInsMois==true}">Oui</span>
@@ -160,7 +173,7 @@
                         <td style="text-align: center;">
                           <span *ngIf="data?.offreInsMois==true" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.offreInsMois === true}">Oui</span>
                           <span *ngIf="data?.offreInsMois==false" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.offreInsMois == false}">Non</span>
-                        </td>
+                        </td> -->
                       <td style="text-align: center;">
                         <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
                       </td>
@@ -180,17 +193,7 @@
                   </div>
               </div>
 
-            <div class=" row ">
-              <div class="col-md-3">
-                <span class="legend-point red"></span>
-                Inscription offerte
-              </div>
-              <div class="col-md-3">
-              <span class="legend-point blue"></span>
-                Inscription et mensualité offertes
-              </div>
-              <!-- Ajoutez d'autres points et légendes selon vos besoins -->
-            </div>
+          
           </div>
       </div>
   </div>

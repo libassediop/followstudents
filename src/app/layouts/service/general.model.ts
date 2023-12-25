@@ -66,7 +66,7 @@ export class Inscription {
   ReductionMens:number;
   offreIns:boolean;
   offreInsMois:boolean;
-
+  dateInscription : string;
 }
 
 export class Mensualite{
