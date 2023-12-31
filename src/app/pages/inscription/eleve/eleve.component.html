@@ -109,16 +109,15 @@
                                     <div class="form-check">
                                       <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirInscription" name="offrirInscription" (ngModelChange)="offrirIns($event)">
                                       <label class="form-check-label" for="inlineFormCheck">
-                                        Offrir l'inscription
+                                        Offrir la scolarité
                                       </label>
                                     </div>
-
                                   </div>
                                   <div class="col-lg-3">
                                     <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirInscriptionetmois" name="offrirInscriptionetmois" (ngModelChange)="offrirInsEtmois($event)">
+                                      <input class="form-check-inputt" type="checkbox" id="inlineFormCheck0" [(ngModel)]="offrirInscriptionetmois" name="offrirInscriptionetmois" [disabled]="disableCheckboxMois" (ngModelChange)="offrirInsEtmois($event)">
                                       <label class="form-check-label" for="inlineFormCheck">
-                                        Offrir l'inscription et le premier mois
+                                        Offrir le premier mois
                                       </label>
                                     </div>
                                   </div>
@@ -292,4 +291,5 @@
       </div>
     </div>
   </div>
+
 </div>

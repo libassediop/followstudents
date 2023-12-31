@@ -117,12 +117,12 @@ mensualite: Mensualite = {
       telephoneParent: [{ value: '', disabled: false }],
       fonctionParent: [{ value: '', disabled: false }],
       montant: [{ value: '', disabled: true }, this.validateNumber],
-      avance: ['0', [Validators.required, this.validateNumber]],
+      avance: ['', [Validators.required, this.validateNumber]],
       emailParent: [{ value: '', disabled: false }],
       mensualite: [{ value: '', disabled: true }, Validators.required],
       totalapayer: [{ value: '', disabled: true }, Validators.required],
-      reductionInscription: ['0',{  disabled: false }, Validators.required],
-      reductionMensualite: [{ value: '0', disabled: false }, Validators.required],
+      reductionInscription: ['',{  disabled: false }, Validators.required],
+      reductionMensualite: [{ value: '', disabled: false }, Validators.required],
       lieu: [{ value: '', disabled: false }],
       nationalite: [{ value: '', disabled: false }],
     })
@@ -477,66 +477,72 @@ checkMontantRecu($event: Event) {
   }
 }
 
-
+disableCheckboxMois: boolean = false;
   offrirIns($event: any) {
-    if(this.offrirInscription){
-      this.offrirInscriptionetmois=false;
-      this.disableCheckbox=false;
-      this.formInscription.get('reductionInscription').setValue('');
-      this.formInscription.get('reductionInscription').disable();
-      this.formInscription.get('reductionMensualite').enable();
-      this.formInscription.get('avance').enable();
-      if(this.formInscription.value.classeId){
-        this.recuperation($event);
-      }
-    }
-    else{
-      if(this.formInscription.value.classeId){
-        let totalApayer = parseFloat(this.formInscription.get('totalapayer').value);
-        this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
-          let montantInscription = parseFloat(value[0].montant_inscription);
-          console.log(montantInscription)
-          this.formInscription.get('totalapayer').setValue(totalApayer + montantInscription);
-        }, error1 => {
-          console.log(error1);
-        });
-      }
-      this.formInscription.get('reductionInscription').enable();
-    }
+    // if(this.offrirInscription){
+    //   this.offrirInscriptionetmois=false;
+    //   this.disableCheckbox=true;
+    //   this.disableCheckboxMois=true;
+    //   this.formInscription.get('reductionInscription').disable();
+    //   this.formInscription.get('reductionMensualite').disable();
+    //   this.formInscription.get('reductionInscription').setValue('');
+    //   this.formInscription.get('reductionMensualite').setValue('');
+    //   this.formInscription.get('avance').disable();
+    //   if(this.formInscription.value.classeId){
+    //     this.recuperation($event);
+    //   }
+    // }
+    // else{
+    //   if(this.formInscription.value.classeId){
+    //     let totalApayer = parseFloat(this.formInscription.get('totalapayer').value);
+    //     this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
+    //       let montantInscription = parseFloat(value[0].montant_inscription);
+    //       console.log(montantInscription)
+    //       this.formInscription.get('totalapayer').setValue(totalApayer + montantInscription);
+    //     }, error1 => {
+    //       console.log(error1);
+    //     });
+    //   }
+    //   this.formInscription.get('reductionInscription').enable();
+    //   this.formInscription.get('reductionMensualite').enable();
+    //   this.formInscription.get('avance').enable();
+    //   this.disableCheckboxMois=false;
+    //   this.disableCheckbox=false;
+    // }
   }
   disableCheckbox: boolean = false;
   offrirInsEtmois($event: any) {
-    if(this.offrirInscriptionetmois){
-      this.offrirInscription=false;
-      this.payerPremierMois=true;
-      this.disableCheckbox=true;
-      this.formInscription.get('reductionInscription').setValue('');
-      this.formInscription.get('reductionMensualite').setValue('');
-      this.formInscription.get('reductionInscription').disable();
-      this.formInscription.get('reductionMensualite').disable();
-      this.formInscription.get('avance').setValue('');
-      this.formInscription.get('avance').disable();
-      if(this.formInscription.value.classeId){
-        this.recuperation($event);
-      }
-    }
-    else{
-      if(this.formInscription.value.classeId){
+    // if(this.offrirInscriptionetmois){
+    //   this.offrirInscription=false;
+    //   this.payerPremierMois=true;
+    //   this.disableCheckbox=true;
+    //   this.formInscription.get('reductionInscription').setValue('');
+    //   this.formInscription.get('reductionMensualite').setValue('');
+    //   this.formInscription.get('reductionInscription').enable();
+    //   this.formInscription.get('reductionMensualite').disable();
+    //   this.formInscription.get('avance').setValue('');
+    //   this.formInscription.get('avance').disable();
+    //   if(this.formInscription.value.classeId){
+    //     this.recuperation($event);
+    //   }
+    // }
+    // else{
+    //   if(this.formInscription.value.classeId){
 
-        this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
-          let montantInscription = parseFloat(value[0].montant_inscription);
-          let montantMensualite = parseFloat(value[0].montant_mensuel);
-          console.log(montantInscription)
-          this.formInscription.get('totalapayer').setValue(montantMensualite + montantInscription);
-        }, error1 => {
-          console.log(error1);
-        });
-      }
-      this.disableCheckbox=false;
-      this.formInscription.get('reductionInscription').enable();
-      this.formInscription.get('reductionMensualite').enable();
-      this.formInscription.get('avance').enable();
-    }
+    //     this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
+    //       let montantInscription = parseFloat(value[0].montant_inscription);
+    //       let montantMensualite = parseFloat(value[0].montant_mensuel);
+    //       console.log(montantInscription)
+    //       this.formInscription.get('totalapayer').setValue(montantMensualite + montantInscription);
+    //     }, error1 => {
+    //       console.log(error1);
+    //     });
+    //   }
+    //   this.disableCheckbox=false;
+    //   this.formInscription.get('reductionInscription').enable();
+    //   this.formInscription.get('reductionMensualite').enable();
+    //   this.formInscription.get('avance').enable();
+    // }
   }
 
   reductionIns($event: any) {
