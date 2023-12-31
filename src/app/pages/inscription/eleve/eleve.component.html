@@ -22,8 +22,19 @@
                           <div class="card">
                             <div class="card-body">
 
-                              <h4 class="card-title mb-4" style="text-align: center;"> Informations de l'élève</h4>
-                              <form >
+                              <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="card-title mb-4" style="text-align: center;"> Informations de l'élève</h4>
+                                <div class="page-title-right">
+                                  <div class="col-sm-auto">
+                                    <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+                                    <select class="form-select" id="autoSizingSelect" [(ngModel)]="typeInscription" (ngModelChange)="changeInscription($event)">
+                                      <option selected value="1">Inscription normale</option>
+                                      <option value="2">Inscription avec réduction</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <form>
 
                               <div class="row">
                                 <div class="col-md-6">
@@ -74,17 +85,25 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label> Adresse</label>
                                     <input type="text" class="form-control" formControlName="adresse"  maxlength="50">
                                   </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label> Téléphone</label>
                                     <input type="number" class="form-control" formControlName="telephone" (input)="limitNumberLength($event)">
+                                  </div>
+                                </div>
+
+                              
+                                <div class="col-md-4">
+                                  <div class="mb-3" [formGroup]="formInscription">
+                                    <label>Date d'inscription </label>
+                                    <input type="date" class="form-control" formControlName="dateInscription" max="{{ maxDate() }}" />
                                   </div>
                                 </div>
                               </div>

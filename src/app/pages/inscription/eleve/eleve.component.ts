@@ -55,7 +55,7 @@ btnSuivant: HTMLElement;
 payerPremierMois: boolean = true;
 montantPremierMois : number=0;
 montantNext : any;
-
+typeInscription =1;
 
 mensualite: Mensualite = {
   moisId: '',
@@ -82,6 +82,7 @@ mensualite: Mensualite = {
       prenom: [{ value: '', disabled: false }, Validators.required],
       sexe: [{ value: '', disabled: false }, Validators.required],
       dateNaissance: [{ value: '', disabled: false }],
+      dateInscription: [{ value: '', disabled: false }],
       adresse: [{ value: '', disabled: false }],
       telephone: [{ value: '', disabled: false }],
       classeId: [{ value: '', disabled: false }, Validators.required],
@@ -383,5 +384,16 @@ checkMontantRecu($event: Event) {
   }
 }
 
-
+changeInscription($event: any) {
+  // if(this.typeInscription==1){
+  //   this.formInscription.get('reductionInscription').setValue('0');
+  //   this.formInscription.get('reductionMensualite').setValue('0');
+  //   this.formInscription.get('reductionInscription').enable();
+  //   this.formInscription.get('reductionMensualite').enable();
+  //   this.formInscription.get('avance').enable();
+  //   this.offrirInscription=false;
+  //   this.disableCheckbox=false;
+  //   this.offrirInscriptionetmois=false;
+  // } 
+}
 }
