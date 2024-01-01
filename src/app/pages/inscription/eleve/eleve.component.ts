@@ -292,7 +292,7 @@ mensualite: Mensualite = {
           this.inscription.montantTotal = parseFloat(value[0].montant_inscription);
         }
 
-
+        console.log(this.inscription)
     this.serviceInscription.addInscription(this.inscription).subscribe(
       result => {
         if (result['success']) {
@@ -380,11 +380,12 @@ mensualite: Mensualite = {
       this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
         this.inscription.montantTotal = this.inscription.montant+this.inscription.mensualite
         if(this.offrirFirstmoisVariable){
+            if(this.inscription.reductionIns >0)
+            this.inscription.montantTotal =  parseFloat(value[0].montant_inscription)-this.inscription.reductionIns;
+          else
           this.inscription.montantTotal = parseFloat(value[0].montant_inscription);
         }
-        else if(this.offrirFirstmoisVariable && this.inscription.reductionIns >0){
-          this.inscription.montantTotal =  parseFloat(value[0].montant_inscription)-this.inscription.reductionIns;
-        }
+        
          this.serviceInscription.addInscription(this.inscription).subscribe(
          result => {
 
@@ -405,8 +406,8 @@ mensualite: Mensualite = {
             this.historique.reduction= res['mensualite'].reduction;
             this.historique.reliquat=0;
             this.historique.moisId= res['mensualite'].moisId;
-            this.historique.montantTotal=res['mensualite'].montant - res['mensualite'].reduction;
-            this.historique.montant= res['mensualite'].montant;
+            this.historique.montantTotal=res['mensualite'].montant;
+            this.historique.montant= res['mensualite'].montant + res['mensualite'].reduction;;
             this.historique.recu= res['mensualite'].avance;
             this.historique.restant= res['mensualite'].restant;
             this.historique.anneescolaireId= res['mensualite'].anneeScolaireId;

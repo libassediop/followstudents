@@ -108,11 +108,11 @@
               <div class="row">
                 <div class="col-md-3">
                   <span class="legend-point bg-info bg-soft"></span>
-                  Inscription offerte
+                  Premier mois offert
                 </div>
                 <div class="col-md-4">
                 <span class="legend-point bg-warning bg-soft"></span>
-                  Inscription et mensualité offertes
+                  Scolarité offerte
                 </div>
                 <!-- Ajoutez d'autres points et légendes selon vos besoins -->
               </div>
@@ -157,8 +157,8 @@
 <!--                        <td style="text-align: center;">{{data?.matricule}}</td>-->
                         <td style="text-align: center;">{{data?.dateInscription | date: 'dd/MM/yyyy'}}</td>
                         <td style="text-align: center;">
-                          <span *ngIf="data?.status_payement=='1'" class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.status_payement === '1'}">Valide</span>
-                          <span *ngIf="data?.status_payement=='0'" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.status_payement == '0'}">Invalide</span>
+                          <span *ngIf="data?.status_payement=='1' || data?.avance >data?.montant " class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-sucess': data?.status_payement === '1' || data?.avance >data?.montant}">Valide</span>
+                          <span *ngIf="data?.status_payement=='0' && data?.avance < data?.montant" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.status_payement == '0' && data?.avance < data?.montant}">Invalide</span>
                       </td>
                       <td style="text-align: center;">{{formatMontant(data?.montant)}}</td>
                       <td style="text-align: center;">{{formatMontant(data?.montantPreniermois)}}</td>
@@ -176,7 +176,7 @@
                           <span *ngIf="data?.offreInsMois==false" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.offreInsMois == false}">Non</span>
                         </td> -->
                       <td style="text-align: center;">
-                        <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
+                        <button type="button" class="btn btn-success no-print" *ngIf="data?.status_payement=='0' && data?.avance < data?.montant"     (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
                       </td>
                         <td style="text-align: center;">
                           <button type="button" (click)="historiqueInscription(data.id,content)"

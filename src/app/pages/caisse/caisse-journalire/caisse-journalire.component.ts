@@ -46,7 +46,6 @@ export class CaisseJournalireComponent implements OnInit {
     });
 
     this.serviceCaisse.getAllCaisseMensualité().subscribe((resp) => {
-      console.log(resp)
       this.mensualite=resp['liste_complete'];
       this.totalMensualite=resp['montant_total'];
     }, err => {
@@ -54,7 +53,6 @@ export class CaisseJournalireComponent implements OnInit {
     });
 
     this.serviceCaisse.getAllCaisseAnnuelle().subscribe((resp) => {
-      console.log(resp)
       this.annuelle=resp['liste_complete'];
       this.totalAnnelle=resp['montant_total'];
     }, err => {
@@ -80,7 +78,6 @@ export class CaisseJournalireComponent implements OnInit {
 
   VoirDetail(recuDataModal: TemplateRef<any>,recuDataModalMensualite:TemplateRef<any>,detailCaisse:any) {
     if(detailCaisse.moisId){
-      console.log(detailCaisse)
      this.detailCaisse.nom=detailCaisse.nom;
       this.detailCaisse.mois=detailCaisse.moisId;
      this.detailCaisse.prenom=detailCaisse.prenom;
@@ -93,7 +90,6 @@ export class CaisseJournalireComponent implements OnInit {
      this.detailCaisse.classe=detailCaisse.libelle;
       this.modalService.open(recuDataModalMensualite, { centered: true });
     }else{
-      console.log(detailCaisse)
       this.detailCaisse.nom=detailCaisse.nom;
       this.detailCaisse.prenom=detailCaisse.prenom;
       this.detailCaisse.dateNaissance=detailCaisse.dateNaissance;

@@ -168,7 +168,7 @@
                   <span *ngIf="data?.status_payement=='0'" class="badge badge-pill badge-soft-danger font-size-11" [ngClass]=" { 'badge-soft-danger': data?.status_payement == '0'}">Impayé</span>
               </td>
               <td style="text-align: center;">
-                <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data?.id,data?.restant,this.donneesEleve?.nom,this.donneesEleve?.prenom,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
+                <button type="button" class="btn btn-success no-print" *ngIf="convertToNumber(data?.restant) !== 0"     (click)="ModalAvance(data,this.donneesEleve,contentUpdateAvance)"><i class="fas fa-money-bill"></i></button>&nbsp;
               </td>
               </tr>
 

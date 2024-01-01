@@ -127,11 +127,9 @@ export class SuiviPaiementComponent implements OnInit {
 
     this.matricule = this.route.snapshot.params.matricule;
     this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
-      //console.log(resp)
       this.donneesEleve = resp[0];
       this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.id,this.donneesEleve.id_classe).subscribe(
         resp=>{
-          console.log(resp['historique']);
           this.donneesHistorique=resp['historique']
         },err =>{console.log(err)}
       )
@@ -236,25 +234,22 @@ export class SuiviPaiementComponent implements OnInit {
         );
         this.mensualite.montant = this.formMensualite.value.avance - this.reliquat;
       }
-      console.log(this.reliquat)
       this.mensualite.reliquat=this.reliquat;
       this.seviceInscription.addMensualite(this.mensualite).subscribe(res => {
 
         if (res['success']) {
           var reliq=this.reliquat;
-          console.log(this.reliquat);
          this.historique.eleveId= res['mensualite'].eleveId;
            this.historique.reduction= res['mensualite'].reduction;
            this.historique.reliquat = this.mensualite.reliquat;
           this.historique.moisId= res['mensualite'].moisId;
-           this.historique.montant= res['mensualite'].montant;
-           this.historique.montantTotal = res['mensualite'].montant - res['mensualite'].reduction + this.mensualite.reliquat ;
+           this.historique.montant= res['mensualite'].montant+res['mensualite'].reduction;
+           this.historique.montantTotal = res['mensualite'].montant  + this.mensualite.reliquat ;
           this.historique.recu= this.formMensualite.value.avance;
           this.historique.restant= res['mensualite'].restant;
           this.historique.anneescolaireId= res['mensualite'].anneeScolaireId;
           this.historique.mensualiteId= res['mensualite'].id;
           this.historique.classeId=this.donneesEleve.id_classe;
-          console.log(this.historique)
           this.serviceInscription.addHistorique(this.historique).subscribe(
             (resp)=>{console.log(resp)}, err=>{console.log(err)}
           )
@@ -272,7 +267,6 @@ export class SuiviPaiementComponent implements OnInit {
             this.donneesEleve = resp[0];
             this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.id,this.donneesEleve.id_classe).subscribe(
               resp=>{
-                console.log(resp['historique']);
                 this.donneesHistorique=resp['historique']
               },err =>{console.log(err)}
             )
@@ -321,19 +315,20 @@ export class SuiviPaiementComponent implements OnInit {
   }
 }
 
-
-ModalAvance(id,restant,nom,prenom, centerModal?: any) {
-  this.restantModal = restant;
-  this.nomModal = nom;
-  this.prenomModal = prenom;
-  this.idMensualite = id;
+datahistorique;
+donneeEleveHistorique;
+ModalAvance(data:any,donneesEleve:any,centerModal?: any) {
+  this.datahistorique = data;
+  this.donneeEleveHistorique = donneesEleve
+  this.restantModal = data.restant;
+  this.nomModal = donneesEleve.nom;
+  this.prenomModal = donneesEleve.prenom;
+  this.idMensualite = data.id;
   this.modalService.open(centerModal, {centered: true});
   }
 
   updateAvance(){
     this.valueAvanceModal = this.formInscriptionAvance.value.avance;
-    console.log(this.idMensualite);
-    console.log(this.formInscriptionAvance.value.avance)
     this.serviceInscription.detteMensuelle(this.idMensualite,this.valueAvanceModal).subscribe(
       result => {
         if (result['success']) {
@@ -344,7 +339,21 @@ ModalAvance(id,restant,nom,prenom, centerModal?: any) {
             showConfirmButton: false,
             timer: 4500
           });
-
+          this.historique.eleveId= this.donneeEleveHistorique.id;
+          this.historique.reduction= this.datahistorique.reduction;
+          this.historique.reliquat=this.restantModal
+          this.historique.moisId= this.datahistorique.moisId;
+          this.historique.montantTotal=this.restantModal
+          this.historique.montant= this.datahistorique.montant;
+          this.historique.recu= this.valueAvanceModal;
+          this.historique.restant= this.restantModal-this.valueAvanceModal;
+          this.historique.anneescolaireId= this.datahistorique.anneeScolaireId;
+          this.historique.mensualiteId= this.idMensualite;
+          this.historique.classeId=this.donneeEleveHistorique.id_classe;
+          this.serviceInscription.addHistorique(this.historique).subscribe(
+            (resp)=>{
+            }, err=>{console.log(err)}
+          )
           this.formInscriptionAvance.reset();
           this.modalService.dismissAll();
           this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
@@ -389,10 +398,8 @@ ModalAvance(id,restant,nom,prenom, centerModal?: any) {
 
   changeItemsPerPage() {
     this.reliquat=null;
-    console.log(this.formMensualite.value.mois);
     this.serviceInscription.getMoisRestantApayerByEleve(this.donneesEleve.id).subscribe(
       (resp)=>{
-        console.log(resp)
         if(resp[0] && this.formMensualite.value.mois !=resp[0].moisId){
           this.reliquat=resp[0].restant;
           this.idMens=resp[0].id;
@@ -403,12 +410,16 @@ ModalAvance(id,restant,nom,prenom, centerModal?: any) {
     this.serviceClasse.getMontantByClasseByMois(this.donneesEleve.id_classe,this.formMensualite.value.mois).subscribe(
       (res)=>{
         this.nomtantApayer=res[0].montant;
-        console.log(res);
       }
     )
   }
 
   openModalHistorique(content) {
+    this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.id,this.donneesEleve.id_classe).subscribe(
+      resp=>{
+        this.donneesHistorique=resp['historique']
+      },err =>{console.log(err)}
+    )
     this.modalService.open(content, {size:'xl', centered: true });
   }
 }

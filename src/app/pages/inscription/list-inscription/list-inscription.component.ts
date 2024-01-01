@@ -245,7 +245,6 @@ annuler() {
 }
 
   historiqueInscription(id: number,centerModal?: any) {
-    console.log(id);
     this.serviceInscription.getHistoriqueDetteByIns(id).subscribe(
       (resp)=>{
         console.log(resp)
