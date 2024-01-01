@@ -24,6 +24,7 @@ export class EleveComponent implements OnInit {
   trouveTel = false;
   inscription: Inscription = {
     id:'',
+    dateInscription:'',
     nom: '',
     prenom: '',
     classeId: '',
@@ -31,7 +32,6 @@ export class EleveComponent implements OnInit {
     adresse: '',
     avance: 0,
     dateNaissance: '',
-    dateInscription: '',
     emailParent: '',
     fonctionParent: '',
     lieuDeNaissance: '',
@@ -76,9 +76,9 @@ navItem2: HTMLElement;
 btnSuivant: HTMLElement;
 payerPremierMois: boolean = true;
 montantPremierMois : number=0;
-  offrirMensualite : boolean=false;
-  offrirInscription : boolean=false;
-  offrirInscriptionetmois : boolean=false;
+offrirMensualite : boolean=false;
+offrirInscription : boolean=false;
+offrirInscriptionetmois : boolean=false;
 montantNext : any;
 typeInscription =1;
 offrirFirstmoisVariable: boolean = false;
@@ -116,14 +116,14 @@ mensualite: Mensualite = {
       adresse: [{ value: '', disabled: false }],
       telephone: [{ value: '', disabled: false }],
       classeId: [{ value: '', disabled: false }, Validators.required],
-      nomParent: [{ value: 'diop', disabled: false }, Validators.required],
-      prenomParent: [{ value: 'libasse', disabled: false }, Validators.required],
-      telephoneParent: [{ value: '771922061', disabled: false }],
+      nomParent: [{ value: '', disabled: false }, Validators.required],
+      prenomParent: [{ value: '', disabled: false }, Validators.required],
+      telephoneParent: [{ value: '', disabled: false }],
       fonctionParent: [{ value: '', disabled: false }],
       reductionInscription: [{ value: '', disabled: false }],
       reductionMensualite: [{ value: '', disabled: false }],
       montant: [{ value: '', disabled: true }, this.validateNumber],
-      avance: ['0', [Validators.required, this.validateNumber]],
+      avance: ['', [Validators.required, this.validateNumber]],
       emailParent: [{ value: '', disabled: false }],
       mensualite: [{ value: '', disabled: true }, Validators.required],
       totalapayer: [{ value: '', disabled: true }, Validators.required],
@@ -262,6 +262,7 @@ mensualite: Mensualite = {
     this.inscription.prenom = this.formInscription.value.prenom;
     this.inscription.sexe = this.formInscription.value.sexe;
     this.inscription.dateNaissance = this.formInscription.value.dateNaissance;
+    this.inscription.dateInscription = this.formInscription.value.dateInscription;
     this.inscription.adresse = this.formInscription.value.adresse;
     this.inscription.nationalite = this.formInscription.value.nationalite;
     this.inscription.lieuDeNaissance = this.formInscription.value.lieu;
@@ -380,6 +381,9 @@ mensualite: Mensualite = {
         this.inscription.montantTotal = this.inscription.montant+this.inscription.mensualite
         if(this.offrirFirstmoisVariable){
           this.inscription.montantTotal = parseFloat(value[0].montant_inscription);
+        }
+        else if(this.offrirFirstmoisVariable && this.inscription.reductionIns >0){
+          this.inscription.montantTotal =  parseFloat(value[0].montant_inscription)-this.inscription.reductionIns;
         }
          this.serviceInscription.addInscription(this.inscription).subscribe(
          result => {

@@ -388,11 +388,12 @@ ModalAvance(id,restant,nom,prenom, centerModal?: any) {
   }
 
   changeItemsPerPage() {
-    console.log(this.formMensualite.value.mois);
+    this.reliquat=null;
     console.log(this.formMensualite.value.mois);
     this.serviceInscription.getMoisRestantApayerByEleve(this.donneesEleve.id).subscribe(
       (resp)=>{
-        if(resp[0]){
+        console.log(resp)
+        if(resp[0] && this.formMensualite.value.mois !=resp[0].moisId){
           this.reliquat=resp[0].restant;
           this.idMens=resp[0].id;
         }
