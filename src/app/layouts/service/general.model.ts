@@ -71,6 +71,22 @@ offreInsMois:boolean;
 
 }
 
+export class Mensualite{
+  eleveId:string;
+  moisId:string;
+  montant:number;
+  reduction:number;
+  reliquat:number;
+  userId:string;
+}
+
+export class HistoriqueDetteIns{
+  idIns:string;
+  montantApayer:number;
+  montantRecu:number;
+  montantResttant:number;
+}
+
 export class Historique{
   eleveId:string;
   moisId:string;
@@ -83,13 +99,6 @@ export class Historique{
   reliquat:number;
   restant:number;
   anneescolaireId:string;
-}
-
-export class Mensualite{
-  eleveId:string;
-  moisId:string;
-  montant:string;
-  userId:string;
 }
 
 export class Mois{

@@ -76,6 +76,9 @@ navItem2: HTMLElement;
 btnSuivant: HTMLElement;
 payerPremierMois: boolean = true;
 montantPremierMois : number=0;
+  offrirMensualite : boolean=false;
+  offrirInscription : boolean=false;
+  offrirInscriptionetmois : boolean=false;
 montantNext : any;
 typeInscription =1;
 offrirFirstmoisVariable: boolean = false;
@@ -84,8 +87,10 @@ disableCheckboxMois: boolean = false;
 disableCheckbox: boolean = false;
 mensualite: Mensualite = {
   moisId: '',
-   montant:'',
+   montant:0,
+   reduction:0,
    eleveId:'',
+  reliquat:0,
    userId:localStorage.getItem('id')
  };
 
@@ -111,14 +116,14 @@ mensualite: Mensualite = {
       adresse: [{ value: '', disabled: false }],
       telephone: [{ value: '', disabled: false }],
       classeId: [{ value: '', disabled: false }, Validators.required],
-      nomParent: [{ value: '', disabled: false }, Validators.required],
-      prenomParent: [{ value: '', disabled: false }, Validators.required],
-      telephoneParent: [{ value: '', disabled: false }],
+      nomParent: [{ value: 'diop', disabled: false }, Validators.required],
+      prenomParent: [{ value: 'libasse', disabled: false }, Validators.required],
+      telephoneParent: [{ value: '771922061', disabled: false }],
       fonctionParent: [{ value: '', disabled: false }],
       reductionInscription: [{ value: '', disabled: false }],
       reductionMensualite: [{ value: '', disabled: false }],
       montant: [{ value: '', disabled: true }, this.validateNumber],
-      avance: ['', [Validators.required, this.validateNumber]],
+      avance: ['0', [Validators.required, this.validateNumber]],
       emailParent: [{ value: '', disabled: false }],
       mensualite: [{ value: '', disabled: true }, Validators.required],
       totalapayer: [{ value: '', disabled: true }, Validators.required],
@@ -183,8 +188,9 @@ mensualite: Mensualite = {
       }
 
       }
-      
+
       else {
+
         if(parseFloat(this.formInscription.value.avance)>montantInscription){
           Swal.fire({
             position: 'top-end',
@@ -198,7 +204,7 @@ mensualite: Mensualite = {
           Swal.fire({
             position: 'top-end',
             icon: 'error',
-            title: 'Inscription échouée : Le montant reçu ne doit pas être inférieur ou égal à 0',
+            title: 'Inscription échouée : Le montant reçu ne doit pas être inférieur à 0',
             showConfirmButton: false,
             timer: 4500
           });
@@ -252,7 +258,6 @@ mensualite: Mensualite = {
 
 
   addInscription() {
-
     this.inscription.nom = this.formInscription.value.nom;
     this.inscription.prenom = this.formInscription.value.prenom;
     this.inscription.sexe = this.formInscription.value.sexe;
@@ -294,7 +299,7 @@ mensualite: Mensualite = {
           if(this.montantPremierMois>0){
             this.mensualite.moisId='1',
             this.mensualite.eleveId=result['eleve'].id;
-            this.mensualite.montant=this.montantPremierMois.toString();
+            this.mensualite.montant=this.montantPremierMois;
             this.serviceInscription.addMensualite(this.mensualite).subscribe(res => {
               if (res['success']) {
                 this.historique.eleveId= res['mensualite'].eleveId;
@@ -318,9 +323,9 @@ mensualite: Mensualite = {
                   showConfirmButton: false,
                   timer: 1500
                 });
-        
-                this.formInscription.reset();
-                this.route.navigate(['/pages/inscription/listInscription']);
+
+               this.formInscription.reset();
+               this.route.navigate(['/pages/inscription/listInscription']);
               }
               else{
                 Swal.fire({
@@ -330,7 +335,7 @@ mensualite: Mensualite = {
                   showConfirmButton: false,
                   timer: 1500
                 });
-        
+
               }
               
               }
@@ -388,7 +393,7 @@ mensualite: Mensualite = {
           if(this.montantPremierMois>0){
             this.mensualite.moisId='1',
             this.mensualite.eleveId=result['eleve'].id;
-            this.mensualite.montant=this.montantPremierMois.toString();
+            this.mensualite.montant=this.montantPremierMois;
             console.log(this.mensualite.montant);
             this.serviceInscription.addMensualite(this.mensualite).subscribe(res => {
               if (res['success']) {
@@ -479,12 +484,12 @@ mensualite: Mensualite = {
 
 
   onvalideEleve() {
-    if (this.formInscription.value.nom =="" || this.formInscription.value.prenom =="" || this.formInscription.value.sexe ==""  || this.formInscription.value.classeId=="" ||this.formInscription.value.montant==''|| this.formInscription.value.avance =='' ||this.formInscription.value.mensualite=='')
+    if (this.formInscription.value.nom =="" || this.formInscription.value.prenom =="" || this.formInscription.value.sexe ==""  || this.formInscription.value.classeId=="" ||this.formInscription.value.montant==''|| this.formInscription.value.avance < 0 ||this.formInscription.value.mensualite=='')
       return true
     else
       return false;
   }
- 
+
 
   onvalidateInscription() {
     if (this.formInscription.value.nomParent =="" || this.formInscription.value.prenomParent =="" || this.formInscription.value.telephoneParent =="" )
@@ -557,6 +562,7 @@ formatMontant(montant: number): string {
 }
 
 isSuivantDisabled = false; // Par défaut, le bouton n'est pas désactivé
+
 
 checkMontantRecu($event: Event) {
   const avance = parseFloat(this.formInscription.value.avance);

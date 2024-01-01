@@ -28,13 +28,13 @@
             </div>
             <div class="p-2">
               <form class="form-horizontal" [formGroup]="f"  (ngSubmit)="onLogin()" >
-                <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+                <ngb-alert type="danger" *ngIf="error" [dismissible]="false">Identifiant ou mot de passe incorect!</ngb-alert>
                 <!-- <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert> -->
 
                 <div class="mb-3">
                   <i class="fas fa-user"></i>
                   <label for="login">&nbsp;Login</label>
-                  <input type="text" formControlName="login" class="form-control"  placeholder="Login" autocomplete="user"
+                  <input type="text" formControlName="login" class="form-control"  placeholder="Entrer le Login" autocomplete="user"
                   />
                 </div>
 
@@ -43,7 +43,7 @@
                   <label for="password">&nbsp;Mot de passe</label>
                   <div class="input-group auth-pass-inputgroup">
 
-                    <input type="password" formControlName="password" class="form-control"  autocomplete="password" placeholder="Enter password" autocomplete="current-password" />
+                    <input type="password" formControlName="password" class="form-control"  autocomplete="password" placeholder="Entrer le mot de passe" autocomplete="current-password" />
                     <!-- <button class="btn btn-light ms-0" type="button" id="password-addon"><i
                         class="mdi mdi-eye-outline"></i></button> -->
 
@@ -54,7 +54,7 @@
                   <button class="btn btn-primary" type="submit"  value="Login" (click)="onLogin()" >Se connecter</button>
                 </div>
 
-                <div *ngIf="error" class="error-message">{{ error }}</div>
+<!--                <div *ngIf="error" class="error-message">{{ error }}</div>-->
 
 
                 <div class="mt-4 text-center">

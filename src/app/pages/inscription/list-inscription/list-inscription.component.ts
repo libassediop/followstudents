@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Contenue, Note} from "../../../layouts/service/general.model";
+import {Contenue, HistoriqueDetteIns, Note} from "../../../layouts/service/general.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClasseService} from "../../../layouts/service/classe.service";
 import {EleveService} from "../../../layouts/service/eleve.service";
@@ -42,7 +42,7 @@ export class ListInscriptionComponent implements OnInit {
   nomModal :any;
   prenomModal : any;
   valueAvanceModal : any;
-
+  donneesHistorique;
   formInscriptionAvance: FormGroup;
 
   contenue: Contenue = {
@@ -51,6 +51,12 @@ export class ListInscriptionComponent implements OnInit {
     idMatiere: '',
     noteEleve: '',
   };
+  historiquedetteIns:HistoriqueDetteIns={
+    idIns: '',
+    montantRecu:0,
+    montantApayer:0,
+    montantResttant:0,
+  }
   constructor(private fb : FormBuilder ,private modalService : NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
 
 
@@ -188,6 +194,14 @@ updateAvance(){
           showConfirmButton: false,
           timer: 1500
         });
+        let restant=this.restantModal;
+        this.historiquedetteIns.idIns=this.idInscription;
+        this.historiquedetteIns.montantRecu=this.valueAvanceModal;
+        this.historiquedetteIns.montantResttant=restant-this.valueAvanceModal;
+        this.historiquedetteIns.montantApayer=this.restantModal;
+        this.serviceInscription.addHistoriqueDetteins(this.historiquedetteIns).subscribe(
+          res => {console.log(res);},err=>{console.log(err);}
+        )
 
         this.formInscriptionAvance.reset();
         this.modalService.dismissAll();
@@ -230,4 +244,14 @@ annuler() {
 
 }
 
+  historiqueInscription(id: number,centerModal?: any) {
+    console.log(id);
+    this.serviceInscription.getHistoriqueDetteByIns(id).subscribe(
+      (resp)=>{
+        console.log(resp)
+        this.donneesHistorique=resp;
+      },error => {console.log(error);}
+    );
+    this.modalService.open(centerModal, {centered: true,size:'lg'});
+  }
 }

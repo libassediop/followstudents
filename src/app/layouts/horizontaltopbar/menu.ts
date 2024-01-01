@@ -57,8 +57,8 @@ export const MENU: MenuItem[] = [
   {
         id: 8,
         label: 'Mensualité',
-        icon: 'bx bx-wallet', 
-        link:'inscription/mensualite',
+        icon: 'bx bx-wallet',
+        // link:'inscription/mensualite',
         subItems: [
           {
             id: 9,
@@ -80,7 +80,21 @@ export const MENU: MenuItem[] = [
         id: 11,
         label: 'Classe',
         icon: 'bx bxs-school',
-        link:'classe/classe'
+      //  link:'classe/classe',
+      subItems: [
+        {
+          id: 9,
+          label: 'Ajouter une Classe',
+          link:'classe/classe',
+
+        },
+        {
+          id: 10,
+          label: 'Paramétrer les Montants Mensuels',
+          link:'parametre/parametre',
+
+        }
+      ]
     },
     {
         id: 12,

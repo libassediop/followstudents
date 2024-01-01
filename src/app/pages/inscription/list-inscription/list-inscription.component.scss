@@ -3,3 +3,24 @@
       display: none;
     }
 }
+
+
+.legend {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.legend-point {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px; /* Ajustez la marge entre les points */
+}
+
+.red {
+  background-color: #F1B653;
+}
+
+.blue {
+  background-color: #50a5f1;
+}

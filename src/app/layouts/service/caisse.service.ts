@@ -7,6 +7,7 @@ import {Classe, Matiere} from "./general.model";
 })
 export class CaisseService {
   private host:string ='https://samastock.alwaysdata.net/yole/api';
+ // private host:string ='http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) { }
 
   getAllCaisseJournier(){

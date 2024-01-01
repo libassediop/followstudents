@@ -30,8 +30,8 @@
                   <option value="" selected disabled>Choisir le niveau</option>
                   <option value="1">Préscolaire</option>
                   <option value="2">Élémentaire</option>
-                  <option value="3">Collège</option>
-                  <option value="4">Lycée</option>
+                  <option value="3">Moyen</option>
+                  <option value="4">Secondaire</option>
 
                 </select>
               </div>
@@ -108,7 +108,7 @@
 
                           <th style="text-align: center; cursor: pointer;" >
                             Inscription
-                           
+
                           </th>
                           <th style="text-align: center; cursor: pointer;" >
                             Mensualité
@@ -124,9 +124,9 @@
                           </td>
                           <td style="text-align: center;">{{dataClasse.libelle}} </td>
                           <td style="text-align: center;">
-                            {{dataClasse.niveau == 1 ? 'Préscolaire' : (dataClasse.niveau == 2 ? 'Élémentaire' : (dataClasse.niveau == 3 ? 'Collège' : (dataClasse.niveau == 4 ? 'Lycée' : 'Autre'))) }}
+                            {{dataClasse.niveau == 1 ? 'Préscolaire' : (dataClasse.niveau == 2 ? 'Élémentaire' : (dataClasse.niveau == 3 ? 'Moyen' : (dataClasse.niveau == 4 ? 'Secondaire' : 'Autre'))) }}
                           </td>
-                          
+
                           <td style="text-align: center;">{{formatMontant(dataClasse.montant_inscription)}} FCFA</td>
                           <td style="text-align: center;">{{formatMontant(dataClasse.montant_mensuel)}} FCFA</td>
                           <td style="text-align: center;" class="no-print">

@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(public authService: AuthService, public router: Router, public fb: FormBuilder) {
-   
+
   }
 
   ngOnInit() {
@@ -68,14 +68,14 @@ export class LoginComponent implements OnInit {
       input.addEventListener('focus', addcl);
       input.addEventListener('blur', remcl);
     });
-    
+
     this.f = this.fb.group({
-      login: ['milk', [Validators.required]],
-      password: ['passer', [Validators.required]],
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
-  
+
   onLogin() {
     if (this.f.invalid) {
       this.error = 'Veuillez remplir tous les champs.';
@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
       , error1 => {
         // this.Toast('danger', 'Erreur !', 'Identifiant ou mot de passe incorect!')
         this.error = error1 ? error1 : 'Identifiant ou mot de passe incorect!';
-      }); 
+      });
     }
   }
 }

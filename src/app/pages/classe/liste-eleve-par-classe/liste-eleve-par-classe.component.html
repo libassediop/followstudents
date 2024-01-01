@@ -39,8 +39,9 @@
                                                     <th style="text-align: center;">
                                                         #
                                                     </th>
+                                                  <th style="text-align: center;">Prénom</th>
                                                     <th style="text-align: center;">Nom</th>
-                                                    <th style="text-align: center;">Prénom</th>
+                                                  <th style="text-align: center;">Matricule</th>
                                                     <th style="text-align: center;">Date de naissance</th>
                                                     <th style="text-align: center;">Sexe</th>
                                                     <th style="text-align: center;">Contact du parent / tuteur</th>
@@ -53,10 +54,11 @@
                                                     <td>
                                                         <a href="javascript: void(0);" class="text-body fw-bold"> {{i+1}}</a>
                                                     </td>
+                                                  <td style="text-align: center;">{{dataDC.prenom}}</td>
                                                     <td style="text-align: center;">{{dataDC.nom | uppercase }} </td>
-                                                    <td style="text-align: center;">{{dataDC.prenom}}</td>
+                                                  <td style="text-align: center;">{{dataDC.matricule}}</td>
                                                     <td style="text-align: center;">{{dataDC.dateNaissance}}</td>
-                                                    <td style="text-align: center;">{{ dataDC.sexe === '1' ? 'M' : 'F' }}</td>
+                                                    <td style="text-align: center;">{{ dataDC.sexe === '1' ? 'F' : 'M' }}</td>
                                                     <td style="text-align: center;">{{dataDC.parent_telephone}}</td>
                                                     <td style="text-align: center;">
                                                         <button type="button" class="btn btn-warning" (click)="ModalUpdateEleve(dataDC.matricule, contentUpdateEleve)">
@@ -77,7 +79,7 @@
                                         <!-- Formulaire de Modification des indos d'un eleve -->
                                         <ng-template #contentUpdateEleve role="document" let-modal>
                                             <aw-wizard [navBarLayout]="'large-empty-symbols'">
-                                                <aw-wizard-step stepTitle="Ajout Professeur">
+                                                <aw-wizard-step stepTitle="informations élève">
                                                     <ng-template awWizardStepSymbol>1</ng-template>
                                                     <div class="row">
                                                         <div class="col-md-12">

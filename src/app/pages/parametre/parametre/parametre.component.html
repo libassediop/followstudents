@@ -9,7 +9,7 @@
             <select class="form-select" id="autoSizingSelect">
               <option selected>Année scolaire</option>
               <option value="1">2023/2024</option>
-          
+
             </select>
           </div>
         </div>
@@ -38,7 +38,7 @@
                                       <tbody>
                                         <tr *ngFor="let value of data.montant_mois ">
                                           <td>{{value.libelleMois}}</td>
-                                          <td>{{value.montant}}</td>
+                                          <td>{{formatMontant(value.montant)}} FCFA</td>
                                           <td> <button type="button" class="btn btn-info btn-sm" (click)="updateMontantMois(value,data.libelle,contentUpdateMontant)">
                                             <i class="bx bx-pencil  align-middle"></i>
                                           </button></td>

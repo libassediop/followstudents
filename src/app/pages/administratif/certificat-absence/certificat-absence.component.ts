@@ -31,7 +31,7 @@ contenue: Contenue = {
   idMatiere: '',
   noteEleve: '',
 };
-anneesScolaires: string[] = ['2022/2023', '2023/2024', '2024/2025']; // Remplacez ces valeurs par vos années scolaires réelles
+anneesScolaires: string[] = ['2022/2023']; // Remplacez ces valeurs par vos années scolaires réelles
 
 constructor(private fb : FormBuilder, private route: Router,private serviceClasse: ClasseService, private serviceEleve: EleveService) {
 

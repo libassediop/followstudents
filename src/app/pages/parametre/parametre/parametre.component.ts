@@ -135,6 +135,17 @@ id;
     this.modalService.dismissAll();
   }
 
+  formatMontant(montant: number): string {
+    // Vérifiez d'abord si montant est défini et n'est pas null
+    if (montant !== null && montant !== undefined) {
+      // Utilisez la méthode toLocaleString avec l'option 'fr-FR' pour formater le montant avec un espace comme séparateur des milliers.
+      return montant.toLocaleString('fr-FR');
+    } else {
+      // Gérez le cas où montant est null ou non défini, par exemple, en renvoyant une chaîne vide.
+      return '';
+    }
+  }
+
   // AddMontantMois() {
   //   this.montantMoi = []; // Réinitialise le tableau
   //
@@ -199,8 +210,31 @@ id;
   this.serviceClasse.updateMontantMoisbyClasses(this.idmois,this.libeleMois,this.classeId,this.montMois,'1',this.id).subscribe(
     (resp)=>{
      console.log(resp)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Montant ' + this.libeleMois + ' modifié avec succès',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.modalService.dismissAll();
+      this.serviceClasse.listClassesWithMontantMois().subscribe(
+        (result) => {
+          this.classes = result;
+          // Trier les classes initiales
+          console.log(this.classes)
+        },
+        err => {
+          console.log(err);
+        }
+      );
     },(err)=>{
       console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops... La modification a échoué',
+        text: 'Erreur lors de La modification'
+      });
     }
   )
   }
