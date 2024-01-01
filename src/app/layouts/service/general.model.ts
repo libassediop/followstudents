@@ -39,29 +39,50 @@ export class Professeur {
     matiereId:string;
 
 }
-export class Inscription {
-    id:string;
-    nom:string;
-    prenom:string;
-    dateNaissance:string;
-    nationalite:string;
-    lieuDeNaissance:string;
-    adresse:string;
-    telephone:string;
-    email:string;
-    classeId:string;
-    sexe:string;
-    nomParent:string;
-    prenomParent:string;
-    emailParent:string;
-    telephoneParent:string;
-    sexeParent:string;
-    fonctionParent:string;
-    montant:number;
-    avance:number;
-  mensualite:number;
-    typeDePayement:number;
 
+export class Inscription {
+  id:string;
+  nom:string;
+  prenom:string;
+  dateNaissance:string;
+  dateInscription:string;
+  nationalite:string;
+  lieuDeNaissance:string;
+  adresse:string;
+  telephone:string;
+  email:string;
+  classeId:string;
+  sexe:string;
+  nomParent:string;
+  prenomParent:string;
+  emailParent:string;
+  telephoneParent:string;
+  sexeParent:string;
+  fonctionParent:string;
+  montant:number;
+  avance:number;
+mensualite:number;
+  typeDePayement:number;
+montantTotal:number;
+reductionIns:number;
+ReductionMens:number;
+offreIns:boolean;
+offreInsMois:boolean;
+
+}
+
+export class Historique{
+  eleveId:string;
+  moisId:string;
+  classeId:string;
+  mensualiteId:string;
+  montant:number;
+  montantTotal:number;
+  reduction:number;
+  recu:number;
+  reliquat:number;
+  restant:number;
+  anneescolaireId:string;
 }
 
 export class Mensualite{

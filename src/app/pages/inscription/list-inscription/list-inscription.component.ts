@@ -86,11 +86,9 @@ export class ListInscriptionComponent implements OnInit {
       return '';
     }
   }
-
   convertToNumber(value: string | number): number {
     return typeof value === 'string' ? parseFloat(value) : value as number;
   }
-
   recuperation($event: Event) {
     this.test = this.contenue.idClasse;
     this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
@@ -101,13 +99,10 @@ export class ListInscriptionComponent implements OnInit {
       console.log(err);
     }
   );
-
   }
-
   filterInscription() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-
     this.pagedInscription = this.filteredInscription
       .slice(startIndex, endIndex)
       .sort((a, b) => {
@@ -118,18 +113,14 @@ export class ListInscriptionComponent implements OnInit {
         }
       });
   }
-
-
   changeItemsPerPage() {
     this.filterInscription();
   }
-
   changePageSize(size: number) {
     this.pageSize = size;
     this.currentPage = 1; // Réinitialiser la page courante à 1
     this.filterInscription();
   }
-
   SearchFilter(e) {
     const searchStr = e.target.value.trim().toLowerCase();
     if (searchStr.length === 0) {
@@ -142,19 +133,14 @@ export class ListInscriptionComponent implements OnInit {
     }
     this.filterInscription();
   }
-
-
-
   pageChanged(page: number) {
     this.currentPage = page;
     this.filterInscription();
   }
-
   toggleSortDirection() {
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     this.filterInscription();
   }
-
   imprimerMensualite() {
     const printContents = document.getElementById('table-container').innerHTML; // Obtenez le contenu HTML de la table
     const originalContents = document.body.innerHTML; // Obtenez le contenu HTML de la page
@@ -171,7 +157,6 @@ export class ListInscriptionComponent implements OnInit {
     // Restaurez le contenu original de la page
     document.body.innerHTML = originalContents;
 }
-
 filterByStatus(status: string) {
   if (status === "Tous") {
       this.filteredInscription = this.eleves;
@@ -182,7 +167,6 @@ filterByStatus(status: string) {
     this.filterInscription();
   this.currentPage = 1;
 }
-
 
 ModalAvance(id,restant,nom,prenom, centerModal?: any) {
 this.restantModal = restant;

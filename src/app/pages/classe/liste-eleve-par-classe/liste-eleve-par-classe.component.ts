@@ -32,6 +32,7 @@ export class ListeEleveParClasseComponent implements OnInit {
       avance: 0,
     mensualite: 0,
       dateNaissance: '',
+      dateInscription: '',
       emailParent: '',
       fonctionParent: '',
       lieuDeNaissance: '',
@@ -44,6 +45,11 @@ export class ListeEleveParClasseComponent implements OnInit {
       telephone: '',
       telephoneParent: '',
       typeDePayement: 1,
+      montantTotal:0,
+      offreIns:false,
+      offreInsMois:false,
+      reductionIns:0,
+      ReductionMens:0
 
   };
   formInscription : FormGroup

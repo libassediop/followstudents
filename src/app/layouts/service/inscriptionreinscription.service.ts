@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Inscription, Mensualite, Reinscription} from './general.model';
+import {Historique, Inscription, Mensualite, Reinscription} from './general.model';
 // import { ReinscriptionComponent } from '../reinscription/reinscription.component';
 
 @Injectable({
@@ -31,9 +31,12 @@ export class InscriptionreinscriptionService {
   }
 
   addInscription(inscri : Inscription){
-    console.log(inscri)
+    const offreIns = inscri.offreIns ? 1 : 0;
+    const offreInsMois = inscri.offreInsMois ? 1 : 0;
     return this.http.post(this.host+'/inscription/addInscription?etat=1+&typeDePayement=1&caisseId=1&nom='+inscri.nom+'&dateNaissance='+inscri.dateNaissance+'&prenom='+inscri.prenom+'&nationalite='+inscri.nationalite+'&lieuDeNaissance='+inscri.lieuDeNaissance+'&adresse='+inscri.adresse+'&email='+inscri.email+
-    '&telephone='+inscri.telephone+'&sexe='+inscri.sexe+'&nomParent='+inscri.nomParent+'&prenomParent='+inscri.prenomParent+'&emailParent='+inscri.emailParent+'&telephoneParent='+inscri.telephoneParent+'&sexeParent='+inscri.sexeParent+'&fonctionParent='+inscri.fonctionParent+'&classeId='+inscri.classeId+'&userId='+localStorage.getItem('id')+'&montant_recu='+inscri.avance+'&token='+localStorage.getItem('token'),{observe :'response'});
+    '&telephone='+inscri.telephone+'&sexe='+inscri.sexe+'&nomParent='+inscri.nomParent+'&prenomParent='+inscri.prenomParent+'&emailParent='+inscri.emailParent+'&telephoneParent='+inscri.telephoneParent+'&sexeParent='+inscri.sexeParent+'&fonctionParent='+inscri.fonctionParent+'&classeId='+inscri.classeId+'&userId='+localStorage.getItem('id')
+      +'&montant_recu='+inscri.avance+'&montantTotal='+inscri.montantTotal+'&reductionIns='+inscri.reductionIns+'&dateInscription='+inscri.dateInscription+'&ReductionMens='+inscri.ReductionMens+'&offreIns='+offreIns+'&offreInsMois='+offreInsMois+'&montantPreniermois='+inscri.mensualite
+      +'&token='+localStorage.getItem('token'),{observe :'response'});
   }
 
   detteInscription(idinscriptionID,montant_recu){
@@ -52,6 +55,10 @@ export class InscriptionreinscriptionService {
   addMensualite(mensualite:Mensualite) {
     return this.http.post(this.host+'/mensualite/payerMensualite?token='+localStorage.getItem('token')+'&eleveId='+mensualite.eleveId+'&moisId='+mensualite.moisId+'&montant_recu='+mensualite.montant+'&userId='+localStorage.getItem('id'),{observe :'response'});
    //  return this.http.post(this.host+'/mensualite/payerMensualite?token='+localStorage.getItem('token'),mensualite);
+  }
+
+  addHistorique(historique:Historique) {
+    return this.http.post(this.host+'/mensualite/addHistorique?token='+localStorage.getItem('token')+'&eleveId='+historique.eleveId+'&moisId='+historique.moisId+'&classeId='+historique.classeId+'&mensualiteId='+historique.mensualiteId+'&montant='+historique.montant+'&montantTotal='+historique.montantTotal+'&reduction='+historique.reduction+'&recu='+historique.recu+'&reliquat='+historique.reliquat+'&restant='+historique.restant+'&anneescolaireId='+historique.anneescolaireId+'&userId='+localStorage.getItem('id'),{observe :'response'});
   }
 
   getMensualiteImpayerByEleve(id){

@@ -85,6 +85,14 @@
                                 </div>
                               </div>
                               <div class="row">
+                                
+                              
+                                <div class="col-md-4">
+                                  <div class="mb-3" [formGroup]="formInscription">
+                                    <label>Date d'inscription </label>
+                                    <input type="date" class="form-control" formControlName="dateInscription" max="{{ maxDate() }}" />
+                                  </div>
+                                </div>
                                 <div class="col-lg-4">
                                   <div class="mb-3" [formGroup]="formInscription">
                                     <label> Adresse</label>
@@ -99,14 +107,41 @@
                                   </div>
                                 </div>
 
-                              
-                                <div class="col-md-4">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Date d'inscription </label>
-                                    <input type="date" class="form-control" formControlName="dateInscription" max="{{ maxDate() }}" />
+                              </div>
+                              <div class="row align-items-center" *ngIf="typeInscription==2">
+
+                                <div class="col-lg-3">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirScolariteVariable" name="offrirScolariteVariable" (ngModelChange)="offrirScolarite($event)">
+                                    <label class="form-check-label" for="inlineFormCheck">
+                                      Offrir la scolarité
+                                    </label>
                                   </div>
                                 </div>
+
+                                <div class="col-lg-3">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirFirstmoisVariable" name="offrirFirstmoisVariable" [disabled]="disableCheckboxMois"  (ngModelChange)="offrirFirstMois($event)">
+                                    <label class="form-check-label" for="inlineFormCheck">
+                                      Offrir le premier mois
+                                    </label>
+                                  </div>
+                                </div>
+                              <div class="col-lg-3">
+                                <div class="mb-3" [formGroup]="formInscription" >
+                                  <label>Réduction sur l'inscription </label>
+                                  <input  type="text"   class="form-control"  formControlName="reductionInscription" (ngModelChange)="reductionIns($event)">
+                                </div>
                               </div>
+                              <div class="col-lg-3">
+                                <div class="mb-3" [formGroup]="formInscription" >
+                                  <label>Réduction sur les mensualités </label>
+                                  <input  type="text"   class="form-control"  formControlName="reductionMensualite" (ngModelChange)="reductionMens($event)">
+                                </div>
+                              </div>
+                            
+                            
+                            </div>
                               <div class="row">
                                 <div class="col-lg-6">
                                   <div class="mb-3" [formGroup]="formInscription">
@@ -129,7 +164,7 @@
                                 
                                 <div class="col-lg-2">
                                   <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="payerPremierMois" name="payerPremierMois" checked>
+                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="payerPremierMois" name="payerPremierMois" [disabled]="disableCheckbox" checked  (ngModelChange)="payerPremierMoisEvent($event)">
                                     <label class="form-check-label" for="inlineFormCheck">
                                     Payer le premier mois ?
                                     </label>
@@ -144,7 +179,7 @@
                                 </div>
 
                                 <div class="col-lg-2">
-                                  <div class="mb-3" [formGroup]="formInscription" *ngIf="payerPremierMois">
+                                  <div class="mb-3" [formGroup]="formInscription">
                                     <label>Montant total à payer </label>
                                     <input  type="text"   class="form-control"  formControlName="totalapayer">
                                   </div>
