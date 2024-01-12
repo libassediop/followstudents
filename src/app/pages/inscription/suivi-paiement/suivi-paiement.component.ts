@@ -10,11 +10,13 @@ import Swal from "sweetalert2";
 import {affecterProf} from "../../professeur/classe-enseigner/classe-enseigner.component";
 import {InscriptionreinscriptionService} from "../../../layouts/service/inscriptionreinscription.service";
 import {Historique, Inscription, Mensualite} from "../../../layouts/service/general.model";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-suivi-paiement',
   templateUrl: './suivi-paiement.component.html',
-  styleUrls: ['./suivi-paiement.component.scss']
+  styleUrls: ['./suivi-paiement.component.scss'],
+  providers: [DatePipe]
 })
 export class SuiviPaiementComponent implements OnInit {
 
@@ -62,6 +64,7 @@ export class SuiviPaiementComponent implements OnInit {
     userId:localStorage.getItem('id')
 
   };
+
   historique:Historique={
     moisId: '',
     eleveId: '',
@@ -74,7 +77,19 @@ export class SuiviPaiementComponent implements OnInit {
     reliquat:0,
     anneescolaireId: '',
     restant:0
+  }
 
+  detailCaisseDonnees ={
+    nom: "",
+    prenom: "",
+    classe:"",
+    dateNaissance:"",
+    lieu:"",
+    montant:0,
+    avance:0,
+    restant:0,
+    date:'',
+    mois:0,
   }
 
   restantModal : any;
@@ -102,7 +117,7 @@ export class SuiviPaiementComponent implements OnInit {
 
   ];
 
-  constructor(private modalService: NgbModal, private fb : FormBuilder,  private serviceInscription: InscriptionreinscriptionService, private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private seviceInscription:InscriptionreinscriptionService,private eleveService: EleveService) {
+  constructor(private modalService: NgbModal,private datePipe: DatePipe, private fb : FormBuilder,  private serviceInscription: InscriptionreinscriptionService, private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private seviceInscription:InscriptionreinscriptionService,private eleveService: EleveService) {
 
   }
   selectValue: string[];
@@ -422,4 +437,41 @@ ModalAvance(data:any,donneesEleve:any,centerModal?: any) {
     )
     this.modalService.open(content, {size:'xl', centered: true });
   }
+
+  imprimer(detailCaisse:any) {
+    console.log(detailCaisse)
+    this.detailCaisseDonnees.date=detailCaisse.date
+    const printContents = document.getElementById('table-container-imprimer').innerHTML; // Obtenez le contenu HTML de la table
+    const originalContents = document.body.innerHTML; // Obtenez le contenu HTML de la page
+
+    // Créez une balise title pour définir le titre de la page d'impression
+    const pageTitle = "<title>Inscription</title>";
+
+    // Remplacez le contenu actuel de la page par le contenu de la table avec la balise title
+    document.body.innerHTML = pageTitle + printContents;
+
+    // Appelez la fonction window.print() pour imprimer la table
+    window.print();
+
+    // Restaurez le contenu original de la page
+    document.body.innerHTML = originalContents;
+}
+
+getMonthNameById(monthId: number): string {
+  const months = [
+    'Octobre', 'Novembre', 'Décembre','Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre'
+  ];
+
+  if (monthId >= 1 && monthId <= 12) {
+    return months[monthId - 1];
+  } else {
+    return 'Mois invalide';
+  }
+}
+
+getDate(): string {
+  const currentDate = new Date();
+  return this.datePipe.transform(currentDate, 'dd/MM/yyyy') || '';
+}
 }

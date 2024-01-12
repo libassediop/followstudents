@@ -5,11 +5,13 @@ import {Router} from "@angular/router";
 import {ClasseService} from "../../../layouts/service/classe.service";
 import {EleveService} from "../../../layouts/service/eleve.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-certificat-frequentation',
   templateUrl: './certificat-frequentation.component.html',
-  styleUrls: ['./certificat-frequentation.component.scss']
+  styleUrls: ['./certificat-frequentation.component.scss'],
+  providers: [DatePipe]
 })
 export class CertificatFrequentationComponent implements OnInit {
 
@@ -38,7 +40,7 @@ export class CertificatFrequentationComponent implements OnInit {
   };
   anneesScolaires: string[] = ['2022/2023']; // Remplacez ces valeurs par vos années scolaires réelles
 
-  constructor(private fb : FormBuilder, private route: Router,private serviceClasse: ClasseService, private serviceEleve: EleveService,private modalService: NgbModal) {
+  constructor(private datePipe: DatePipe, private fb : FormBuilder, private route: Router,private serviceClasse: ClasseService, private serviceEleve: EleveService,private modalService: NgbModal) {
     this.formEleve = this.fb.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
@@ -118,6 +120,9 @@ export class CertificatFrequentationComponent implements OnInit {
     //  document.body.innerHTML = originalContent;
   }
 
-
+  getDate(): string {
+    const currentDate = new Date();
+    return this.datePipe.transform(currentDate, 'dd/MM/yyyy') || '';
+  }
 
 }

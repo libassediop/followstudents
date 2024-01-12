@@ -9,11 +9,13 @@ import { InscriptionList } from './list-inscription.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InscriptionreinscriptionService } from 'src/app/layouts/service/inscriptionreinscription.service';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-inscription',
   templateUrl: './list-inscription.component.html',
-  styleUrls: ['./list-inscription.component.scss']
+  styleUrls: ['./list-inscription.component.scss'],
+  providers: [DatePipe]
 })
 export class ListInscriptionComponent implements OnInit {
 
@@ -30,7 +32,6 @@ export class ListInscriptionComponent implements OnInit {
   matieres;
   rateControl: any;
   idInscription : any;
-
   currentPage: number = 1;
   pageSize: number = 10;
   filteredInscription: any[] = [];
@@ -57,10 +58,22 @@ export class ListInscriptionComponent implements OnInit {
     montantApayer:0,
     montantResttant:0,
   }
-  constructor(private fb : FormBuilder ,private modalService : NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
 
-
+  detailCaisseDonnees ={
+    nom: "",
+    prenom: "",
+    classe:"",
+    dateNaissance:"",
+    lieu:"",
+    montant:0,
+    avance:0,
+    restant:0,
+    date:'',
+    mois:0,
   }
+  constructor(private fb : FormBuilder ,private datePipe: DatePipe,private modalService : NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
+  }
+
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Dashboards' }, { label: 'Saas', active: true }];
@@ -247,10 +260,46 @@ annuler() {
   historiqueInscription(id: number,centerModal?: any) {
     this.serviceInscription.getHistoriqueDetteByIns(id).subscribe(
       (resp)=>{
-        console.log(resp)
         this.donneesHistorique=resp;
       },error => {console.log(error);}
     );
     this.modalService.open(centerModal, {centered: true,size:'lg'});
   }
+
+  imprimer(detailCaisse:any) {
+    console.log(detailCaisse)
+    this.detailCaisseDonnees.date=detailCaisse.date
+    const printContents = document.getElementById('table-container-imprimer').innerHTML; // Obtenez le contenu HTML de la table
+    const originalContents = document.body.innerHTML; // Obtenez le contenu HTML de la page
+
+    // Créez une balise title pour définir le titre de la page d'impression
+    const pageTitle = "<title>Inscription</title>";
+
+    // Remplacez le contenu actuel de la page par le contenu de la table avec la balise title
+    document.body.innerHTML = pageTitle + printContents;
+
+    // Appelez la fonction window.print() pour imprimer la table
+    window.print();
+
+    // Restaurez le contenu original de la page
+    document.body.innerHTML = originalContents;
+}
+
+getMonthNameById(monthId: number): string {
+  const months = [
+    'Octobre', 'Novembre', 'Décembre','Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre'
+  ];
+
+  if (monthId >= 1 && monthId <= 12) {
+    return months[monthId - 1];
+  } else {
+    return 'Mois invalide';
+  }
+}
+
+getDate(): string {
+  const currentDate = new Date();
+  return this.datePipe.transform(currentDate, 'dd/MM/yyyy') || '';
+}
 }

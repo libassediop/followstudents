@@ -238,7 +238,7 @@
 <ng-template #content role="document" let-modal>
   <div class="modal-body">
     <div class="modal-header">
-      <h5 class="modal-title mt-0">Historique des paiements</h5>
+      <h5 class="modal-title mt-0">Historique des paiements mensuels</h5>
       <button type="button" class="btn-close" aria-hidden="true"
               (click)="modal.dismiss('Cross click')"></button>
     </div>
@@ -272,7 +272,7 @@
           <td style="text-align: center;">{{formatMontant(data?.recu) }}</td>
           <td style="text-align: center;">{{formatMontant(data?.restant) }}</td>
           <td style="text-align: center;">
-            <button type="button" class="btn btn-success no-print"   ><i class="fas fa-print"></i></button>&nbsp;
+            <button type="button" class="btn btn-success no-print" (click)="imprimer(data)"  ><i class="fas fa-print"></i></button>&nbsp;
           </td>
         </tr>
 
@@ -285,3 +285,47 @@
       <button class="btn btn-secondary">Close</button>
     </div> -->
 </ng-template>
+
+<div id="table-container-imprimer" class="table-responsive" style="display: none;">
+  <div class="modal-body">
+    <div id="certificateContent">
+      <div class="container">
+        <div class="header">
+          <p>
+            MINISTERE DE L'EDUCATION NATIONALE
+            <br> I.A. DAKAR - IDEN THIAROYE
+            <br> GROUPE SCOLAIRE TAÏBA
+            <br> Tél : 33 834 59 59 - 77 51970 75
+            <br> Thiaroye Azur
+            <br> Reconnu par décret N002-954 du 04/10/2002
+            <br> Email : cptaiba@orange.sn
+          </p>
+        </div>
+        <div class="certificate-title" style="text-align: center;">
+          <b>FACTURE MENSUELLE </b>
+        </div>
+        <div class="student-info">
+          <p>
+            <br> Prénom(s) et Nom: 
+            <br> De la classe de : ....
+            <br> Net à payer : FCFA
+            <br> Montant reçu :  FCFA
+            <br> Montant restant :  FCFA
+            <br> Date inscription :  {{ getDate() }}
+            <br>
+            <br> <b>N.B: Ce présent Buletin doit être obligatoirement présenté lors du paiement
+            <br>Date limite le 5 de chaque mois</b>
+            <br>
+            <br>
+        </div>
+        <div class="director-info" style="display: flex; justify-content: space-between;">
+          <p style="text-align: left; margin: 0;">Fait à Dakar, le</p>
+          <p style="text-align: right; margin: 0;">Le comptable</p>
+      </div>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

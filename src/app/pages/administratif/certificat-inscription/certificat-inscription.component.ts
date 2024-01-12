@@ -7,11 +7,13 @@ import {NoteService} from "../../../layouts/service/note.service";
 import Swal from "sweetalert2";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Router} from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-certificat-inscription',
   templateUrl: './certificat-inscription.component.html',
-  styleUrls: ['./certificat-inscription.component.scss']
+  styleUrls: ['./certificat-inscription.component.scss'],
+  providers: [DatePipe]
 })
 export class CertificatInscriptionComponent implements OnInit {
 
@@ -40,7 +42,7 @@ contenue: Contenue = {
 };
 anneesScolaires: string[] = ['2022/2023']; // Remplacez ces valeurs par vos années scolaires réelles
 
-constructor(private fb : FormBuilder, private route: Router,private serviceClasse: ClasseService, private serviceEleve: EleveService,private modalService: NgbModal) {
+constructor(private fb : FormBuilder,private datePipe: DatePipe, private route: Router,private serviceClasse: ClasseService, private serviceEleve: EleveService,private modalService: NgbModal) {
   this.formEleve = this.fb.group({
     nom: ['', Validators.required],
     prenom: ['', Validators.required],
@@ -120,6 +122,9 @@ ngOnInit(): void {
   //  document.body.innerHTML = originalContent;
   }
 
-
+  getDate(): string {
+    const currentDate = new Date();
+    return this.datePipe.transform(currentDate, 'dd/MM/yyyy') || '';
+  }
 
 }

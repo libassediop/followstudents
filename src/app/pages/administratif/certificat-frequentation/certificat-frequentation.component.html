@@ -107,7 +107,7 @@
 
 <ng-template #centerDataModal let-modal>
   <div class="modal-header">
-    <h5 class="modal-title mt-0">Center modal</h5>
+    <h5 class="modal-title mt-0">Certificat de fréquentation</h5>
     <button type="button" class="btn-close" (click)="modal.dismiss( 'Cross click')" aria-hidden="true"></button>
   </div>
   <div class="modal-body">
@@ -119,21 +119,21 @@
           </p>
         </div>
         <div class="certificate-title" style="text-align: center;">
-          CERTIFICAT DE SCOLARITE
+          CERTIFICAT DE FREQUENTATION
         </div>
         <div class="student-info">
           <p style=" text-align: center;">Le Directeur du Groupe Scolaire TAIBA, certifie :</p>
           <p>
-            L'élève : {{eleveImprimercertificat.nom}} {{eleveImprimercertificat.prenom}}<br> Né (e) le : {{eleveImprimercertificat.dateNaissance}} à {{eleveImprimercertificat.lieu}} N Mle:
+            L'élève : {{eleveImprimercertificat.nom}} {{eleveImprimercertificat.prenom}}<br> Né (e) le : {{eleveImprimercertificat.dateNaissance}} à {{eleveImprimercertificat.lieu}}
             <br> Fils / Fille de M {{eleveImprimercertificat.parent_nom}} {{eleveImprimercertificat.parent_prenom}} est inscrit (e) en classe de {{eleveImprimercertificat.libelleClasse}}
 
-            <br> N° Mle : {{eleveImprimercertificat.matricule}}
-            <br> et de nomDuParent pour l'année scolaire anneeScolaire <br>
+            <br> Matricule N° : {{eleveImprimercertificat.matricule}}
+                            <!-- <br> et de nomDuParent pour l'année scolaire anneeScolaire <br> -->
           </p>
         </div>
         <div class="director-info">
           <p>
-            Fait à Dakar, le date<br> Le Directeur
+            Fait à Dakar, le {{ getDate() }} <br> Le Directeur
           </p>
         </div>
       </div>
