@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { InscriptionRoutingModule } from './inscription-routing.module';
 import { EleveComponent } from './eleve/eleve.component';
-import {UIModule} from "../../shared/ui/ui.module";
-import {NgbNavModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import { UIModule } from "../../shared/ui/ui.module";
+import { NgbNavModule, NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MensualiteComponent } from './mensualite/mensualite.component';
 import { ListMensualiteComponent } from './list-mensualite/list-mensualite.component';
 import { ListInscriptionComponent } from './list-inscription/list-inscription.component';
 import { SuiviPaiementComponent } from './suivi-paiement/suivi-paiement.component';
-import {WidgetModule} from "../../shared/widget/widget.module";
-import {NgSelectModule} from "@ng-select/ng-select";
+import { WidgetModule } from "../../shared/widget/widget.module";
+import { NgSelectModule } from "@ng-select/ng-select";
 import { FormatMontantPipe } from './eleve/format-montant.pipe';
 
 
@@ -24,16 +24,16 @@ import { FormatMontantPipe } from './eleve/format-montant.pipe';
     SuiviPaiementComponent,
     FormatMontantPipe
   ],
-    imports: [
-        CommonModule,
-        InscriptionRoutingModule,
-        UIModule,
-        NgbNavModule,
-        FormsModule,
-        ReactiveFormsModule,
-        WidgetModule,
-        NgbPaginationModule,
-        NgSelectModule
-    ]
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    InscriptionRoutingModule,
+    UIModule,
+    NgbNavModule,
+    WidgetModule,
+    NgbPaginationModule,
+    NgSelectModule
+  ]
 })
 export class InscriptionModule { }

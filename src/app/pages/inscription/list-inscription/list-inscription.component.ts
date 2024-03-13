@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Contenue, HistoriqueDetteIns, Note} from "../../../layouts/service/general.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ClasseService} from "../../../layouts/service/classe.service";
-import {EleveService} from "../../../layouts/service/eleve.service";
-import {NoteService} from "../../../layouts/service/note.service";
+import { Contenue, HistoriqueDetteIns, Note } from "../../../layouts/service/general.model";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ClasseService } from "../../../layouts/service/classe.service";
+import { EleveService } from "../../../layouts/service/eleve.service";
+import { NoteService } from "../../../layouts/service/note.service";
 import Swal from "sweetalert2";
 import { InscriptionList } from './list-inscription.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ export class ListInscriptionComponent implements OnInit {
   test: string = '0';
   matieres;
   rateControl: any;
-  idInscription : any;
+  idInscription: any;
   currentPage: number = 1;
   pageSize: number = 10;
   filteredInscription: any[] = [];
@@ -39,10 +39,10 @@ export class ListInscriptionComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'asc';
   selectedInscription: string = '';
   selectedStatus: string = "Tous";
-  restantModal : any;
-  nomModal :any;
-  prenomModal : any;
-  valueAvanceModal : any;
+  restantModal: any;
+  nomModal: any;
+  prenomModal: any;
+  valueAvanceModal: any;
   donneesHistorique;
   formInscriptionAvance: FormGroup;
 
@@ -52,26 +52,26 @@ export class ListInscriptionComponent implements OnInit {
     idMatiere: '',
     noteEleve: '',
   };
-  historiquedetteIns:HistoriqueDetteIns={
+  historiquedetteIns: HistoriqueDetteIns = {
     idIns: '',
-    montantRecu:0,
-    montantApayer:0,
-    montantResttant:0,
+    montantRecu: 0,
+    montantApayer: 0,
+    montantResttant: 0,
   }
 
-  detailCaisseDonnees ={
+  detailCaisseDonnees = {
     nom: "",
     prenom: "",
-    classe:"",
-    dateNaissance:"",
-    lieu:"",
-    montant:0,
-    avance:0,
-    restant:0,
-    date:'',
-    mois:0,
+    classe: "",
+    dateNaissance: "",
+    lieu: "",
+    montant: 0,
+    avance: 0,
+    restant: 0,
+    date: '',
+    mois: 0,
   }
-  constructor(private fb : FormBuilder ,private datePipe: DatePipe,private modalService : NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
+  constructor(private fb: FormBuilder, private datePipe: DatePipe, private modalService: NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
   }
 
 
@@ -95,6 +95,12 @@ export class ListInscriptionComponent implements OnInit {
 
   }
 
+  // Fonction pour fermer le modal lorsque le modal est masqué
+  onCloseModal() {
+    // Fermez le modal en utilisant le service modal
+    this.modalService.dismissAll();
+  }
+
   formatMontant(montant: number): string {
     // Vérifiez d'abord si montant est défini et n'est pas null
     if (montant !== null && montant !== undefined) {
@@ -110,14 +116,14 @@ export class ListInscriptionComponent implements OnInit {
   }
   recuperation($event: Event) {
     this.test = this.contenue.idClasse;
-    this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
-      this.filteredInscription= this.eleves =  result; // Initialize both arrays
+    this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe((result: InscriptionList[]) => {
+      this.filteredInscription = this.eleves = result; // Initialize both arrays
       this.filterInscription();
     },
-    (err) => {
-      console.log(err);
-    }
-  );
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   filterInscription() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -175,100 +181,100 @@ export class ListInscriptionComponent implements OnInit {
 
     // Restaurez le contenu original de la page
     document.body.innerHTML = originalContents;
-}
-filterByStatus(status: string) {
-  if (status === "Tous") {
+  }
+  filterByStatus(status: string) {
+    if (status === "Tous") {
       this.filteredInscription = this.eleves;
-  } else {
+    } else {
       this.filteredInscription = this.eleves.filter(eleve => eleve.status_payement == status);
 
     }
     this.filterInscription();
-  this.currentPage = 1;
-}
+    this.currentPage = 1;
+  }
 
-ModalAvance(id,restant,nom,prenom, centerModal?: any) {
-this.restantModal = restant;
-this.nomModal = nom;
-this.prenomModal = prenom;
-this.idInscription = id;
-this.modalService.open(centerModal, {centered: true});
-}
+  ModalAvance(id, restant, nom, prenom, centerModal?: any) {
+    this.restantModal = restant;
+    this.nomModal = nom;
+    this.prenomModal = prenom;
+    this.idInscription = id;
+    this.modalService.open(centerModal, { centered: true });
+  }
 
-updateAvance(){
-  this.valueAvanceModal = this.formInscriptionAvance.value.avance;
-  this.serviceInscription.detteInscription(this.idInscription,this.valueAvanceModal).subscribe(
-    result => {
-      if (result['success']) {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Réglement de dette : montant reçu avec succès',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        let restant=this.restantModal;
-        this.historiquedetteIns.idIns=this.idInscription;
-        this.historiquedetteIns.montantRecu=this.valueAvanceModal;
-        this.historiquedetteIns.montantResttant=restant-this.valueAvanceModal;
-        this.historiquedetteIns.montantApayer=this.restantModal;
-        this.serviceInscription.addHistoriqueDetteins(this.historiquedetteIns).subscribe(
-          res => {console.log(res);},err=>{console.log(err);}
-        )
+  updateAvance() {
+    this.valueAvanceModal = this.formInscriptionAvance.value.avance;
+    this.serviceInscription.detteInscription(this.idInscription, this.valueAvanceModal).subscribe(
+      result => {
+        if (result['success']) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Réglement de dette : montant reçu avec succès',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          let restant = this.restantModal;
+          this.historiquedetteIns.idIns = this.idInscription;
+          this.historiquedetteIns.montantRecu = this.valueAvanceModal;
+          this.historiquedetteIns.montantResttant = restant - this.valueAvanceModal;
+          this.historiquedetteIns.montantApayer = this.restantModal;
+          this.serviceInscription.addHistoriqueDetteins(this.historiquedetteIns).subscribe(
+            res => { console.log(res); }, err => { console.log(err); }
+          )
 
-        this.formInscriptionAvance.reset();
-        this.modalService.dismissAll();
-        this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
-          this.filteredInscription= this.eleves =  result; // Initialize both arrays
-          this.filterInscription();
-        },
-        (err) => {
-          console.log(err);
+          this.formInscriptionAvance.reset();
+          this.modalService.dismissAll();
+          this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe((result: InscriptionList[]) => {
+            this.filteredInscription = this.eleves = result; // Initialize both arrays
+            this.filterInscription();
+          },
+            (err) => {
+              console.log(err);
+            }
+          );
         }
-      );
-      }
-      else {
+        else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Erreur lors du réglement de dette :' + result['message'],
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      },
+      error => {
         Swal.fire({
           position: 'top-end',
           icon: 'error',
-          title: 'Erreur lors du réglement de dette :'+ result['message'],
+          title: 'Erreur lors du réglement de dette :' + error,
           showConfirmButton: false,
           timer: 1500
         });
+        console.log(error)
       }
-    },
-    error => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Erreur lors du réglement de dette :'+ error,
-        showConfirmButton: false,
-        timer: 1500
-      });
-      console.log(error)
-    }
-  )
-}
-
-annuler() {
-
-  //this.formPersonnel.reset();
-  this.modalService.dismissAll();
-
-}
-
-  historiqueInscription(id: number,centerModal?: any) {
-    this.serviceInscription.getHistoriqueDetteByIns(id).subscribe(
-      (resp)=>{
-        this.donneesHistorique=resp;
-      },error => {console.log(error);}
-    );
-    this.modalService.open(centerModal, {centered: true,size:'lg'});
+    )
   }
 
-  imprimer(detailCaisse:any) {
+  annuler() {
+
+    //this.formPersonnel.reset();
+    this.modalService.dismissAll();
+
+  }
+
+  historiqueInscription(id: number, centerModal?: any) {
+    this.serviceInscription.getHistoriqueDetteByIns(id).subscribe(
+      (resp) => {
+        this.donneesHistorique = resp;
+      }, error => { console.log(error); }
+    );
+    this.modalService.open(centerModal, { centered: true, size: 'lg' });
+  }
+
+  imprimer(detailCaisse: any) {
     console.log(detailCaisse)
-    this.detailCaisseDonnees.date=detailCaisse.date
+    this.detailCaisseDonnees.date = detailCaisse.date
     const printContents = document.getElementById('table-container-imprimer').innerHTML; // Obtenez le contenu HTML de la table
     const originalContents = document.body.innerHTML; // Obtenez le contenu HTML de la page
 
@@ -283,23 +289,23 @@ annuler() {
 
     // Restaurez le contenu original de la page
     document.body.innerHTML = originalContents;
-}
-
-getMonthNameById(monthId: number): string {
-  const months = [
-    'Octobre', 'Novembre', 'Décembre','Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-    'Juillet', 'Août', 'Septembre'
-  ];
-
-  if (monthId >= 1 && monthId <= 12) {
-    return months[monthId - 1];
-  } else {
-    return 'Mois invalide';
   }
-}
 
-getDate(): string {
-  const currentDate = new Date();
-  return this.datePipe.transform(currentDate, 'dd/MM/yyyy') || '';
-}
+  getMonthNameById(monthId: number): string {
+    const months = [
+      'Octobre', 'Novembre', 'Décembre', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+      'Juillet', 'Août', 'Septembre'
+    ];
+
+    if (monthId >= 1 && monthId <= 12) {
+      return months[monthId - 1];
+    } else {
+      return 'Mois invalide';
+    }
+  }
+
+  getDate(): string {
+    const currentDate = new Date();
+    return this.datePipe.transform(currentDate, 'dd/MM/yyyy') || '';
+  }
 }

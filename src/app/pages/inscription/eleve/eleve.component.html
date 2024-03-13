@@ -27,7 +27,8 @@
                                 <div class="page-title-right">
                                   <div class="col-sm-auto">
                                     <label class="visually-hidden" for="autoSizingSelect">Preference</label>
-                                    <select class="form-select" id="autoSizingSelect" [(ngModel)]="typeInscription" (ngModelChange)="changeInscription($event)">
+                                    <select class="form-select" id="autoSizingSelect" [(ngModel)]="typeInscription"
+                                      (ngModelChange)="changeInscription($event)">
                                       <option selected value="1">Inscription normale</option>
                                       <option value="2">Inscription avec réduction</option>
                                     </select>
@@ -36,175 +37,199 @@
                               </div>
                               <form>
 
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Prénom <code>*</code></label>
-                                    <input type="text" class="form-control" formControlName="prenom"  maxlength="50"/>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Prénom <code>*</code></label>
+                                      <input type="text" class="form-control" formControlName="prenom" maxlength="50" />
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Nom <code>*</code></label>
+                                      <input type="text" class="form-control" formControlName="nom" maxlength="30">
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="col-md-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Nom <code>*</code></label>
-                                    <input type="text" class="form-control" formControlName="nom"  maxlength="30">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label for="formrow-inputState">Sexe <code>*</code></label>
+                                      <select id="formrow-inputState" class="form-control" formControlName="sexe">
+                                        <option value="" selected>Choisir le sexe....</option>
+                                        <option value="2">Masculin</option>
+                                        <option value="1">Féminin</option>
+                                      </select>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label for="formrow-inputState">Sexe <code>*</code></label>
-                                    <select id="formrow-inputState" class="form-control" formControlName="sexe" >
-                                      <option value="" selected>Choisir le sexe....</option>
-                                      <option value="2">Masculin</option>
-                                      <option value="1">Féminin</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Date de Naissance </label>
-                                    <input type="date" class="form-control" formControlName="dateNaissance" max="{{ maxDate() }}" />
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-lg-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label> Lieu de naissance</label>
-                                    <input type="text" class="form-control" formControlName="lieu"  maxlength="50">
+                                  <div class="col-md-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Date de Naissance </label>
+                                      <input type="date" class="form-control" formControlName="dateNaissance"
+                                        max="{{ maxDate() }}" />
+                                    </div>
                                   </div>
                                 </div>
 
-                             <div class="col-lg-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label> Nationalité</label>
-                                    <input type="text" class="form-control" formControlName="nationalite"  maxlength="50">
+                                <div class="row">
+                                  <div class="col-lg-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label> Lieu de naissance</label>
+                                      <input type="text" class="form-control" formControlName="lieu" maxlength="50">
+                                    </div>
+                                  </div>
+
+                                  <div class="col-lg-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label> Nationalité</label>
+                                      <input type="text" class="form-control" formControlName="nationalite"
+                                        maxlength="50">
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row">
-                                
-                              
-                                <div class="col-md-4">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Date d'inscription </label>
-                                    <input type="date" class="form-control" formControlName="dateInscription" max="{{ maxDate() }}" />
+                                <div class="row">
+
+                                  <div class="col-md-4">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Date d'inscription </label>
+                                      <input type="date" class="form-control" formControlName="dateInscription"
+                                        max="{{ maxDate() }}" [(ngModel)]="dateInscription" />
+                                    </div>
                                   </div>
+
+                                  <div class="col-lg-4">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label> Adresse</label>
+                                      <input type="text" class="form-control" formControlName="adresse" maxlength="50">
+                                    </div>
+                                  </div>
+
+                                  <div class="col-lg-4">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label> Téléphone</label>
+                                      <input type="text" class="form-control" formControlName="telephone"
+                                        (input)="limitNumberLength($event)"
+                                        [ngClass]="{'is-invalid': onvalideEleve && formInscription.controls.telephone.errors}"
+                                        placeholder="Ex : 778221733">
+                                      <div *ngIf="onvalideEleve && formInscription.controls.telephone.errors"
+                                        class="invalid-feedback">
+                                        <span *ngIf="formInscription.controls.telephone.errors.pattern">Mettez un numéro
+                                          valide.</span>
+                                      </div>
+                                    </div>
+                                  </div>
+
                                 </div>
-                                <div class="col-lg-4">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label> Adresse</label>
-                                    <input type="text" class="form-control" formControlName="adresse"  maxlength="50">
+                                <div class="row align-items-center" *ngIf="typeInscription==2">
+
+                                  <div class="col-lg-3">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck"
+                                        [(ngModel)]="offrirScolariteVariable" name="offrirScolariteVariable"
+                                        (ngModelChange)="offrirScolarite($event)">
+                                      <label class="form-check-label" for="inlineFormCheck">
+                                        Offrir la scolarité
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-lg-3">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck"
+                                        [(ngModel)]="offrirFirstmoisVariable" name="offrirFirstmoisVariable"
+                                        [disabled]="disableCheckboxMois" (ngModelChange)="offrirFirstMois($event)">
+                                      <label class="form-check-label" for="inlineFormCheck">
+                                        Offrir le premier mois
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Réduction sur l'inscription </label>
+                                      <input type="text" class="form-control" formControlName="reductionInscription"
+                                        (ngModelChange)="reductionIns($event)">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Réduction sur les mensualités </label>
+                                      <input type="text" class="form-control" formControlName="reductionMensualite"
+                                        (ngModelChange)="reductionMens($event)">
+                                    </div>
+                                  </div>
+
+
+                                </div>
+                                <div class="row">
+                                  <div class="col-lg-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Classe <code>*</code></label>
+                                      <select type="text" class="form-control" formControlName="classeId"
+                                        (ngModelChange)="recuperation($event)">
+                                        <option value="" selected>Choisir une classe...</option>
+                                        <option *ngFor="let c of classes" [value]="c.id">{{c.libelle}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Montant Inscription </label>
+                                      <input type="number" class="form-control" formControlName="montant">
+                                    </div>
                                   </div>
                                 </div>
 
-                                <div class="col-lg-4">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label> Téléphone</label>
-                                    <input type="number" class="form-control" formControlName="telephone" (input)="limitNumberLength($event)">
+                                <div class="row align-items-center">
+
+                                  <div class="col-lg-2">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="inlineFormCheck"
+                                        [(ngModel)]="payerPremierMois" name="payerPremierMois"
+                                        [disabled]="disableCheckbox" checked
+                                        (ngModelChange)="payerPremierMoisEvent($event)">
+                                      <label class="form-check-label" for="inlineFormCheck">
+                                        Payer le premier mois ?
+                                      </label>
+                                    </div>
                                   </div>
-                                </div>
 
-                              </div>
-                              <div class="row align-items-center" *ngIf="typeInscription==2">
-
-                                <div class="col-lg-3">
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirScolariteVariable" name="offrirScolariteVariable" (ngModelChange)="offrirScolarite($event)">
-                                    <label class="form-check-label" for="inlineFormCheck">
-                                      Offrir la scolarité
-                                    </label>
+                                  <div class="col-lg-2">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Mensualité </label>
+                                      <input type="text" class="form-control" formControlName="mensualite">
+                                    </div>
                                   </div>
-                                </div>
 
-                                <div class="col-lg-3">
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="offrirFirstmoisVariable" name="offrirFirstmoisVariable" [disabled]="disableCheckboxMois"  (ngModelChange)="offrirFirstMois($event)">
-                                    <label class="form-check-label" for="inlineFormCheck">
-                                      Offrir le premier mois
-                                    </label>
+                                  <div class="col-lg-2">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Montant total à payer </label>
+                                      <input type="text" class="form-control" formControlName="totalapayer">
+                                    </div>
                                   </div>
-                                </div>
-                              <div class="col-lg-3">
-                                <div class="mb-3" [formGroup]="formInscription" >
-                                  <label>Réduction sur l'inscription </label>
-                                  <input  type="text"   class="form-control"  formControlName="reductionInscription" (ngModelChange)="reductionIns($event)">
-                                </div>
-                              </div>
-                              <div class="col-lg-3">
-                                <div class="mb-3" [formGroup]="formInscription" >
-                                  <label>Réduction sur les mensualités </label>
-                                  <input  type="text"   class="form-control"  formControlName="reductionMensualite" (ngModelChange)="reductionMens($event)">
-                                </div>
-                              </div>
-                            
-                            
-                            </div>
-                              <div class="row">
-                                <div class="col-lg-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Classe <code>*</code></label>
-                                    <select type="text" class="form-control" formControlName="classeId" (ngModelChange)="recuperation($event)">
-                                      <option value="" selected>Choisir une classe...</option>
-                                      <option *ngFor="let c of classes" [value]="c.id">{{c.libelle}}</option>
-                                    </select>
+
+                                  <div class="col-lg-6">
+                                    <div class="mb-3" [formGroup]="formInscription">
+                                      <label>Montant Reçu <code>*</code></label>
+                                      <input type="number" class="form-control" formControlName="avance"
+                                        (input)="limitNumberLength($event)" (ngModelChange)="checkMontantRecu($event)">
+                                    </div>
                                   </div>
-                                </div>
-                                <div class="col-lg-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Montant Inscription </label>
-                                    <input type="number"   class="form-control"  formControlName="montant">
-                                  </div>
-                                </div>
-                              </div>
 
-                              <div class="row align-items-center">
-
-                                <div class="col-lg-2">
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" [(ngModel)]="payerPremierMois" name="payerPremierMois" [disabled]="disableCheckbox" checked  (ngModelChange)="payerPremierMoisEvent($event)">
-                                    <label class="form-check-label" for="inlineFormCheck">
-                                    Payer le premier mois ?
-                                    </label>
                                 </div>
+                                <br>
+                                <div style="text-align:center;">
+                                  <ul class="list-inline wizard mb-0"
+                                    style="text-align: center; display: inline-block;">
+                                    <li class=" list-inline-item float-end"><button class="btn btn-primary "
+                                        [disabled]="onvalideEleve() || isSuivantDisabled"
+                                        (click)=" onNavChange($event)">Suivant&nbsp;<i
+                                          class="fa fa-arrow-right"></i></button>
+                                    </li>
+                                    <!--                                  <li class=" list-inline-item float-end"><button class="btn btn-success" id="suivant"-->
+                                    <!--                                      style=" color: white; "><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;-->
+                                    <!--                                  </li>-->
+                                  </ul>
                                 </div>
-
-                                <div class="col-lg-2">
-                                  <div class="mb-3" [formGroup]="formInscription" >
-                                    <label>Mensualité </label>
-                                    <input  type="text"   class="form-control"  formControlName="mensualite">
-                                  </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Montant total à payer </label>
-                                    <input  type="text"   class="form-control"  formControlName="totalapayer">
-                                  </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                  <div class="mb-3" [formGroup]="formInscription">
-                                    <label>Montant Reçu <code>*</code></label>
-                                    <input type="number" class="form-control" formControlName="avance" (input)="limitNumberLength($event)" (ngModelChange)="checkMontantRecu($event)" >
-                                  </div>
-                                </div>
-
-                              </div>
-                              <br>
-                              <div style="text-align:center;">
-                                <ul class="list-inline wizard mb-0" style="text-align: center; display: inline-block;">
-                                  <li class=" list-inline-item float-end"><button class="btn btn-primary " [disabled]="onvalideEleve() || isSuivantDisabled"
-                                      (click)=" onNavChange($event)">Suivant&nbsp;<i
-                                        class="fa fa-arrow-right"></i></button>
-                                  </li>
-<!--                                  <li class=" list-inline-item float-end"><button class="btn btn-success" id="suivant"-->
-<!--                                      style=" color: white; "><i class="fa fa-save"></i>&nbsp;Enregistrer</button>&nbsp;-->
-<!--                                  </li>-->
-                                </ul>
-                              </div>
                               </form>
                             </div>
                           </div>
@@ -232,12 +257,13 @@
                           <div class="col-lg-12">
                             <div class="card">
                               <div class="card-body">
-                                <h4 class="card-title mb-4" style="text-align: center;"> Informations du parent  / tuteur
+                                <h4 class="card-title mb-4" style="text-align: center;"> Informations du parent / tuteur
                                 </h4>
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Prénom <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
-                                    <input type="text" class="form-control" formControlName="prenomParent" maxlength="50">
+                                    <input type="text" class="form-control" formControlName="prenomParent"
+                                      maxlength="50">
                                   </div>
                                 </div>
                                 <div class="row mb-4">
@@ -246,29 +272,43 @@
                                     <input type="text" class="form-control" formControlName="nomParent" maxlength="30">
                                   </div>
                                 </div>
+
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Téléphone <code>*</code></label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
-                                    <input type="number" class="form-control" formControlName="telephoneParent"  (input)="limitNumberLength($event)">
+                                    <input type="text" class="form-control" formControlName="telephoneParent"
+                                      (input)="limitNumberLength($event)"
+                                      [ngClass]="{'is-invalid': onvalideEleve && formInscription.controls.telephoneParent.errors}"
+                                      placeholder="Ex : 778221733">
+                                    <div *ngIf="onvalideEleve && formInscription.controls.telephoneParent.errors"
+                                      class="invalid-feedback">
+                                      <span *ngIf="formInscription.controls.telephoneParent.errors.pattern">Mettez un
+                                        numéro
+                                        valide.</span>
+                                    </div>
                                   </div>
                                 </div>
+
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Fonction </label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
-                                    <input type="text" class="form-control" formControlName="fonctionParent" maxlength="50">
+                                    <input type="text" class="form-control" formControlName="fonctionParent"
+                                      maxlength="50">
                                   </div>
                                 </div>
                                 <div class="row mb-4">
                                   <label class="col-sm-3 col-form-label">Email</label>
                                   <div class="col-sm-9" [formGroup]="formInscription">
-                                    <input type="email" class="form-control" formControlName="emailParent" maxlength="20">
+                                    <input type="email" class="form-control" formControlName="emailParent"
+                                      maxlength="20">
                                   </div>
                                 </div>
                                 <br>
                                 <div style="text-align:center;">
                                   <ul class="list-inline wizard mb-0"
                                     style="text-align: center; display: inline-block;">
-                                    <li class=" list-inline-item float-end"><button class="btn btn-success " [disabled]="onvalidateInscription()"
+                                    <li class=" list-inline-item float-end"><button class="btn btn-success "
+                                        [disabled]="onvalidateInscription()"
                                         (click)="addInscription()">Enregistrer&nbsp;<i class="fa fa-save"></i></button>
                                     </li>
                                     <li class=" list-inline-item float-end"><button class="btn btn-light"

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Users } from 'src/app/layouts/service/general.model';
 
 
@@ -16,34 +16,34 @@ export class AuthService {
   role: number;
 
   // store the URL so we can redirect after logging in
-  redirectUrl: string;  constructor(private myRoute: Router , private http: HttpClient, public router: Router) { }
+  redirectUrl: string; constructor(private myRoute: Router, private http: HttpClient, public router: Router) { }
 
-  updatePasswordUser(id,newpassword){
+  updatePasswordUser(id, newpassword) {
     return this.http.put(
       this.host
       + '/user/updatePasswordUserNewConnexion/'
-      + id + '?password=' + newpassword+'&token='+localStorage.getItem('token'),
-      { observe : 'response'});
-}
+      + id + '?password=' + newpassword + '&token=' + localStorage.getItem('token'),
+      { observe: 'response' });
+  }
 
   login(value: Users) {
     return this.http.post(
-        this.host
-        + '/login?login='
-        + value.login
-        + '&' + 'password=' + value.password,
-        { observe : 'response'});
+      this.host
+      + '/login?login='
+      + value.login
+      + '&' + 'password=' + value.password,
+      { observe: 'response' });
   }
 
 
 
 
-  saveToken(jwt: string,nom: string, prenom: string, typeUser: number, iduser: number,login: string) {
+  saveToken(jwt: string, nom: string, prenom: string, typeUser: number, iduser: number, login: string) {
     localStorage.setItem('token', jwt);
     localStorage.setItem('nom', nom);
     localStorage.setItem('prenom', prenom);
     localStorage.setItem('login', login);
-    localStorage.setItem('typeUser',String(typeUser));
+    localStorage.setItem('typeUser', String(typeUser));
     this.role = typeUser;
     localStorage.setItem('id', String(iduser));
     this.isLoggedIn = true;
