@@ -188,10 +188,20 @@
                       (click)="ModalAvance(data?.id,data?.restant,data?.nom,data?.prenom,contentUpdateAvance)"><i
                         class="fas fa-money-bill"></i></button>&nbsp;
                   </td>
+
                   <td style="text-align: center;">
-                    <button type="button" (click)="historiqueInscription(data.id,content)"
-                      class="btn btn-outline-success"><i class="fas fa-eye"></i>&nbsp;Historique paiement</button>
+                    <ng-container *ngIf="data?.status_payement === '1' || data?.avance > data?.montant">
+                      <button type="button" (click)="historiqueInscription(data.id,content)"
+                        class="btn btn-outline-success">
+                        <i class="fas fa-eye"></i>&nbsp;Historique paiement
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="data?.status_payement !== '1' && data?.avance < data?.montant">
+                      <span style="color: red;">Vous avez une dette.</span>
+                    </ng-container>
                   </td>
+
+
                 </tr>
               </tbody>
             </table>
