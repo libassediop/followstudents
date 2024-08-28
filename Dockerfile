@@ -1,20 +1,21 @@
-# Utilisez une image de base avec Node.js pré-installé
-FROM node:16.17.1
+# Use the official Node.js image as the base image
+FROM node:16.20.2 AS build
 
-# Définissez le répertoire de travail à /app
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copiez le fichier package.json et package-lock.json
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Installez les dépendances
-RUN npm install
+# Install dependencies
+RUN npm install --legacy-peer-deps
 
-# Copiez tous les fichiers du projet
+
+# Copy the rest of the application code
 COPY . .
 
-# Exposez le port sur lequel votre application Angular s'exécute
+# Expose port 80 to the outside world
 EXPOSE 4200
 
-# Commande pour exécuter l'application
-CMD ["npm", "start"]
+# Start Nginx when the container starts
+CMD ["npm", "start", "--", "--host", "0.0.0.0", "--disable-host-check"]
