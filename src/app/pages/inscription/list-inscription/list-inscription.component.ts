@@ -3,13 +3,12 @@ import {Contenue, HistoriqueDetteIns, Note} from "../../../layouts/service/gener
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClasseService} from "../../../layouts/service/classe.service";
 import {EleveService} from "../../../layouts/service/eleve.service";
-import {NoteService} from "../../../layouts/service/note.service";
 import Swal from "sweetalert2";
 import { InscriptionList } from './list-inscription.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InscriptionreinscriptionService } from 'src/app/layouts/service/inscriptionreinscription.service';
-import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-inscription',
@@ -71,7 +70,7 @@ export class ListInscriptionComponent implements OnInit {
     date:'',
     mois:0,
   }
-  constructor(private fb : FormBuilder ,private datePipe: DatePipe,private modalService : NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
+  constructor(private fb : FormBuilder ,private route:Router,private datePipe: DatePipe,private modalService : NgbModal, private serviceClasse: ClasseService, private serviceEleve: EleveService, private serviceInscription: InscriptionreinscriptionService) {
   }
 
 
@@ -112,6 +111,7 @@ export class ListInscriptionComponent implements OnInit {
     this.test = this.contenue.idClasse;
     this.serviceEleve.getAllInscriptionByClasse(this.test).subscribe(   (result: InscriptionList[]) => {
       this.filteredInscription= this.eleves =  result; // Initialize both arrays
+      console.log(result)
       this.filterInscription();
     },
     (err) => {
@@ -266,6 +266,11 @@ annuler() {
     this.modalService.open(centerModal, {centered: true,size:'lg'});
   }
 
+  DetailInscription(matricule: number) {
+    this.route.navigate(['/pages/inscription/detail', matricule]);
+  }
+
+  
   imprimer(detailCaisse:any) {
     console.log(detailCaisse)
     this.detailCaisseDonnees.date=detailCaisse.date

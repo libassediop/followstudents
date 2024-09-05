@@ -13,6 +13,7 @@ import { SuiviPaiementComponent } from './suivi-paiement/suivi-paiement.componen
 import {WidgetModule} from "../../shared/widget/widget.module";
 import {NgSelectModule} from "@ng-select/ng-select";
 import { FormatMontantPipe } from './eleve/format-montant.pipe';
+import { DetailComponent } from './detail/detail.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FormatMontantPipe } from './eleve/format-montant.pipe';
     ListMensualiteComponent,
     ListInscriptionComponent,
     SuiviPaiementComponent,
-    FormatMontantPipe
+    FormatMontantPipe,
+    DetailComponent
   ],
     imports: [
         CommonModule,

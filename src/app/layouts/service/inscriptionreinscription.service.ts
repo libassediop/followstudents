@@ -24,7 +24,7 @@ export class InscriptionreinscriptionService {
   }
 
   getInscriptionByEleve(matricule){
-    return this.http.get(this.host+'/inscription/getInscriptionByEleve?matricule='+matricule+'?token='+localStorage.getItem('token'));
+    return this.http.get(this.host+'/inscription/getInscriptionByEleve?matricule='+matricule+'&token='+localStorage.getItem('token'));
   }
 
   getInscriptionBydate(date){
