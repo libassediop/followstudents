@@ -143,6 +143,7 @@ export class SuiviPaiementComponent implements OnInit {
     this.matricule = this.route.snapshot.params.matricule;
     this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
       this.donneesEleve = resp[0];
+      console.log(this.donneesEleve.status_payement );
       this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.id,this.donneesEleve.id_classe).subscribe(
         resp=>{
           this.donneesHistorique=resp['historique']

@@ -25,6 +25,7 @@
                                 #
                               </th>
                               <th style="text-align: center;">Type de paiement</th>
+                              <th style="text-align: center;">Élève</th>
                               <th style="text-align: center;">Montant à Payer</th>
                               <th style="text-align: center;">Montant reçu</th>
                               <th style="text-align: center;">Montant restant</th>
@@ -39,15 +40,10 @@
                               </td>
                               <td style="text-align: center;" *ngIf="dataM.moisId"> Mensualité {{getMonthNameById(dataM.moisId)}} </td>
                               <td style="text-align: center;" *ngIf="!dataM.moisId"> Inscription {{dataM.libelle}} </td>
+                              <td style="text-align: center;">{{dataM.prenom +' '+dataM.nom}}</td>
                               <td style="text-align: center;">{{ formatMontant(dataM.montant) }} FCFA </td>
-                              <!-- <td style="text-align: center;">{{ formatMontant(dataM.avance) }} FCFA</td> -->
-                              <td style="text-align: center;"  *ngIf="formatMontant(dataM.avance) >= formatMontant(dataM.montant)">{{ formatMontant(dataM.montant) }} FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) < formatMontant(dataM.montant)">{{ formatMontant(dataM.avance) }} FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) >= formatMontant(dataM.montant)">0 FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) < formatMontant(dataM.montant)">{{ formatMontant(dataM.restant) }} FCFA</td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.avance) }} FCFA</td>
+                              <td style="text-align: center;" >{{ formatMontant(dataM.restant) }} FCFA</td>
                               <td style="text-align: center;">{{dataM.prenomUser +' '+dataM.nomUser}}</td>
                               <td style="text-align: center;">
                                 <button type="button" class="btn btn-primary btn-rounded mb-2 me-2"  (click)="VoirDetail(recuDataModal,recuDataModalMensualite,dataM)"><i class="fa fa-file-archive"></i>&nbsp;
@@ -89,6 +85,7 @@
                                 #
                               </th>
                               <th style="text-align: center;">Type de paiement</th>
+                              <th style="text-align: center;">Élève</th>
                               <th style="text-align: center;">Montant à Payer</th>
                               <th style="text-align: center;">Montant reçu</th>
                               <th style="text-align: center;">Montant restant</th>
@@ -103,21 +100,16 @@
                               </td>
                               <td style="text-align: center;" *ngIf="dataM.moisId"> Mensualité {{getMonthNameById(dataM.moisId)}} </td>
                               <td style="text-align: center;" *ngIf="!dataM.moisId"> Inscription {{dataM.libelle}} </td>
+                              <td style="text-align: center;">{{dataM.prenom +' '+dataM.nom}}</td>
                               <td style="text-align: center;">{{ formatMontant(dataM.montant) }} FCFA </td>
-                              <td style="text-align: center;"  *ngIf="formatMontant(dataM.avance) >= formatMontant(dataM.montant)">{{ formatMontant(dataM.montant) }} FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) < formatMontant(dataM.montant)">{{ formatMontant(dataM.avance) }} FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) >= formatMontant(dataM.montant)">0 FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) < formatMontant(dataM.montant)">{{ formatMontant(dataM.restant) }} FCFA</td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.avance) }} FCFA</td>
+                              <td style="text-align: center;" >{{ formatMontant(dataM.restant) }} FCFA</td>
                               <td style="text-align: center;">{{dataM.prenomUser +' '+dataM.nomUser}}</td>
                               <td style="text-align: center;">
                                 <button type="button" class="btn btn-primary btn-rounded mb-2 me-2"  (click)="VoirDetail(recuDataModal,recuDataModalMensualite,dataM)"><i class="fa fa-file-archive"></i>&nbsp;
                                   Détails</button> &nbsp;
                               </td>
                             </tr>
-
 
                             </tbody>
                           </table>
@@ -184,6 +176,7 @@
                                 #
                               </th>
                               <th style="text-align: center;">Type de paiement</th>
+                              <th style="text-align: center;">Élève</th>
                               <th style="text-align: center;">Montant à Payer</th>
                               <th style="text-align: center;">Montant reçu</th>
                               <th style="text-align: center;">Montant restant</th>
@@ -198,15 +191,10 @@
                               </td>
                               <td style="text-align: center;" *ngIf="dataM.moisId"> Mensualité {{getMonthNameById(dataM.moisId)}} </td>
                               <td style="text-align: center;" *ngIf="!dataM.moisId"> Inscription {{dataM.libelle}} </td>
+                              <td style="text-align: center;">{{dataM.prenom +' '+dataM.nom}}</td>
                               <td style="text-align: center;">{{ formatMontant(dataM.montant) }} FCFA </td>
-                              <td style="text-align: center;"  *ngIf="formatMontant(dataM.avance) >= formatMontant(dataM.montant)">{{ formatMontant(dataM.montant) }} FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) < formatMontant(dataM.montant)">{{ formatMontant(dataM.avance) }} FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) >= formatMontant(dataM.montant)">0 FCFA</td>
-
-                              <td style="text-align: center;" *ngIf="formatMontant(dataM.avance) < formatMontant(dataM.montant)">{{ formatMontant(dataM.restant) }} FCFA</td>
-                              <td style="text-align: center;">{{ formatMontant(dataM.restant) }} FCFA</td>
+                              <td style="text-align: center;">{{ formatMontant(dataM.avance) }} FCFA</td>
+                              <td style="text-align: center;" >{{ formatMontant(dataM.restant) }} FCFA</td>
                               <td style="text-align: center;">{{dataM.prenomUser +' '+dataM.nomUser}}</td>
                               <td style="text-align: center;">
                                 <button type="button" class="btn btn-primary btn-rounded mb-2 me-2"  (click)="VoirDetail(recuDataModal,recuDataModalMensualite,dataM)"><i class="fa fa-file-archive"></i>&nbsp;

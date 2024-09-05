@@ -158,7 +158,7 @@ mensualite: Mensualite = {
   onNavChange(event: any) {
     let montantInscription =  parseFloat(this.formInscription.get('montant').value);
     let total = parseFloat(this.formInscription.get('totalapayer').value);
-  
+
     if(this.typeInscription==1){
       this.offrirFirstmoisVariable=false;
       this.offrirScolariteVariable=false
@@ -220,7 +220,7 @@ mensualite: Mensualite = {
       if(this.offrirScolariteVariable){
         this.active=2;
       }
-  
+
       if(parseFloat(this.formInscription.value.avance)>total){
           Swal.fire({
             position: 'top-end',
@@ -244,12 +244,12 @@ mensualite: Mensualite = {
 
         this.active=2;
       }
-     
-   
+
+
     }
 
   }
-  
+
 
   onNavChangePre(event: any) {
     this.active = 1;
@@ -273,14 +273,14 @@ mensualite: Mensualite = {
     this.inscription.emailParent = this.formInscription.value.emailParent;
     this.inscription.telephoneParent = this.formInscription.value.telephoneParent;
     this.inscription.fonctionParent = this.formInscription.value.fonctionParent;
-    this.inscription.dateInscription = this.formInscription.value.dateInscription;
+    // this.inscription.dateInscription = this.formInscription.value.dateInscription;
     this.inscription.montant = parseFloat(this.formInscription.get('montant').value)
     this.inscription.mensualite = parseFloat(this.formInscription.get('mensualite').value)
     this.inscription.montantTotal = parseFloat(this.formInscription.get('totalapayer').value)
     this.inscription.reductionIns = parseFloat(this.formInscription.get('reductionInscription').value)
     this.inscription.ReductionMens = parseFloat(this.formInscription.get('reductionMensualite').value)
     if(this.typeInscription==1){
-  
+
     this.inscription.offreIns =false;
     this.inscription.offreInsMois = false;
 
@@ -338,7 +338,7 @@ mensualite: Mensualite = {
                 });
 
               }
-              
+
               }
             );
           }
@@ -366,7 +366,7 @@ mensualite: Mensualite = {
         }
   }
   );
-    
+
 }, error1 => {
   console.log(error1);
 });
@@ -385,14 +385,14 @@ mensualite: Mensualite = {
           else
           this.inscription.montantTotal = parseFloat(value[0].montant_inscription);
         }
-        
+
          this.serviceInscription.addInscription(this.inscription).subscribe(
          result => {
 
         if (result['success']) {
 
           const lims = result;
-          
+
         //  console.log(result['success'].eleve.id);
          // console.log(result['success']['eleve'].id);
           if(this.montantPremierMois>0){
@@ -423,7 +423,7 @@ mensualite: Mensualite = {
                   showConfirmButton: false,
                   timer: 1500
                 });
-        
+
                 this.formInscription.reset();
                 this.route.navigate(['/pages/inscription/listInscription']);
               }
@@ -435,9 +435,9 @@ mensualite: Mensualite = {
                   showConfirmButton: false,
                   timer: 1500
                 });
-        
+
               }
-              
+
               }
             );
           }
@@ -466,7 +466,7 @@ mensualite: Mensualite = {
         }
   }
   );
-    
+
 }, error1 => {
   console.log(error1);
 });
@@ -509,14 +509,14 @@ mensualite: Mensualite = {
     let reductionInscription = parseFloat(this.formInscription.value.reductionInscription)
     let reductionMensualite = parseFloat(this.formInscription.value.reductionMensualite)
     this.classeService.getClasseById(this.formInscription.value.classeId).subscribe(value => {
-   
-      
+
+
       let montantInscription = parseFloat(value[0].montant_inscription);
         let montantMensualite = parseFloat(value[0].montant_mensuel);
         let total = parseFloat(value[0].montant_inscription) + parseFloat(value[0].montant_mensuel);
       //  this.montant = parseFloat(value[0].montant_inscription);
 
-  
+
 
       if(this.offrirScolariteVariable && this.typeInscription==2)
       total = 0
@@ -536,19 +536,19 @@ mensualite: Mensualite = {
         montantMensualite = montantMensualite - reductionMensualite
       }
 
-      
+
 
       if(!this.payerPremierMois){
         total = total - montantMensualite
       }
-     
+
 
       this.formInscription.get('montant').setValue(montantInscription);
       this.formInscription.get('mensualite').setValue(montantMensualite);
       this.formInscription.get('totalapayer').setValue(total);
 
 
-      
+
   }, error1 => {
     console.log(error1);
   });
@@ -602,7 +602,7 @@ changeInscription($event: any) {
     this.disableCheckboxMois=false;
     this.offrirFirstmoisVariable=false
 
-  } 
+  }
 }
 
 

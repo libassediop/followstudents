@@ -38,7 +38,7 @@ export class CaisseJournalireComponent implements OnInit {
 
   ngOnInit() {
     this.serviceCaisse.getAllCaisseJournier().subscribe((resp) => {
-      console.log(resp)
+    //  console.log(resp)
       this.journalier=resp['liste_complete'];
       this.totalJournalier=resp['montant_total'];
     }, err => {
@@ -46,6 +46,7 @@ export class CaisseJournalireComponent implements OnInit {
     });
 
     this.serviceCaisse.getAllCaisseMensualité().subscribe((resp) => {
+      console.log(resp)
       this.mensualite=resp['liste_complete'];
       this.totalMensualite=resp['montant_total'];
     }, err => {

@@ -5,8 +5,41 @@
     <!-- <app-page-title title="Espace Professeur" style="text-align: end;"></app-page-title> -->
   </div>
   <br>
+  <div class="row justify-content-center mt-lg-5" *ngIf="this.donneesEleve?.status_payement=='0'">
+    <div class="col-xl-5 col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-center">
+            <div class="row justify-content-center" >
+              <div class="col-lg-10">
+                <h4 class="mt-4 fw-semibold">{{ this.donneesEleve?.prenom +' '+ this.donneesEleve?.nom}}: statut inscription invalide</h4>
+                <p class="text-muted mt-3">Le statut de cet élève est actuellement invalide. Le montant total de l'inscription n'a pas encore été réglé. Veuillez compléter le paiement pour activer le statut de l'élève.</p>
 
-  <div class="row">
+                <div class="mt-4">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verificationModal">
+                    Voir détails
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center mt-5 mb-2">
+              <div class="col-sm-6 col-8">
+                <div>
+                  <img src="assets/images/verification-img.png" alt="" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra Large Modal -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="this.donneesEleve?.status_payement=='1'">
     <div class="col-xl-5">
       <div class="card overflow-hidden">
         <div class="bg-soft bg-primary">
@@ -306,7 +339,7 @@
         </div>
         <div class="student-info">
           <p>
-            <br> Prénom(s) et Nom: 
+            <br> Prénom(s) et Nom:
             <br> De la classe de : ....
             <br> Net à payer : FCFA
             <br> Montant reçu :  FCFA
