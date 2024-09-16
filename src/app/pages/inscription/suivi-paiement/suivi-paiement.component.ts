@@ -117,7 +117,7 @@ export class SuiviPaiementComponent implements OnInit {
 
   ];
 
-  constructor(private modalService: NgbModal,private datePipe: DatePipe, private fb : FormBuilder,  private serviceInscription: InscriptionreinscriptionService, private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService, private seviceInscription:InscriptionreinscriptionService,private eleveService: EleveService) {
+  constructor(private modalService: NgbModal,private datePipe: DatePipe, private fb : FormBuilder,  private serviceInscription: InscriptionreinscriptionService, private serviceClasse: ClasseService, private serviceProfesseur: ProfesseurService, private  route: ActivatedRoute,  private professeurService: ProfesseurService,private eleveService: EleveService) {
 
   }
   selectValue: string[];
@@ -143,19 +143,21 @@ export class SuiviPaiementComponent implements OnInit {
     this.matricule = this.route.snapshot.params.matricule;
     this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
       this.donneesEleve = resp[0];
-      console.log(this.donneesEleve.status_payement );
-      this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.id,this.donneesEleve.id_classe).subscribe(
+      console.log(this.donneesEleve);
+      this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.eleveId,this.donneesEleve.id_classe).subscribe(
         resp=>{
           this.donneesHistorique=resp['historique']
         },err =>{console.log(err)}
       )
-      this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve.id).subscribe(resp => {
+      this.serviceInscription.getMensualitePayerByEleve(this.donneesEleve.eleveId).subscribe(resp => {
         this.donneesPaiement = resp['response'];
+        console.log(this.donneesPaiement);
         this.reduction=this.donneesPaiement[0].reduction;
         this.statData[1].value = resp['nombre de mois payer'];
         this.statData[0].value = (9 - Number(resp['nombre de mois payer'])).toString()
       });
-      this.serviceClasse.getAllMoisInvalideByEleve(this.donneesEleve.id).subscribe(resp => {
+      this.serviceClasse.getAllMoisInvalideByEleve(this.donneesEleve.eleveId).subscribe(resp => {
+        console.log(resp)
         this.listMois= resp['mois'];
       })
     }, error1 => {
@@ -199,7 +201,7 @@ export class SuiviPaiementComponent implements OnInit {
   }
 
   Valider() {
-    this.mensualite.eleveId=this.donneesEleve.id;
+    this.mensualite.eleveId=this.donneesEleve.eleveId;
     this.mensualite.montant = this.formMensualite.value.avance;
     this.mensualite.moisId = this.formMensualite.value.mois;
     if(this.mensualite.montant<=this.reliquat){
@@ -251,7 +253,7 @@ export class SuiviPaiementComponent implements OnInit {
         this.mensualite.montant = this.formMensualite.value.avance - this.reliquat;
       }
       this.mensualite.reliquat=this.reliquat;
-      this.seviceInscription.addMensualite(this.mensualite).subscribe(res => {
+      this.serviceInscription.addMensualite(this.mensualite).subscribe(res => {
 
         if (res['success']) {
           var reliq=this.reliquat;
@@ -281,18 +283,18 @@ export class SuiviPaiementComponent implements OnInit {
           this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
             //console.log(resp)
             this.donneesEleve = resp[0];
-            this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.id,this.donneesEleve.id_classe).subscribe(
+            this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.eleveId,this.donneesEleve.id_classe).subscribe(
               resp=>{
                 this.donneesHistorique=resp['historique']
               },err =>{console.log(err)}
             )
-            this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve.id).subscribe(resp => {
+            this.serviceInscription.getMensualitePayerByEleve(this.donneesEleve.eleveId).subscribe(resp => {
               this.donneesPaiement = resp['response'];
               this.reduction=this.donneesPaiement[0].reduction;
               this.statData[1].value = resp['nombre de mois payer'];
               this.statData[0].value = (9 - Number(resp['nombre de mois payer'])).toString()
             });
-            this.serviceClasse.getAllMoisInvalideByEleve(this.donneesEleve.id).subscribe(resp => {
+            this.serviceClasse.getAllMoisInvalideByEleve(this.donneesEleve.eleveId).subscribe(resp => {
               this.listMois= resp['mois'];
             })
           }, error1 => {
@@ -355,7 +357,7 @@ ModalAvance(data:any,donneesEleve:any,centerModal?: any) {
             showConfirmButton: false,
             timer: 4500
           });
-          this.historique.eleveId= this.donneeEleveHistorique.id;
+          this.historique.eleveId= this.donneeEleveHistorique.eleveId;
           this.historique.reduction= this.datahistorique.reduction;
           this.historique.reliquat=this.restantModal
           this.historique.moisId= this.datahistorique.moisId;
@@ -366,15 +368,17 @@ ModalAvance(data:any,donneesEleve:any,centerModal?: any) {
           this.historique.anneescolaireId= this.datahistorique.anneeScolaireId;
           this.historique.mensualiteId= this.idMensualite;
           this.historique.classeId=this.donneeEleveHistorique.id_classe;
+          console.log(this.historique);
           this.serviceInscription.addHistorique(this.historique).subscribe(
             (resp)=>{
+              console.log(resp);
             }, err=>{console.log(err)}
           )
           this.formInscriptionAvance.reset();
           this.modalService.dismissAll();
           this.eleveService.getEleveByMatricule(this.matricule).subscribe(resp => {
             this.donneesEleve = resp[0];
-            this.seviceInscription.getMensualitePayerByEleve(this.donneesEleve.id).subscribe(resp => {
+            this.serviceInscription.getMensualitePayerByEleve(this.donneesEleve.eleveId).subscribe(resp => {
               this.donneesPaiement = resp['response'];
               this.statData[1].value = resp['nombre de mois payer'];
               this.statData[0].value = (9 - Number(resp['nombre de mois payer'])).toString()
@@ -414,7 +418,7 @@ ModalAvance(data:any,donneesEleve:any,centerModal?: any) {
 
   changeItemsPerPage() {
     this.reliquat=null;
-    this.serviceInscription.getMoisRestantApayerByEleve(this.donneesEleve.id).subscribe(
+    this.serviceInscription.getMoisRestantApayerByEleve(this.donneesEleve.eleveId).subscribe(
       (resp)=>{
         if(resp[0] && this.formMensualite.value.mois !=resp[0].moisId){
           this.reliquat=resp[0].restant;
@@ -431,9 +435,11 @@ ModalAvance(data:any,donneesEleve:any,centerModal?: any) {
   }
 
   openModalHistorique(content) {
-    this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.id,this.donneesEleve.id_classe).subscribe(
+  console.log('rddd');
+    this.serviceInscription.getHistoriqueByEleveByClasse(this.donneesEleve.eleveId,this.donneesEleve.id_classe).subscribe(
       resp=>{
         this.donneesHistorique=resp['historique']
+        console.log(this.donneesHistorique);
       },err =>{console.log(err)}
     )
     this.modalService.open(content, {size:'xl', centered: true });
