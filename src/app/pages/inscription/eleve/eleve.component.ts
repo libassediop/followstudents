@@ -106,13 +106,14 @@ mensualite: Mensualite = {
     return null;
   }
   ngOnInit(): void {
+    const today = new Date().toISOString().split('T')[0]; // Obtenir la date actuelle au format yyyy-mm-dd
     this.formInscription = this.fb.group({
       // Ajoutez ici les contrôles de vot
       nom: [{ value: 'ba', disabled: false }, Validators.required],
       prenom: [{ value: 'malick', disabled: false }, Validators.required],
       sexe: [{ value: '1', disabled: false }, Validators.required],
       dateNaissance: [{ value: '', disabled: false }],
-      dateInscription: [{ value: '', disabled: false }],
+      dateInscription: [{ value: today, disabled: false }], // Définir la date du jour
       adresse: [{ value: '', disabled: false }],
       telephone: [{ value: '', disabled: false }],
       classeId: [{ value: '', disabled: false }, Validators.required],
