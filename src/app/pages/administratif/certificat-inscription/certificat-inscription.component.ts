@@ -127,4 +127,22 @@ ngOnInit(): void {
     return this.datePipe.transform(currentDate, 'dd/MM/yyyy') || '';
   }
 
+  searchFilter(e) {
+    const searchStr = e.target.value.trim().toLowerCase();
+    if (searchStr.length === 0) {
+      // Si la chaîne de recherche est vide, réinitialise la liste
+      this.test = this.contenue.idClasse;
+      this.serviceEleve.getAllEleveByClasse(this.test).subscribe(resp => {
+        this.eleves = resp;
+      }, error1 => {
+      });
+    } else {
+      this.eleves = this.eleves.filter((eleve) => {
+        return (eleve.nom && eleve.nom.toLowerCase().startsWith(searchStr)) ||
+               (eleve.prenom && eleve.prenom.toLowerCase().startsWith(searchStr))
+      });
+    }
+  }
+  
+
 }

@@ -9,8 +9,8 @@ import {Personnel, Professeur, UsersFirstCon} from './general.model';
 export class ProfesseurService {
 
 
-  //private host:string ='https://samastock.alwaysdata.net/yole/api';
-  private host:string ='http://127.0.0.1:8000/api';
+  private host:string ='https://samastock.alwaysdata.net/yole/api';
+  //private host:string ='http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) { }
 
 
